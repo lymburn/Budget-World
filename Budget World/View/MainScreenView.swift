@@ -53,6 +53,13 @@ class MainScreenView : UIView {
         return button
     }()
     
+    let slideMenu: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Menu.png"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -66,6 +73,7 @@ extension MainScreenView {
         addSubview(dateLabel)
         addSubview(addIncomeButton)
         addSubview(addExpenseButton)
+        addSubview(slideMenu)
         setupConstraints()
     }
     
@@ -84,5 +92,10 @@ extension MainScreenView {
         
         addExpenseButton.topAnchor.constraint(equalTo: addIncomeButton.bottomAnchor, constant: 30).isActive = true
         addExpenseButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+        slideMenu.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        slideMenu.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
+        slideMenu.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        slideMenu.heightAnchor.constraint(equalToConstant: 25).isActive = true
     }
 }
