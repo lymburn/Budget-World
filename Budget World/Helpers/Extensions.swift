@@ -13,3 +13,13 @@ extension UIColor {
         return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
     }
 }
+
+extension UIView {
+    func addGradientWithColor(primary: UIColor, secondary: UIColor) {
+        let gradient = CAGradientLayer()
+        gradient.frame = self.bounds
+        gradient.colors = [primary.cgColor, secondary.cgColor]
+        
+        self.layer.insertSublayer(gradient, at: 0)
+    }
+}

@@ -18,27 +18,39 @@ class MainScreenView : UIView {
         let label = UILabel()
         label.textColor = UIColor.white
         label.textAlignment = .center
+        label.font = UIFont(name: "Helvetica Neue", size: 70)
         label.text = "$0.00"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let incomeLabel: UILabel = {
+    let dateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.green
+        label.textColor = UIColor.white
         label.textAlignment = .center
-        label.text = "$0.00"
+        label.font = UIFont(name: "Helvetica Neue", size: 40)
+        label.text = "May 25"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let expensesLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor.red
-        label.textAlignment = .center
-        label.text = "$0.00"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    let addIncomeButton: UIButton = {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.setTitle("Add Income", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 30)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let addExpenseButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Add Expense", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 30)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,25 +63,26 @@ class MainScreenView : UIView {
 extension MainScreenView {
     fileprivate func setupViews() {
         addSubview(balanceLabel)
-        addSubview(incomeLabel)
-        addSubview(expensesLabel)
+        addSubview(dateLabel)
+        addSubview(addIncomeButton)
+        addSubview(addExpenseButton)
         setupConstraints()
     }
     
     fileprivate func setupConstraints() {
-        balanceLabel.topAnchor.constraint(equalTo: topAnchor, constant: 200).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 120).isActive = true
+        dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        dateLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        
+        balanceLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 50).isActive = true
         balanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         balanceLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        balanceLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        balanceLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
-        incomeLabel.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant:32).isActive = true
-        incomeLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        incomeLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        incomeLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        addIncomeButton.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 100).isActive = true
+        addIncomeButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
-        expensesLabel.topAnchor.constraint(equalTo: incomeLabel.bottomAnchor, constant: 32).isActive = true
-        expensesLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        expensesLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        expensesLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        addExpenseButton.topAnchor.constraint(equalTo: addIncomeButton.bottomAnchor, constant: 30).isActive = true
+        addExpenseButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 }

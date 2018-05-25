@@ -11,6 +11,7 @@ import UIKit
 class MainController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addGradientWithColor(primary: UIColor.rgb(red: 86, green: 204, blue: 242), secondary: UIColor.rgb(red: 47, green: 128, blue: 237))
         setupViews()
     }
     
@@ -25,7 +26,7 @@ class MainController: UIViewController {
 //MARK: Setup
 extension MainController {
     fileprivate func setupViews() {
-        view.backgroundColor = UIColor.rgb(red: 88, green: 86, blue: 214)
+        view.backgroundColor = UIColor.clear
         view.addSubview(mainView)
         setupConstraints()
     }
