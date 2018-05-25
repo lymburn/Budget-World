@@ -8,11 +8,19 @@
 
 import UIKit
 
+protocol MainScreenDelegate: class {
+    func slideMenuPressed()
+    func addIncomePressed()
+    func addExpensePressed()
+}
+
 class MainScreenView : UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
+    
+    weak var delegate: MainScreenDelegate?
     
     let balanceLabel : UILabel = {
         let label = UILabel()
@@ -41,6 +49,7 @@ class MainScreenView : UIView {
         button.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 30)
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(addIncomePressed), for: .touchDown)
         return button
     }()
     
@@ -50,6 +59,7 @@ class MainScreenView : UIView {
         button.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 30)
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(addExpensePressed), for: .touchDown)
         return button
     }()
     
@@ -57,6 +67,7 @@ class MainScreenView : UIView {
         let button = UIButton()
         button.setImage(UIImage(named: "Menu.png"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(slideMenuPressed), for: .touchDown)
         return button
     }()
     
@@ -97,5 +108,20 @@ extension MainScreenView {
         slideMenu.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
         slideMenu.widthAnchor.constraint(equalToConstant: 25).isActive = true
         slideMenu.heightAnchor.constraint(equalToConstant: 25).isActive = true
+    }
+}
+
+//MARK: Touch Events
+extension MainScreenView {
+    @objc func addIncomePressed() {
+        delegate?.addIncomePressed()
+    }
+    
+    @objc func addExpensePressed() {
+        delegate?.addExpensePressed()
+    }
+    
+    @objc func slideMenuPressed() {
+        delegate?.slideMenuPressed()
     }
 }

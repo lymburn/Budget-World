@@ -12,6 +12,7 @@ class MainController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addGradientWithColor(primary: UIColor.rgb(red: 86, green: 204, blue: 242), secondary: UIColor.rgb(red: 47, green: 128, blue: 237))
+        mainView.delegate = self
         setupViews()
     }
     
@@ -37,5 +38,22 @@ extension MainController {
         mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+}
+
+//MARK: Touch events delegate
+extension MainController: MainScreenDelegate {
+    func slideMenuPressed() {
+        print("slide")
+    }
+    
+    func addIncomePressed() {
+        print("add income")
+    }
+    
+    func addExpensePressed() {
+        print("add expense")
+    }
+    
+    
 }
 
