@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol AddTransactionViewDelegate: class {
+    func categoryFieldPressed()
+}
+
 class AddTransactionView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
+    
+    weak var delegate : AddTransactionViewDelegate?
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -22,46 +28,30 @@ class AddTransactionView: UIView {
         noteTextField.setBottomBorder()
     }
     
-    let amountTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
+    let amountTextField: TransactionTextField = {
+        let textField = TransactionTextField()
         textField.text = "$0.00"
         textField.placeholder = "Amount"
-        textField.backgroundColor = UIColor.clear
-        textField.font = UIFont(name: "OpenSans-Regular", size: 25)
-        textField.textColor = UIColor.white
         textField.addTarget(self, action: #selector(amountTextFieldChanged), for: .editingChanged)
         return textField
     }()
     
-    let dateTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
+    let dateTextField: TransactionTextField = {
+        let textField = TransactionTextField()
         textField.placeholder = "Date"
-        textField.backgroundColor = UIColor.clear
-        textField.font = UIFont(name: "OpenSans-Regular", size: 25)
-        textField.textColor = UIColor.white
         return textField
     }()
     
-    let categoryTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
+    let categoryTextField: TransactionTextField = {
+        let textField = TransactionTextField()
         textField.placeholder = "Category"
-        textField.backgroundColor = UIColor.clear
-        textField.font = UIFont(name: "OpenSans-Regular", size: 25)
-        textField.textColor = UIColor.white
         textField.addTarget(self, action: #selector(categoryTextFieldPressed), for: .touchDown)
         return textField
     }()
     
-    let noteTextField : UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
+    let noteTextField : TransactionTextField = {
+        let textField = TransactionTextField()
         textField.placeholder = "Note"
-        textField.backgroundColor = UIColor.clear
-        textField.font = UIFont(name: "OpenSans-Regular", size: 25)
-        textField.textColor = UIColor.white
         return textField
     }()
     
@@ -115,6 +105,6 @@ extension AddTransactionView {
     }
     
     @objc func categoryTextFieldPressed() {
-        
+        delegate?.categoryFieldPressed()
     }
 }

@@ -15,6 +15,7 @@ class AddTransactionController: UIViewController {
         view.addGradientWithColor(primary: UIColor.rgb(red: 52, green: 232, blue: 158), secondary: UIColor.rgb(red: 15, green: 52, blue: 67))
         setupBarItems()
         setupViews()
+        transactionView.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -65,5 +66,13 @@ extension AddTransactionController {
         let mainController = SlideMenuController(mainViewController: MainController(), leftMenuViewController: SlideOptionsController())
         mainController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(mainController, animated: true, completion: nil)
+    }
+}
+
+//MARK: Transaction view delegate
+extension AddTransactionController: AddTransactionViewDelegate {
+    func categoryFieldPressed() {
+        let categoryController = BaseCategoryController()
+        self.navigationController?.pushViewController(categoryController, animated: true)
     }
 }
