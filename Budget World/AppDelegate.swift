@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let slideMenuController = SlideMenuController(mainViewController: MainController(), leftMenuViewController: SlideOptionsController())
         window?.rootViewController = slideMenuController
         window?.makeKeyAndVisible()
+        
+        UIApplication.shared.statusBarStyle = .lightContent
         return true
     }
 

@@ -11,6 +11,7 @@
 		260080D720B8C6670025DD27 /* SlideOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260080D620B8C6670025DD27 /* SlideOptionCell.swift */; };
 		260080D920B8C6E40025DD27 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260080D820B8C6E40025DD27 /* BaseTableViewCell.swift */; };
 		265C799220B8D8ED00AA6F01 /* SlideOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265C799120B8D8ED00AA6F01 /* SlideOptionsController.swift */; };
+		267CF24220B9105A00E7BD8C /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 267CF24120B9105200E7BD8C /* OpenSans-Regular.ttf */; };
 		268D7CE520B8952C0002ACE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268D7CE420B8952C0002ACE3 /* AppDelegate.swift */; };
 		268D7CE720B8952C0002ACE3 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268D7CE620B8952C0002ACE3 /* MainController.swift */; };
 		268D7CEA20B8952C0002ACE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 268D7CE820B8952C0002ACE3 /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 		260080D620B8C6670025DD27 /* SlideOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOptionCell.swift; sourceTree = "<group>"; };
 		260080D820B8C6E40025DD27 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		265C799120B8D8ED00AA6F01 /* SlideOptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOptionsController.swift; sourceTree = "<group>"; };
+		267CF24120B9105200E7BD8C /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "Assets.xcassets/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		268D7CE120B8952C0002ACE3 /* Budget World.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budget World.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		268D7CE420B8952C0002ACE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		268D7CE620B8952C0002ACE3 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 		268D7CF920B895450002ACE3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				267CF24120B9105200E7BD8C /* OpenSans-Regular.ttf */,
 				268D7CEE20B8952E0002ACE3 /* Assets.xcassets */,
 				268D7CE820B8952C0002ACE3 /* Main.storyboard */,
 				268D7CF020B8952E0002ACE3 /* LaunchScreen.storyboard */,
@@ -208,6 +211,7 @@
 			files = (
 				268D7CF220B8952E0002ACE3 /* LaunchScreen.storyboard in Resources */,
 				268D7CEF20B8952E0002ACE3 /* Assets.xcassets in Resources */,
+				267CF24220B9105A00E7BD8C /* OpenSans-Regular.ttf in Resources */,
 				268D7CEA20B8952C0002ACE3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

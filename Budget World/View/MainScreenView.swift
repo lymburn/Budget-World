@@ -27,7 +27,7 @@ class MainScreenView : UIView {
         let label = UILabel()
         label.textColor = UIColor.white
         label.textAlignment = .center
-        label.font = UIFont(name: "Helvetica Neue", size: 70)
+        label.font = UIFont(name: "OpenSans-Regular", size: 60)
         label.text = "$0.00"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -37,7 +37,7 @@ class MainScreenView : UIView {
         let label = UILabel()
         label.textColor = UIColor.white
         label.textAlignment = .center
-        label.font = UIFont(name: "Helvetica Neue", size: 40)
+        label.font = UIFont(name: "OpenSans-Regular", size: 40)
         label.text = "May 25"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -85,13 +85,11 @@ extension MainScreenView {
     }
     
     fileprivate func setupConstraints() {
-        dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 120).isActive = true
-        dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        dateLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
+        dateLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         balanceLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 50).isActive = true
-        balanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        balanceLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        balanceLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         balanceLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
         addIncomeButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -200).isActive = true
