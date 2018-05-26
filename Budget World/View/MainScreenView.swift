@@ -37,8 +37,8 @@ class MainScreenView : UIView {
         let label = UILabel()
         label.textColor = UIColor.white
         label.textAlignment = .center
-        label.font = UIFont(name: "OpenSans-Regular", size: 40)
-        label.text = "May 25"
+        label.font = UIFont(name: "OpenSans-Regular", size: 32)
+        label.text = "May"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -46,10 +46,10 @@ class MainScreenView : UIView {
     let addIncomeButton: UIButton = {
         let button = UIButton()
         button.setTitle("+ Income", for: .normal)
-        button.titleLabel?.font = UIFont(name: "OpenSans-Regular", size: 30)
+        button.titleLabel?.font = UIFont(name: "OpenSans-Regular", size: 20)
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 2/UIScreen.main.nativeScale
-        button.contentEdgeInsets = UIEdgeInsetsMake(8, 22, 8, 22)
+        button.contentEdgeInsets = UIEdgeInsetsMake(4, 20, 4, 20)
         button.layer.borderColor = UIColor.white.cgColor
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -60,10 +60,10 @@ class MainScreenView : UIView {
     let addExpenseButton: UIButton = {
         let button = UIButton()
         button.setTitle("+ Expense", for: .normal)
-        button.titleLabel?.font = UIFont(name: "OpenSans-Regular", size: 30)
+        button.titleLabel?.font = UIFont(name: "OpenSans-Regular", size: 20)
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 2/UIScreen.main.nativeScale
-        button.contentEdgeInsets = UIEdgeInsetsMake(8, 16,8, 16)
+        button.contentEdgeInsets = UIEdgeInsetsMake(4, 16,4, 16)
         button.layer.borderColor = UIColor.white.cgColor
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -110,10 +110,10 @@ extension MainScreenView {
         addExpenseButton.topAnchor.constraint(equalTo: addIncomeButton.bottomAnchor, constant: 50).isActive = true
         addExpenseButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
-        slideMenu.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-        slideMenu.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
-        slideMenu.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        slideMenu.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        slideMenu.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
+        slideMenu.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        slideMenu.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        slideMenu.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
 }
 

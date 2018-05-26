@@ -11,7 +11,7 @@ import UIKit
 class MainController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addGradientWithColor(primary: UIColor.rgb(red: 86, green: 204, blue: 242), secondary: UIColor.rgb(red: 47, green: 128, blue: 237))
+        view.addGradientWithColor(primary: UIColor.rgb(red: 52, green: 232, blue: 158), secondary: UIColor.rgb(red: 15, green: 52, blue: 67))
         mainView.delegate = self
         setupViews()
     }

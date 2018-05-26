@@ -26,7 +26,7 @@ class SlideOptionCell : BaseTableViewCell {
     
     let title: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Helvetica Neue", size: 20)
+        label.font = UIFont(name: "OpenSans-Regular", size: 20)
         label.textColor = UIColor.rgb(red: 51, green: 51, blue: 51)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

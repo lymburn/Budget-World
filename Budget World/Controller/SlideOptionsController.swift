@@ -29,8 +29,8 @@ class SlideOptionsController: UIViewController {
     }()
     
     let cellId = "cellId"
-    let menuOptions = ["Budget Overview", "Analytics", "Transactions", "Goals", "Premium", "More"]
-    let menuIcons = ["Budget", "Analytics", "Transaction", "Goals", "Premium", "More"]
+    let menuOptions = ["Home","Budget Overview", "Analytics", "Transactions", "Goals", "Premium", "More"]
+    let menuIcons = ["Home","Budget", "Analytics", "Transaction", "Goals", "Premium", "More"]
 }
 
 //MARK: Setup
