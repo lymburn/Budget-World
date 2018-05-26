@@ -45,10 +45,7 @@ class MainScreenView : UIView {
     
     let addIncomeButton: UIButton = {
         let button = UIButton()
-        button.clipsToBounds = true
-        button.setTitle("Add Income", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 30)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setImage(UIImage(named: "Add Income"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(addIncomePressed), for: .touchDown)
         return button
@@ -56,9 +53,7 @@ class MainScreenView : UIView {
     
     let addExpenseButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Add Expense", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 30)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setImage(UIImage(named: "Add Expense"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(addExpensePressed), for: .touchDown)
         return button
@@ -99,13 +94,11 @@ extension MainScreenView {
         balanceLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         balanceLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
-        addIncomeButton.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 100).isActive = true
-        addIncomeButton.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        addIncomeButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        addIncomeButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -200).isActive = true
+        addIncomeButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         addExpenseButton.topAnchor.constraint(equalTo: addIncomeButton.bottomAnchor, constant: 30).isActive = true
-        addExpenseButton.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        addExpenseButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        addExpenseButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         slideMenu.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         slideMenu.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
