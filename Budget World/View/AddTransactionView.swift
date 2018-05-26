@@ -20,9 +20,7 @@ class AddTransactionView: UIView {
         dateTextField.setBottomBorder()
         categoryTextField.setBottomBorder()
         noteTextField.setBottomBorder()
-        
     }
-    
     
     let amountTextField: UITextField = {
         let textField = UITextField()
@@ -36,7 +34,7 @@ class AddTransactionView: UIView {
     let dateTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Today"
+        textField.placeholder = "Date"
         textField.backgroundColor = UIColor.clear
         textField.font = UIFont(name: "OpenSans-Regular", size: 25)
         return textField
@@ -57,7 +55,6 @@ class AddTransactionView: UIView {
         textField.placeholder = "Note"
         textField.backgroundColor = UIColor.clear
         textField.font = UIFont(name: "OpenSans-Regular", size: 25)
-        textField.setBottomBorder()
         return textField
     }()
     

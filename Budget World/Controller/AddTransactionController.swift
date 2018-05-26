@@ -12,6 +12,7 @@ class AddTransactionController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addGradientWithColor(primary: UIColor.rgb(red: 52, green: 232, blue: 158), secondary: UIColor.rgb(red: 15, green: 52, blue: 67))
+        setupBarItems()
         setupViews()
     }
     
@@ -38,5 +39,28 @@ extension AddTransactionController {
         transactionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
         transactionView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         transactionView.heightAnchor.constraint(equalToConstant: view.frame.height/2.5).isActive = true
+    }
+    
+    fileprivate func setupBarItems() {
+        let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backButtonPressed))
+        cancelItem.tintColor = UIColor.black
+        navigationItem.leftBarButtonItem = cancelItem
+        
+        let doneItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonPressed))
+        doneItem.tintColor = UIColor.black
+        navigationItem.rightBarButtonItem = doneItem
+    }
+}
+
+//MARK: Touch Events
+extension AddTransactionController {
+    @objc func backButtonPressed() {
+        let mainController = MainController()
+        present(mainController, animated: true, completion: nil)
+    }
+    
+    @objc func doneButtonPressed() {
+        let mainController = MainController()
+        present(mainController, animated: true, completion: nil)
     }
 }

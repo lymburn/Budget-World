@@ -25,13 +25,6 @@ class MainController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
-    let slideMenuOptions: UITableView = {
-        let tb = UITableView()
-        tb.rowHeight = 70
-        tb.translatesAutoresizingMaskIntoConstraints = false
-        return tb
-    }()
 }
 
 //MARK: Setup
@@ -58,15 +51,15 @@ extension MainController: MainScreenDelegate {
     }
     
     func addIncomePressed() {
-        var addTransactionView = AddTransactionController()
-        present(addTransactionView, animated: true, completion: nil)
+        let addTransactionController = AddTransactionController()
+        let nav = UINavigationController(rootViewController: addTransactionController)
+        present(nav, animated: true, completion: nil)
     }
     
     func addExpensePressed() {
-        var addTransactionView = AddTransactionController()
-        present(addTransactionView, animated: true, completion: nil)
+        let addTransactionController = AddTransactionController()
+        let nav = UINavigationController(rootViewController: addTransactionController)
+        present(nav, animated: true, completion: nil)
     }
-    
-    
 }
 
