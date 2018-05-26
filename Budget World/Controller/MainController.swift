@@ -16,12 +16,22 @@ class MainController: UIViewController {
         setupViews()
     }
     
+    let cellId = "cellId"
+    let menuOptions = ["Budget Overview", "Analytics", "Transactions", "Goals", "Premium", "More"]
+    let menuIcons = ["Budget", "Analytics", "Transaction", "Goals", "Premium", "More"]
+    
     let mainView: MainScreenView = {
         let view = MainScreenView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
+    let slideMenuOptions: UITableView = {
+        let tb = UITableView()
+        tb.rowHeight = 70
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
 }
 
 //MARK: Setup
@@ -37,13 +47,14 @@ extension MainController {
         mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+ 
     }
 }
 
 //MARK: Touch events delegate
 extension MainController: MainScreenDelegate {
     func slideMenuPressed() {
-        print("slide")
+        self.slideMenuController()?.openLeft()
     }
     
     func addIncomePressed() {

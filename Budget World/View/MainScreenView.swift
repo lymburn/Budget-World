@@ -18,6 +18,7 @@ class MainScreenView : UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+
     }
     
     weak var delegate: MainScreenDelegate?
@@ -99,10 +100,12 @@ extension MainScreenView {
         balanceLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
         addIncomeButton.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 100).isActive = true
-        addIncomeButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        addIncomeButton.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        addIncomeButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         
         addExpenseButton.topAnchor.constraint(equalTo: addIncomeButton.bottomAnchor, constant: 30).isActive = true
-        addExpenseButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        addExpenseButton.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        addExpenseButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         
         slideMenu.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         slideMenu.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
