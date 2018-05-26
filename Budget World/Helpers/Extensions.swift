@@ -27,7 +27,7 @@ extension UIView {
 extension String {
     
     //Formatting text for currency text field
-    func currencyInputFormatting() -> String {
+    func currencyInputFormatting() -> (String, NSNumber) {
         
         var number: NSNumber!
         let formatter = NumberFormatter()
@@ -47,10 +47,10 @@ extension String {
         
         // if first number is 0 or all numbers were deleted
         guard number != 0 as NSNumber else {
-            return ""
+            return ("", 0)
         }
         
-        return formatter.string(from: number)!
+        return (formatter.string(from: number)!, number)
     }
 }
 

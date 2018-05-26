@@ -53,12 +53,14 @@ extension MainController: MainScreenDelegate {
     func addIncomePressed() {
         let addTransactionController = AddTransactionController()
         let nav = UINavigationController(rootViewController: addTransactionController)
+        nav.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(nav, animated: true, completion: nil)
     }
     
     func addExpensePressed() {
         let addTransactionController = AddTransactionController()
         let nav = UINavigationController(rootViewController: addTransactionController)
+        nav.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(nav, animated: true, completion: nil)
     }
 }

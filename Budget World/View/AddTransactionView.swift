@@ -25,9 +25,12 @@ class AddTransactionView: UIView {
     let amountTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.text = "$0.00"
         textField.placeholder = "Amount"
         textField.backgroundColor = UIColor.clear
         textField.font = UIFont(name: "OpenSans-Regular", size: 25)
+        textField.textColor = UIColor.white
+        textField.addTarget(self, action: #selector(amountTextFieldChanged), for: .editingChanged)
         return textField
     }()
     
@@ -37,6 +40,7 @@ class AddTransactionView: UIView {
         textField.placeholder = "Date"
         textField.backgroundColor = UIColor.clear
         textField.font = UIFont(name: "OpenSans-Regular", size: 25)
+        textField.textColor = UIColor.white
         return textField
     }()
     
@@ -46,6 +50,8 @@ class AddTransactionView: UIView {
         textField.placeholder = "Category"
         textField.backgroundColor = UIColor.clear
         textField.font = UIFont(name: "OpenSans-Regular", size: 25)
+        textField.textColor = UIColor.white
+        textField.addTarget(self, action: #selector(categoryTextFieldPressed), for: .touchDown)
         return textField
     }()
     
@@ -55,6 +61,7 @@ class AddTransactionView: UIView {
         textField.placeholder = "Note"
         textField.backgroundColor = UIColor.clear
         textField.font = UIFont(name: "OpenSans-Regular", size: 25)
+        textField.textColor = UIColor.white
         return textField
     }()
     
@@ -93,5 +100,21 @@ extension AddTransactionView {
         noteTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         noteTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
         noteTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+}
+
+//MARK: Touch events
+extension AddTransactionView {
+    @objc func amountTextFieldChanged() {
+        if let amount = amountTextField.text?.currencyInputFormatting() {
+            let amountString = amount.0
+            let amountNumber = amount.1
+            amountTextField.text = amountString
+            print(amountNumber)
+        }
+    }
+    
+    @objc func categoryTextFieldPressed() {
+        
     }
 }

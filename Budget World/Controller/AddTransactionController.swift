@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SlideMenuControllerSwift
 
 class AddTransactionController: UIViewController {
     override func viewDidLoad() {
@@ -42,7 +43,7 @@ extension AddTransactionController {
     }
     
     fileprivate func setupBarItems() {
-        let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backButtonPressed))
+        let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonPressed))
         cancelItem.tintColor = UIColor.black
         navigationItem.leftBarButtonItem = cancelItem
         
@@ -54,13 +55,15 @@ extension AddTransactionController {
 
 //MARK: Touch Events
 extension AddTransactionController {
-    @objc func backButtonPressed() {
-        let mainController = MainController()
+    @objc func cancelButtonPressed() {
+        let mainController = SlideMenuController(mainViewController: MainController(), leftMenuViewController: SlideOptionsController())
+        mainController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(mainController, animated: true, completion: nil)
     }
     
     @objc func doneButtonPressed() {
-        let mainController = MainController()
+        let mainController = SlideMenuController(mainViewController: MainController(), leftMenuViewController: SlideOptionsController())
+        mainController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(mainController, animated: true, completion: nil)
     }
 }
