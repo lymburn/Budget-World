@@ -10,7 +10,6 @@ import UIKit
 
 class SlideOptionsController: UIViewController {
     override func viewDidLoad() {
-
         super.viewDidLoad()
         
         slideMenuOptions.register(SlideOptionCell.self, forCellReuseIdentifier: cellId)
@@ -19,12 +18,14 @@ class SlideOptionsController: UIViewController {
         
         //view.addGradientWithColor(primary: UIColor.rgb(red: 86, green: 204, blue: 242), secondary: UIColor.rgb(red: 47, green: 128, blue: 237))
         setupViews()
+        self.title = "Menu"
     }
     
     let slideMenuOptions: UITableView = {
         let tb = UITableView()
         tb.rowHeight = 70
         tb.translatesAutoresizingMaskIntoConstraints = false
+        tb.tableFooterView = UIView()
         return tb
     }()
     
@@ -61,5 +62,18 @@ extension SlideOptionsController: UITableViewDelegate, UITableViewDataSource {
         cell.icon.image = UIImage(named: menuIcons[indexPath.row])
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Menu"
+    }
+
 }
 

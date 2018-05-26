@@ -19,7 +19,6 @@ class SlideOptionCell : BaseTableViewCell {
     let icon: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
-        iv.layer.cornerRadius = 10
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
