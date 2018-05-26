@@ -70,8 +70,15 @@ extension SlideOptionsController: UITableViewDelegate, UITableViewDataSource {
         return 1
     }
     
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Menu"
+    }
+ 
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont(name: "OpenSans-Regular", size: 15)!
+        header.backgroundView?.backgroundColor = UIColor.white
     }
 
 }
