@@ -58,11 +58,13 @@ extension MainController: MainScreenDelegate {
     }
     
     func addIncomePressed() {
-        print("add income")
+        var addTransactionView = AddTransactionController()
+        present(addTransactionView, animated: true, completion: nil)
     }
     
     func addExpensePressed() {
-        print("add expense")
+        var addTransactionView = AddTransactionController()
+        present(addTransactionView, animated: true, completion: nil)
     }
     
     
