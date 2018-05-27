@@ -17,7 +17,7 @@ class MainController: UIViewController {
     }
     
     let cellId = "cellId"
-    let menuOptions = ["Budget Overview", "Analytics", "Transactions", "Goals", "Premium", "More"]
+    let menuOptions = ["Budget Overview", "Analytics", "Transvarions", "Goals", "Premium", "More"]
     let menuIcons = ["Budget", "Analytics", "Transaction", "Goals", "Premium", "More"]
     
     let mainView: MainScreenView = {
@@ -52,6 +52,7 @@ extension MainController: MainScreenDelegate {
     
     func addIncomePressed() {
         let addTransactionController = AddTransactionController()
+        addTransactionController.transaction = .income
         let nav = UINavigationController(rootViewController: addTransactionController)
         nav.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(nav, animated: true, completion: nil)
@@ -59,6 +60,7 @@ extension MainController: MainScreenDelegate {
     
     func addExpensePressed() {
         let addTransactionController = AddTransactionController()
+        addTransactionController.transaction = .expense
         let nav = UINavigationController(rootViewController: addTransactionController)
         nav.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(nav, animated: true, completion: nil)

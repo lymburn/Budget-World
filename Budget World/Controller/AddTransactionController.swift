@@ -17,10 +17,7 @@ class AddTransactionController: UIViewController {
         setupViews()
         transactionView.delegate = self
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
+    var transaction: TransactionType? = nil
     
     let transactionView: AddTransactionView = {
         let view = AddTransactionView()
@@ -72,7 +69,9 @@ extension AddTransactionController {
 //MARK: Transaction view delegate
 extension AddTransactionController: AddTransactionViewDelegate {
     func categoryFieldPressed() {
-        let categoryController = BaseCategoryController()
+        guard let transactionType = transaction else {return}
+        let categoryController = CategoryController()
+        categoryController.transactionType = transactionType
         self.navigationController?.pushViewController(categoryController, animated: true)
     }
 }
