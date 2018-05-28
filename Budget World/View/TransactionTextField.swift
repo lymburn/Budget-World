@@ -15,7 +15,6 @@ class TransactionTextField: UITextField {
         self.backgroundColor = UIColor.clear
         self.font = UIFont(name: "OpenSans-Regular", size: 25)
         self.textColor = UIColor.white
-        self.keyboardType = UIKeyboardType.numberPad
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -19,6 +19,15 @@ class AddTransactionController: UIViewController {
     }
     var transaction: TransactionType? = nil
     
+    let datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.backgroundColor = .clear
+        picker.datePickerMode = .date
+        picker.setValue(UIColor.white, forKeyPath: "textColor")
+        return picker
+    }()
+    
+    
     let transactionView: AddTransactionView = {
         let view = AddTransactionView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +46,7 @@ extension AddTransactionController {
     fileprivate func setupConstraints() {
         transactionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         transactionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-        transactionView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        transactionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32).isActive = true
         transactionView.heightAnchor.constraint(equalToConstant: view.frame.height/2.5).isActive = true
     }
     
@@ -74,5 +83,10 @@ extension AddTransactionController: AddTransactionViewDelegate {
         let categoryController = CategoryController()
         categoryController.transactionType = transactionType
         self.navigationController?.pushViewController(categoryController, animated: true)
+    }
+    
+    func dateFieldPressed() {
+        transactionView.dateTextField.inputView = UIView()
+        transactionView.dateTextField.inputAccessoryView = datePicker
     }
 }

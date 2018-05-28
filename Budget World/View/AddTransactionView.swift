@@ -10,6 +10,7 @@ import UIKit
 
 protocol AddTransactionViewDelegate: class {
     func categoryFieldPressed()
+    func dateFieldPressed()
 }
 
 class AddTransactionView: UIView {
@@ -33,12 +34,14 @@ class AddTransactionView: UIView {
         textField.text = "$0.00"
         textField.placeholder = "Amount"
         textField.addTarget(self, action: #selector(amountTextFieldChanged), for: .editingChanged)
+        textField.keyboardType = UIKeyboardType.numberPad
         return textField
     }()
     
     let dateTextField: TransactionTextField = {
         let textField = TransactionTextField()
         textField.placeholder = "Date"
+        textField.addTarget(self, action: #selector(dateTextFieldPressed), for: .touchDown)
         return textField
     }()
     
@@ -106,5 +109,9 @@ extension AddTransactionView {
     
     @objc func categoryTextFieldPressed() {
         delegate?.categoryFieldPressed()
+    }
+    
+    @objc func dateTextFieldPressed() {
+        delegate?.dateFieldPressed()
     }
 }
