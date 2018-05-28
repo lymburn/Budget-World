@@ -16,8 +16,17 @@ class AddTransactionController: UIViewController {
         setupBarItems()
         setupViews()
         transactionView.delegate = self
+        recurringPicker.delegate = self
+        recurringPicker.dataSource = self
     }
     var transaction: TransactionType? = nil
+    let recurringPeriods = ["Never", "Weekly", "Bi-Weekly", "Monthly", "Bi-monthly", "Quarterly", "Half-yearly", "Annually"]
+    
+    let recurringPicker : UIPickerView = {
+        let picker = UIPickerView()
+        picker.setValue(UIColor.white, forKeyPath: "textColor")
+        return picker
+    }()
     
     let datePicker: UIDatePicker = {
         let picker = UIDatePicker()
@@ -88,6 +97,7 @@ extension AddTransactionController {
 
 //MARK: Transaction view delegate
 extension AddTransactionController: AddTransactionViewDelegate {
+    
     func categoryFieldPressed() {
         guard let transactionType = transaction else {return}
         let categoryController = CategoryController()
@@ -101,6 +111,11 @@ extension AddTransactionController: AddTransactionViewDelegate {
         transactionView.dateTextField.inputAccessoryView = datePicker
         transactionView.dateTextField.text = dateFormatter.string(from: datePicker.date)
     }
+    
+    func repeatingFieldPressed() {
+        transactionView.recurringTextField.inputView = UIView()
+        transactionView.recurringTextField.inputAccessoryView = recurringPicker
+    }
 }
 
 //MARK: Category controller delegate
@@ -108,5 +123,25 @@ extension AddTransactionController: CategoryDelegate {
     func categorySelected(category: String) {
         self.navigationController?.popViewController(animated: true)
         transactionView.categoryTextField.text = category
+    }
+}
+
+//MARK: Recurring picker delegate and data source
+extension AddTransactionController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let str = recurringPeriods[row]
+        return NSAttributedString(string: str, attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        transactionView.recurringTextField.text = recurringPeriods[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return recurringPeriods.count
     }
 }

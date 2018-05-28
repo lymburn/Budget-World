@@ -11,6 +11,7 @@ import UIKit
 protocol AddTransactionViewDelegate: class {
     func categoryFieldPressed()
     func dateFieldPressed()
+    func repeatingFieldPressed()
 }
 
 class AddTransactionView: UIView {
@@ -26,6 +27,7 @@ class AddTransactionView: UIView {
         amountTextField.setBottomBorder()
         dateTextField.setBottomBorder()
         categoryTextField.setBottomBorder()
+        recurringTextField.setBottomBorder()
         noteTextField.setBottomBorder()
     }
     
@@ -52,6 +54,13 @@ class AddTransactionView: UIView {
         return textField
     }()
     
+    let recurringTextField: TransactionTextField = {
+        let textField = TransactionTextField()
+        textField.placeholder = "Recurring?"
+        textField.addTarget(self, action: #selector(repeatingTextFieldPressed), for: .touchDown)
+        return textField
+    }()
+    
     let noteTextField : TransactionTextField = {
         let textField = TransactionTextField()
         textField.placeholder = "Note"
@@ -69,6 +78,7 @@ extension AddTransactionView {
         addSubview(amountTextField)
         addSubview(dateTextField)
         addSubview(categoryTextField)
+        addSubview(recurringTextField)
         addSubview(noteTextField)
         setupConstraints()
     }
@@ -89,7 +99,12 @@ extension AddTransactionView {
         categoryTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
         categoryTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        noteTextField.topAnchor.constraint(equalTo: categoryTextField.bottomAnchor, constant: 32).isActive = true
+        recurringTextField.topAnchor.constraint(equalTo: categoryTextField.bottomAnchor, constant: 32).isActive = true
+        recurringTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        recurringTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+        recurringTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        noteTextField.topAnchor.constraint(equalTo: recurringTextField.bottomAnchor, constant: 32).isActive = true
         noteTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         noteTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
         noteTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -113,5 +128,9 @@ extension AddTransactionView {
     
     @objc func dateTextFieldPressed() {
         delegate?.dateFieldPressed()
+    }
+    
+    @objc func repeatingTextFieldPressed() {
+        delegate?.repeatingFieldPressed()
     }
 }
