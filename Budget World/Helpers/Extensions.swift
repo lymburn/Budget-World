@@ -27,9 +27,9 @@ extension UIView {
 extension String {
     
     //Formatting text for currency text field
-    func currencyInputFormatting() -> (String, NSNumber) {
+    func currencyInputFormatting() -> (String, NSDecimalNumber) {
         
-        var number: NSNumber!
+        var number: NSDecimalNumber!
         let formatter = NumberFormatter()
         formatter.numberStyle = .currencyAccounting
         formatter.currencySymbol = "$"
@@ -43,10 +43,10 @@ extension String {
         amountWithPrefix = regex.stringByReplacingMatches(in: amountWithPrefix, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.count), withTemplate: "")
         
         let double = (amountWithPrefix as NSString).doubleValue
-        number = NSNumber(value: (double / 100))
+        number = NSDecimalNumber(value: (double / 100))
         
         // if first number is 0 or all numbers were deleted
-        guard number != 0 as NSNumber else {
+        guard number != 0 as NSDecimalNumber else {
             return ("", 0)
         }
         

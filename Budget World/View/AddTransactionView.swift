@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddTransactionViewDelegate: class {
-    func amountFieldPressed(amount: NSNumber)
+    func amountFieldPressed(amount: NSDecimalNumber)
     func categoryFieldPressed()
     func dateFieldPressed()
     func repeatingFieldPressed()

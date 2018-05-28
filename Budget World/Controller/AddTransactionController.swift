@@ -120,8 +120,9 @@ extension AddTransactionController: AddTransactionViewDelegate {
         transactionView.recurringTextField.inputAccessoryView = recurringPicker
     }
     
-    func amountFieldPressed(amount: NSNumber) {
+    func amountFieldPressed(amount: NSDecimalNumber) {
         transactionAmount = amount
+        print(transactionAmount)
     }
 }
 
