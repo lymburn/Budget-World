@@ -20,7 +20,7 @@ class AddTransactionController: UIViewController {
         recurringPicker.dataSource = self
     }
     
-    var transaction: TransactionType? = nil
+    var transactionType: TransactionType? = nil
     let recurringPeriods = ["Never", "Weekly", "Bi-weekly", "Monthly", "Bi-monthly", "Quarterly", "Semi-annually", "Annually"]
     var transactionAmount: NSNumber!
     var categoryType: CategoryType!
@@ -56,7 +56,7 @@ class AddTransactionController: UIViewController {
 //MARK: Setup
 extension AddTransactionController {
     fileprivate func setupViews() {
-        navigationItem.title = transaction == .income ? "Income" : "Expense"
+        navigationItem.title = transactionType! == .income ? "Income" : "Expense"
         view.addSubview(transactionView)
         setupConstraints()
     }
@@ -102,7 +102,7 @@ extension AddTransactionController {
 extension AddTransactionController: AddTransactionViewDelegate {
     
     func categoryFieldPressed() {
-        guard let transactionType = transaction else {return}
+        guard let transactionType = transactionType else {return}
         let categoryController = CategoryController()
         categoryController.transactionType = transactionType
         categoryController.delegate = self
@@ -159,10 +159,20 @@ extension AddTransactionController {
     fileprivate func storeTransaction() {
         let context = AppDelegate.viewContext
         let transaction = Transaction(context: context)
-        transaction.amount = Double(truncating: transactionAmount)
+        transaction.amount = transactionAmount
         transaction.date = datePicker.date
         transaction.category = self.categoryType!.rawValue
         transaction.recurringPeriod = getRecurringPeriod().rawValue
+        
+        let account = Account(context: transaction.managedObjectContext!)
+        transaction.account = account
+        //If transaction is an expense, reduce from balance. Otherwise add to balance
+        guard let transactionType = transactionType else {return}
+        if transactionType == .income {
+            
+        } else {
+            
+        }
     }
     
     //Get the repeat period based on the text field input

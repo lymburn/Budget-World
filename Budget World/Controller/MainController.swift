@@ -52,7 +52,7 @@ extension MainController: MainScreenDelegate {
     
     func addIncomePressed() {
         let addTransactionController = AddTransactionController()
-        addTransactionController.transaction = .income
+        addTransactionController.transactionType = .income
         let nav = UINavigationController(rootViewController: addTransactionController)
         nav.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(nav, animated: true, completion: nil)
@@ -60,7 +60,7 @@ extension MainController: MainScreenDelegate {
     
     func addExpensePressed() {
         let addTransactionController = AddTransactionController()
-        addTransactionController.transaction = .expense
+        addTransactionController.transactionType = .expense
         let nav = UINavigationController(rootViewController: addTransactionController)
         nav.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(nav, animated: true, completion: nil)
