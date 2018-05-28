@@ -19,8 +19,11 @@ class AddTransactionController: UIViewController {
         recurringPicker.delegate = self
         recurringPicker.dataSource = self
     }
+    
     var transaction: TransactionType? = nil
-    let recurringPeriods = ["Never", "Weekly", "Bi-Weekly", "Monthly", "Bi-monthly", "Quarterly", "Semi-Annually", "Annually"]
+    let recurringPeriods = ["Never", "Weekly", "Bi-weekly", "Monthly", "Bi-monthly", "Quarterly", "Semi-annually", "Annually"]
+    var transactionAmount: NSNumber!
+    var categoryType: CategoryType!
     
     let recurringPicker : UIPickerView = {
         let picker = UIPickerView()
@@ -116,13 +119,18 @@ extension AddTransactionController: AddTransactionViewDelegate {
         transactionView.recurringTextField.inputView = UIView()
         transactionView.recurringTextField.inputAccessoryView = recurringPicker
     }
+    
+    func amountFieldPressed(amount: NSNumber) {
+        transactionAmount = amount
+    }
 }
 
 //MARK: Category controller delegate
 extension AddTransactionController: CategoryDelegate {
-    func categorySelected(category: String) {
+    func categorySelected(categoryName : String, categoryType: CategoryType) {
         self.navigationController?.popViewController(animated: true)
-        transactionView.categoryTextField.text = category
+        transactionView.categoryTextField.text = categoryName
+        self.categoryType = categoryType
     }
 }
 
@@ -143,5 +151,36 @@ extension AddTransactionController: UIPickerViewDelegate, UIPickerViewDataSource
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return recurringPeriods.count
+    }
+}
+
+//MARK: Core data storing functions
+extension AddTransactionController {
+    fileprivate func storeTransaction() {
+        let context = AppDelegate.viewContext
+        let transaction = Transaction(context: context)
+        transaction.amount = Double(truncating: transactionAmount)
+        transaction.date = datePicker.date
+        transaction.category = self.categoryType!.rawValue
+        transaction.recurringPeriod = getRecurringPeriod().rawValue
+    }
+    
+    //Get the repeat period based on the text field input
+    private func getRecurringPeriod() -> RecurringPeriod {
+        var recurringPeriod: RecurringPeriod
+        let periodText = transactionView.recurringTextField.text
+        
+        switch periodText {
+            case "Never": recurringPeriod = .never
+            case "Weekly": recurringPeriod = .never
+            case "Bi-weekly": recurringPeriod = .never
+            case "Monthly": recurringPeriod = .never
+            case "Bi-monthly": recurringPeriod = .never
+            case "Quarterly": recurringPeriod = .never
+            case "Semi-annually": recurringPeriod = .never
+            case "Annually": recurringPeriod = .never
+            default: recurringPeriod = .never
+        }
+        return recurringPeriod
     }
 }

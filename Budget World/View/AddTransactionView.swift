@@ -9,6 +9,7 @@
 import UIKit
 
 protocol AddTransactionViewDelegate: class {
+    func amountFieldPressed(amount: NSNumber)
     func categoryFieldPressed()
     func dateFieldPressed()
     func repeatingFieldPressed()
@@ -118,7 +119,7 @@ extension AddTransactionView {
             let amountString = amount.0
             let amountNumber = amount.1
             amountTextField.text = amountString
-            print(amountNumber)
+            delegate?.amountFieldPressed(amount: amountNumber)
         }
     }
     

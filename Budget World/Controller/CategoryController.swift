@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CategoryDelegate: class {
-    func categorySelected(category: String)
+    func categorySelected(categoryName: String, categoryType: CategoryType)
 }
 
 class CategoryController: UIViewController {
@@ -84,6 +84,29 @@ extension CategoryController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.categorySelected(category: categoryNames[indexPath.row])
+        let categoryType = getCategoryType(categoryName: categoryNames[indexPath.row])
+        delegate?.categorySelected(categoryName: categoryNames[indexPath.row], categoryType: categoryType)
+    }
+    
+    private func getCategoryType(categoryName: String) -> CategoryType {
+        var categoryType: CategoryType
+        switch categoryName {
+        case "Salary": categoryType = .salary
+        case "Investment": categoryType = .investment
+        case "Sale": categoryType = .sale
+        case "General": categoryType = .general
+        case "Eating Out": categoryType = .eatingOut
+        case "Housing": categoryType = .housing
+        case "Fuel": categoryType = .fuel
+        case "Transportation": categoryType = .transporation
+        case "Entertainment": categoryType = .entertainment
+        case "Groceries": categoryType = .groceries
+        case "Clothing": categoryType = .clothing
+        case "Education": categoryType = .education
+        case "Hobbies": categoryType = .hobbies
+        case "Medical": categoryType = .medical
+        default: categoryType = .general
+        }
+        return categoryType
     }
 }
