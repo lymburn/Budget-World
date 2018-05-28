@@ -20,7 +20,7 @@ class AddTransactionController: UIViewController {
         recurringPicker.dataSource = self
     }
     var transaction: TransactionType? = nil
-    let recurringPeriods = ["Never", "Weekly", "Bi-Weekly", "Monthly", "Bi-monthly", "Quarterly", "Half-yearly", "Annually"]
+    let recurringPeriods = ["Never", "Weekly", "Bi-Weekly", "Monthly", "Bi-monthly", "Quarterly", "Semi-Annually", "Annually"]
     
     let recurringPicker : UIPickerView = {
         let picker = UIPickerView()
