@@ -29,6 +29,7 @@ class AddTransactionController: UIViewController {
 //MARK: Setup
 extension AddTransactionController {
     fileprivate func setupViews() {
+        navigationItem.title = transaction == .income ? "Add Income" : "Add Expense"
         view.addSubview(transactionView)
         setupConstraints()
     }

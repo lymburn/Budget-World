@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = slideMenuController
         window?.makeKeyAndVisible()
         
+        UINavigationBar.appearance().barTintColor = .white
+        UINavigationBar.appearance().tintColor = .black
         UIApplication.shared.statusBarStyle = .lightContent
         return true
     }
