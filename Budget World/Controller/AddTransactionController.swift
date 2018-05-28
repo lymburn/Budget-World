@@ -24,9 +24,15 @@ class AddTransactionController: UIViewController {
         picker.backgroundColor = .clear
         picker.datePickerMode = .date
         picker.setValue(UIColor.white, forKeyPath: "textColor")
+        picker.addTarget(self, action: #selector(dateValueChanged), for: .valueChanged)
         return picker
     }()
     
+    let dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "MMM dd, yyyy"
+        return df
+    }()
     
     let transactionView: AddTransactionView = {
         let view = AddTransactionView()
@@ -61,7 +67,7 @@ extension AddTransactionController {
     }
 }
 
-//MARK: Touch Events
+//MARK: Events
 extension AddTransactionController {
     @objc func cancelButtonPressed() {
         let mainController = SlideMenuController(mainViewController: MainController(), leftMenuViewController: SlideOptionsController())
@@ -73,6 +79,10 @@ extension AddTransactionController {
         let mainController = SlideMenuController(mainViewController: MainController(), leftMenuViewController: SlideOptionsController())
         mainController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(mainController, animated: true, completion: nil)
+    }
+    
+    @objc func dateValueChanged() {
+        transactionView.dateTextField.text = dateFormatter.string(from: datePicker.date)
     }
 }
 
@@ -88,5 +98,6 @@ extension AddTransactionController: AddTransactionViewDelegate {
     func dateFieldPressed() {
         transactionView.dateTextField.inputView = UIView()
         transactionView.dateTextField.inputAccessoryView = datePicker
+        transactionView.dateTextField.text = dateFormatter.string(from: datePicker.date)
     }
 }
