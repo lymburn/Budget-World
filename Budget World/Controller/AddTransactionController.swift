@@ -44,7 +44,7 @@ class AddTransactionController: UIViewController {
 //MARK: Setup
 extension AddTransactionController {
     fileprivate func setupViews() {
-        navigationItem.title = transaction == .income ? "Add Income" : "Add Expense"
+        navigationItem.title = transaction == .income ? "Income" : "Expense"
         view.addSubview(transactionView)
         setupConstraints()
     }
@@ -92,6 +92,7 @@ extension AddTransactionController: AddTransactionViewDelegate {
         guard let transactionType = transaction else {return}
         let categoryController = CategoryController()
         categoryController.transactionType = transactionType
+        categoryController.delegate = self
         self.navigationController?.pushViewController(categoryController, animated: true)
     }
     
@@ -99,5 +100,13 @@ extension AddTransactionController: AddTransactionViewDelegate {
         transactionView.dateTextField.inputView = UIView()
         transactionView.dateTextField.inputAccessoryView = datePicker
         transactionView.dateTextField.text = dateFormatter.string(from: datePicker.date)
+    }
+}
+
+//MARK: Category controller delegate
+extension AddTransactionController: CategoryDelegate {
+    func categorySelected(category: String) {
+        self.navigationController?.popViewController(animated: true)
+        transactionView.categoryTextField.text = category
     }
 }

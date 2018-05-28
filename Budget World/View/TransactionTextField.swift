@@ -13,7 +13,7 @@ class TransactionTextField: UITextField {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor.clear
-        self.font = UIFont(name: "OpenSans-Regular", size: 25)
+        self.font = UIFont(name: "OpenSans-Regular", size: 22)
         self.textColor = UIColor.white
     }
     

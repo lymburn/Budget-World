@@ -57,7 +57,7 @@ extension String {
 extension UITextField {
     func setBottomBorder() {
         let bottomLine = CALayer()
-        bottomLine.frame = CGRect(x: 0, y: (self.font?.pointSize)! + 11, width: self.frame.width, height: 1.0)
+        bottomLine.frame = CGRect(x: 0, y: (self.font?.pointSize)! + 13, width: self.frame.width, height: 1.0)
         bottomLine.backgroundColor = UIColor.white.cgColor
         
         self.borderStyle = UITextBorderStyle.none

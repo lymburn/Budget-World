@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol CategoryDelegate: class {
+    func categorySelected(category: String)
+}
+
 class CategoryController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +23,7 @@ class CategoryController: UIViewController {
         tableView.dataSource = self
     }
     
+    weak var delegate: CategoryDelegate? = nil
     var transactionType: TransactionType!
     let cellId = "cellId"
     var categoryNames : [String]!
@@ -79,6 +84,6 @@ extension CategoryController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        delegate?.categorySelected(category: categoryNames[indexPath.row])
     }
 }
