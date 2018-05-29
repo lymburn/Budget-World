@@ -126,31 +126,6 @@ extension MainController: MainScreenDelegate {
     }
 }
 
-//MARK: Fetch core data info about user balance for the month
-extension MainController {
-    fileprivate func fetchTransactions(incomeType: Bool) -> [Transaction] {
-        let transactions: [Transaction]
-        let request: NSFetchRequest<Transaction> = Transaction.fetchRequest()
-        //Fetch for transactions in the current month only
-        var components = DateComponents()
-        components.month = 1
-        components.day = -1
-        let endOfMonth = Calendar.current.date(byAdding: components, to: currentMonth)!
-        request.sortDescriptors = [NSSortDescriptor(key: "amount", ascending: true, selector: nil)]
-        request.predicate = NSPredicate(format: "date >= %@ && date <= %@ && incomeType == %@", currentMonth as NSDate, endOfMonth as NSDate, NSNumber(booleanLiteral: incomeType))
-
-        let context = AppDelegate.viewContext
-        do {
-            try transactions = context.fetch(request)
-        } catch {
-            fatalError("Failure to fetch request: \(error)")
-        }
-        
-        //Set balance to the account balance of the transactions
-        return transactions
-    }
-}
-
 //MARK: Calculate and update the UI for the user's balance
 extension MainController {
     fileprivate func calculateBalance(_ transactions: [Transaction]) {
@@ -197,8 +172,8 @@ extension MainController {
  
     fileprivate func updateBalance() {
         //Fetch and update the balance for the current month
-        incomeTransactions = fetchTransactions(incomeType: true)
-        expenseTransactions = fetchTransactions(incomeType: false)
+        incomeTransactions = TransactionManager.fetchTransactions(incomeType: true, currentMonth: currentMonth)
+        expenseTransactions = TransactionManager.fetchTransactions(incomeType: false, currentMonth: currentMonth)
         balance = 0 //Reset balance first
         calculateBalance(incomeTransactions)
         calculateBalance(expenseTransactions)
