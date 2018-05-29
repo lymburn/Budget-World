@@ -15,13 +15,19 @@ class MainController: UIViewController {
         view.addGradientWithColor(primary: UIColor.rgb(red: 52, green: 232, blue: 158), secondary: UIColor.rgb(red: 15, green: 52, blue: 67))
         mainView.delegate = self
         setupViews()
-        getTransactions()
+        incomeTransactions = fetchTransactions(incomeType: true)
+        expenseTransactions = fetchTransactions(incomeType: false)
+        calculateBalance(incomeTransactions)
+        calculateBalance(expenseTransactions)
+        storeBalance()
     }
     
     let cellId = "cellId"
     let menuOptions = ["Budget Overview", "Analytics", "Transvarions", "Goals", "Premium", "More"]
     let menuIcons = ["Budget", "Analytics", "Transaction", "Goals", "Premium", "More"]
-    var transactions: [Transaction]!
+    var incomeTransactions: [Transaction]!
+    var expenseTransactions: [Transaction]!
+    var balance: NSDecimalNumber = 0
     
     let mainView: MainScreenView = {
         let view = MainScreenView()
@@ -72,22 +78,50 @@ extension MainController: MainScreenDelegate {
 
 //MARK: Fetch core data info about user balance for the month
 extension MainController {
-    fileprivate func getTransactions() {
+    fileprivate func fetchTransactions(incomeType: Bool) -> [Transaction] {
+        let transactions: [Transaction]
         let components = Calendar.current.dateComponents([.year, .month], from: Date())
         let startOfMonth = Calendar.current.date(from: components)!
-        print(startOfMonth)
         let request: NSFetchRequest<Transaction> = Transaction.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "amount", ascending: true, selector: nil)]
-        request.predicate = NSPredicate(format: "date > %@", startOfMonth as NSDate)
+        request.predicate = NSPredicate(format: "date > %@ && incomeType == %@", startOfMonth as NSDate, NSNumber(booleanLiteral: incomeType))
 
         let context = AppDelegate.viewContext
         do {
             try transactions = context.fetch(request)
-            for transaction in transactions {
-                print(transaction.amount)
-            }
         } catch {
             fatalError("Failure to fetch request: \(error)")
+        }
+        
+        //Set balance to the account balance of the transactions
+        return transactions
+    }
+    
+    //Store the new calculated
+    fileprivate func storeBalance() {
+        let context = AppDelegate.viewContext
+        let account = Account(context: context)
+        account.balance = balance
+        //Save the context
+        do {
+            try account.managedObjectContext?.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+    }
+}
+
+//MARK: Calculate and update the UI for the user's balance
+extension MainController {
+    fileprivate func calculateBalance(_ transactions: [Transaction]) {
+        for transaction in transactions {
+            if transaction.incomeType {
+                //If transaction is an income, add to balance
+                balance = NSDecimalNumber(decimal: balance.decimalValue + (transaction.amount?.decimalValue)!)
+            } else {
+                //If expense, subtract from balance
+                balance = NSDecimalNumber(decimal: balance.decimalValue - (transaction.amount?.decimalValue)!)
+            }
         }
     }
 }

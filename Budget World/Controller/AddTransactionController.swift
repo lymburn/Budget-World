@@ -8,6 +8,7 @@
 
 import UIKit
 import SlideMenuControllerSwift
+import CoreData
 
 class AddTransactionController: UIViewController {
     override func viewDidLoad() {
