@@ -40,7 +40,6 @@ class MainController: UIViewController {
     let mainView: MainScreenView = {
         let view = MainScreenView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        
         return view
     }()
 }
@@ -156,7 +155,6 @@ extension MainController {
 extension MainController {
     fileprivate func calculateBalance(_ transactions: [Transaction]) {
         for transaction in transactions {
-            print(dateFormatter.string(from: transaction.date!))
             if transaction.incomeType {
                 //If transaction is an income, add to balance
                 balance = NSDecimalNumber(decimal: balance.decimalValue + (transaction.amount?.decimalValue)!)

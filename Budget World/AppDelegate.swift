@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow()
         
-        let slideMenuController = SlideMenuController(mainViewController: MainController(), leftMenuViewController: SlideOptionsController())
+        let slideMenuController = SlideMenuController(mainViewController: BudgetOverviewController(), leftMenuViewController: SlideOptionsController())
         window?.rootViewController = slideMenuController
         window?.makeKeyAndVisible()
         
