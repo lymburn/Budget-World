@@ -127,15 +127,20 @@ extension MainController {
                 if self.balance.decimalValue >= 0 {
                     self.mainView.balanceLabel.text = "$" + String(format: "%.2f", Double(truncating: self.balance))
                 } else {
-                    self.mainView.balanceLabel.text = "-$" + String(format: "%.2f", Double(truncating: self.balance))
+                    self.mainView.balanceLabel.text = "-$" + String(format: "%.2f", -Double(truncating: self.balance))
                 }
                 return
-            } else if current.decimalValue > self.balance.decimalValue {
+            } else if self.balance.decimalValue < 0 {
                 current = NSDecimalNumber(decimal: current.decimalValue - increment)
-            } else if current.decimalValue < self.balance.decimalValue {
+            } else if self.balance.decimalValue >= 0 {
                 current = NSDecimalNumber(decimal: current.decimalValue + increment)
             }
-            self.mainView.balanceLabel.text = "$" + String(format: "%.2f", Double(truncating: current))
+            
+            if self.balance.decimalValue >= 0 {
+                self.mainView.balanceLabel.text = "$" + String(format: "%.2f", Double(truncating: current))
+            } else {
+                self.mainView.balanceLabel.text = "-$" + String(format: "%.2f", Double(truncating: current))
+            }
         }
     }
  
