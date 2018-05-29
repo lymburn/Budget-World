@@ -14,6 +14,10 @@ class BudgetOverviewController : UIViewController {
         setupViews()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     var currentMonth: Date!
     
     let dateFormatter: DateFormatter = {

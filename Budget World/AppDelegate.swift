@@ -20,13 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow()
         
-        let slideMenuController = SlideMenuController(mainViewController: BudgetOverviewController(), leftMenuViewController: SlideOptionsController())
+        let slideMenuController = SlideMenuController(mainViewController: MainController(), leftMenuViewController: SlideOptionsController())
         window?.rootViewController = slideMenuController
         window?.makeKeyAndVisible()
         
         UINavigationBar.appearance().barTintColor = .white
         UINavigationBar.appearance().tintColor = .black
-        UIApplication.shared.statusBarStyle = .lightContent
+        UIApplication.shared.isStatusBarHidden = true
         return true
     }
 
