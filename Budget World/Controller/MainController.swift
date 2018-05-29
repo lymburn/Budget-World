@@ -21,7 +21,7 @@ class MainController: UIViewController {
     let cellId = "cellId"
     let menuOptions = ["Budget Overview", "Analytics", "Transvarions", "Goals", "Premium", "More"]
     let menuIcons = ["Budget", "Analytics", "Transaction", "Goals", "Premium", "More"]
-    var transactions: [NSManagedObject]!
+    var transactions: [Transaction]!
     
     let mainView: MainScreenView = {
         let view = MainScreenView()
@@ -83,7 +83,9 @@ extension MainController {
         let context = AppDelegate.viewContext
         do {
             try transactions = context.fetch(request)
-            print(transactions.count)
+            for transaction in transactions {
+                print(transaction.amount)
+            }
         } catch {
             fatalError("Failure to fetch request: \(error)")
         }

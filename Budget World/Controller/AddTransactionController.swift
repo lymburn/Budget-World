@@ -167,7 +167,6 @@ extension AddTransactionController {
         transaction.date = datePicker.date
         transaction.category = self.categoryType!.rawValue
         transaction.recurringPeriod = getRecurringPeriod().rawValue
-        transaction.note = transactionView.noteTextField.text
         transaction.incomeType = transactionType == .income ? true : false
         
         //Save the context

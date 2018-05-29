@@ -29,7 +29,6 @@ class AddTransactionView: UIView {
         dateTextField.setBottomBorder()
         categoryTextField.setBottomBorder()
         recurringTextField.setBottomBorder()
-        noteTextField.setBottomBorder()
     }
     
     let amountTextField: TransactionTextField = {
@@ -62,12 +61,6 @@ class AddTransactionView: UIView {
         return textField
     }()
     
-    let noteTextField : TransactionTextField = {
-        let textField = TransactionTextField()
-        textField.placeholder = "Note"
-        return textField
-    }()
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -80,7 +73,6 @@ extension AddTransactionView {
         addSubview(dateTextField)
         addSubview(categoryTextField)
         addSubview(recurringTextField)
-        addSubview(noteTextField)
         setupConstraints()
     }
     
@@ -104,11 +96,6 @@ extension AddTransactionView {
         recurringTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         recurringTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
         recurringTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        noteTextField.topAnchor.constraint(equalTo: recurringTextField.bottomAnchor, constant: 32).isActive = true
-        noteTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-        noteTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        noteTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 }
 
