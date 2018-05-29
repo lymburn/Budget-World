@@ -115,17 +115,22 @@ extension MainController {
     }
     
     
-    //Animate the balance changing from current to new balance
+    //Animate the balance changing from 0 to the current balance
     fileprivate func animateBalanceChange() {
         var current: NSDecimalNumber = 0
         let increment = self.balance.decimalValue/50
         var count = 0
-        var timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) {(timer) in
+        Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) {(timer) in
             count += 1
             print(count)
             if count > 50 {
                 timer.invalidate()
-                self.mainView.balanceLabel.text = "$" + String(format: "%.2f", Double(truncating: self.balance))
+                //Format based on whether balance is positive or negative
+                if self.balance.decimalValue >= 0 {
+                    self.mainView.balanceLabel.text = "$" + String(format: "%.2f", Double(truncating: self.balance))
+                } else {
+                    self.mainView.balanceLabel.text = "-$" + String(format: "%.2f", Double(truncating: self.balance))
+                }
                 return
             } else if current.decimalValue > self.balance.decimalValue {
                 current = NSDecimalNumber(decimal: current.decimalValue - increment)
