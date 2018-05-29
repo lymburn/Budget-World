@@ -12,6 +12,8 @@ protocol MainScreenDelegate: class {
     func slideMenuPressed()
     func addIncomePressed()
     func addExpensePressed()
+    func previousMonthPressed()
+    func nextMonthPressed()
 }
 
 class MainScreenView : UIView {
@@ -52,6 +54,7 @@ class MainScreenView : UIView {
         let button = UIButton()
         button.setImage(UIImage(named: "Left Arrow"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(previousMonthPressed), for: .touchDown)
         return button
     }()
     
@@ -59,6 +62,7 @@ class MainScreenView : UIView {
         let button = UIButton()
         button.setImage(UIImage(named: "Right Arrow"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(nextMonthPressed), for: .touchDown)
         return button
     }()
     
@@ -163,5 +167,13 @@ extension MainScreenView {
     
     @objc func slideMenuPressed() {
         delegate?.slideMenuPressed()
+    }
+    
+    @objc func previousMonthPressed() {
+        delegate?.previousMonthPressed()
+    }
+    
+    @objc func nextMonthPressed() {
+        delegate?.nextMonthPressed()
     }
 }
