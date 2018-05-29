@@ -17,9 +17,11 @@ class MainController: UIViewController {
         setupViews()
         incomeTransactions = fetchTransactions(incomeType: true)
         expenseTransactions = fetchTransactions(incomeType: false)
+    
         calculateBalance(incomeTransactions)
         calculateBalance(expenseTransactions)
-        storeBalance()
+        
+        animateBalanceChange()
     }
     
     let cellId = "cellId"
@@ -96,19 +98,6 @@ extension MainController {
         //Set balance to the account balance of the transactions
         return transactions
     }
-    
-    //Store the new calculated
-    fileprivate func storeBalance() {
-        let context = AppDelegate.viewContext
-        let account = Account(context: context)
-        account.balance = balance
-        //Save the context
-        do {
-            try account.managedObjectContext?.save()
-        } catch {
-            fatalError("Failure to save context: \(error)")
-        }
-    }
 }
 
 //MARK: Calculate and update the UI for the user's balance
@@ -124,5 +113,28 @@ extension MainController {
             }
         }
     }
+    
+    
+    //Animate the balance changing from current to new balance
+    fileprivate func animateBalanceChange() {
+        var current: NSDecimalNumber = 0
+        let increment = self.balance.decimalValue/50
+        var count = 0
+        var timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) {(timer) in
+            count += 1
+            print(count)
+            if count > 50 {
+                timer.invalidate()
+                self.mainView.balanceLabel.text = "$" + String(format: "%.2f", Double(truncating: self.balance))
+                return
+            } else if current.decimalValue > self.balance.decimalValue {
+                current = NSDecimalNumber(decimal: current.decimalValue - increment)
+            } else if current.decimalValue < self.balance.decimalValue {
+                current = NSDecimalNumber(decimal: current.decimalValue + increment)
+            }
+            self.mainView.balanceLabel.text = "$" + String(format: "%.2f", Double(truncating: current))
+        }
+    }
+ 
 }
 
