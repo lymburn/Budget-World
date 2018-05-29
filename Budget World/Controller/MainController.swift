@@ -17,7 +17,6 @@ class MainController: UIViewController {
         setupViews()
         incomeTransactions = fetchTransactions(incomeType: true)
         expenseTransactions = fetchTransactions(incomeType: false)
-    
         calculateBalance(incomeTransactions)
         calculateBalance(expenseTransactions)
         
@@ -122,7 +121,6 @@ extension MainController {
         var count = 0
         Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) {(timer) in
             count += 1
-            print(count)
             if count > 50 {
                 timer.invalidate()
                 //Format based on whether balance is positive or negative
