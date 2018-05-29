@@ -28,8 +28,10 @@ class MainScreenView : UIView {
         label.textColor = UIColor.white
         label.textAlignment = .center
         label.font = UIFont(name: "OpenSans-Regular", size: 60)
-        label.text = "$0.00"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.5
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -101,7 +103,8 @@ extension MainScreenView {
         dateLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         balanceLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 50).isActive = true
-        balanceLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        balanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        balanceLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         balanceLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
         addIncomeButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -200).isActive = true
