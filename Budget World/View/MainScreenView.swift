@@ -40,9 +40,26 @@ class MainScreenView : UIView {
         label.textColor = UIColor.white
         label.textAlignment = .center
         label.font = UIFont(name: "OpenSans-Regular", size: 32)
-        label.text = "May"
+        label.text = "December"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.5
+        label.adjustsFontSizeToFitWidth = true
         return label
+    }()
+    
+    let previousMonth: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Left Arrow"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let nextMonth: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Right Arrow"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     let addIncomeButton: UIButton = {
@@ -92,6 +109,8 @@ extension MainScreenView {
     fileprivate func setupViews() {
         addSubview(balanceLabel)
         addSubview(dateLabel)
+        addSubview(previousMonth)
+        addSubview(nextMonth)
         addSubview(addIncomeButton)
         addSubview(addExpenseButton)
         addSubview(slideMenu)
@@ -99,8 +118,20 @@ extension MainScreenView {
     }
     
     fileprivate func setupConstraints() {
-        dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
-        dateLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+        previousMonth.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
+        previousMonth.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 48).isActive = true
+        previousMonth.widthAnchor.constraint(equalToConstant: 42).isActive = true
+        previousMonth.heightAnchor.constraint(equalToConstant: 42).isActive = true
+        
+        nextMonth.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
+        nextMonth.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -48).isActive = true
+        nextMonth.widthAnchor.constraint(equalToConstant: 42).isActive = true
+        nextMonth.heightAnchor.constraint(equalToConstant: 42).isActive = true
+        
+        dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 95).isActive = true
+        dateLabel.leadingAnchor.constraint(equalTo: previousMonth.trailingAnchor, constant: 32).isActive = true
+        dateLabel.trailingAnchor.constraint(equalTo: nextMonth.leadingAnchor, constant: -32).isActive = true
         
         balanceLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 50).isActive = true
         balanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
