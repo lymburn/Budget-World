@@ -58,16 +58,33 @@ extension BudgetOverviewController {
         //Set income/expense amount
         let incomeTransactions = TransactionManager.fetchTransactions(incomeType: true, currentMonth: currentMonth)
         let expenseTransactions = TransactionManager.fetchTransactions(incomeType: false, currentMonth: currentMonth)
-        let totalIncome: NSDecimalNumber = calculateTransactions(for: incomeTransactions)
-        let totalExpense: NSDecimalNumber = calculateTransactions(for: expenseTransactions)
+        let totalIncome = calculateTotalTransactions(for: incomeTransactions)
+        let totalExpense = calculateTotalTransactions(for: expenseTransactions)
+        let salary = calculateTransactions(incomeTransactions, for: .salary)
+        let investment = calculateTransactions(incomeTransactions, for: .investment)
+        let sale = calculateTransactions(incomeTransactions, for: .sale)
         budgetView.incomeView.incomeAmount.text = "$" + String(format: "%.2f", Double(truncating: totalIncome))
+        budgetView.incomeView.salaryAmount.text = "$" + String(format: "%.2f", Double(truncating: salary))
+        budgetView.incomeView.investmentAmount.text = "$" + String(format: "%.2f", Double(truncating: investment))
+        budgetView.incomeView.saleAmount.text = "$" + String(format: "%.2f", Double(truncating: sale))
     }
     
-    fileprivate func calculateTransactions(for transactions: [Transaction]) -> NSDecimalNumber {
+    fileprivate func calculateTotalTransactions(for transactions: [Transaction]) -> NSDecimalNumber {
         //Sum up the total from an array of transactions
         var sum: NSDecimalNumber = 0
         for transaction in transactions {
             sum = NSDecimalNumber(decimal: (transaction.amount?.decimalValue)! + sum.decimalValue)
+        }
+        return sum
+    }
+    
+    fileprivate func calculateTransactions(_ transactions: [Transaction], for category: CategoryType) -> NSDecimalNumber {
+        //Calculate the total amount for a specific category
+        var sum: NSDecimalNumber = 0
+        for transaction in transactions {
+            if transaction.category == category.rawValue {
+                sum = NSDecimalNumber(decimal: (transaction.amount?.decimalValue)! + sum.decimalValue)
+            }
         }
         return sum
     }
