@@ -119,7 +119,10 @@ extension AddTransactionController: AddTransactionViewDelegate {
     }
     
     func repeatingFieldPressed() {
-        transactionView.recurringTextField.text = "Never"
+        if transactionView.recurringTextField.text == "" {
+            //If text is empty, display default never on textfield
+            transactionView.recurringTextField.text = "Never"
+        }
         transactionView.recurringTextField.inputView = UIView()
         transactionView.recurringTextField.inputAccessoryView = recurringPicker
     }
