@@ -15,6 +15,7 @@ class TransactionTextField: UITextField {
         self.backgroundColor = UIColor.clear
         self.font = UIFont(name: "OpenSans-Regular", size: 22)
         self.textColor = UIColor.white
+        self.tintColor = UIColor.clear
     }
     
     required init?(coder aDecoder: NSCoder) {
