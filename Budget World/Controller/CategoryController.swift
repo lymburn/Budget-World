@@ -23,6 +23,10 @@ class CategoryController: UIViewController {
         tableView.dataSource = self
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     weak var delegate: CategoryDelegate? = nil
     var transactionType: TransactionType!
     let cellId = "cellId"

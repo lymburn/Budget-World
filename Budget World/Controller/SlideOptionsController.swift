@@ -20,6 +20,10 @@ class SlideOptionsController: UIViewController {
         self.title = "Menu"
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     let slideMenuOptions: UITableView = {
         let tb = UITableView()
         tb.rowHeight = 70

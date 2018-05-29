@@ -19,6 +19,10 @@ class MainController: UIViewController {
         updateBalance()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     let cellId = "cellId"
     let menuOptions = ["Budget Overview", "Analytics", "Transvarions", "Goals", "Premium", "More"]
     let menuIcons = ["Budget", "Analytics", "Transaction", "Goals", "Premium", "More"]

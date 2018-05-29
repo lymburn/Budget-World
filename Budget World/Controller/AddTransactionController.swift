@@ -21,6 +21,10 @@ class AddTransactionController: UIViewController {
         recurringPicker.dataSource = self
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     var transactionType: TransactionType? = nil
     let recurringPeriods = ["Never", "Weekly", "Bi-weekly", "Monthly", "Bi-monthly", "Quarterly", "Semi-annually", "Annually"]
     var transactionAmount: NSDecimalNumber!

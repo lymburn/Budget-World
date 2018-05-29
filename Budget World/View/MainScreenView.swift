@@ -132,8 +132,8 @@ extension MainScreenView {
         nextMonth.heightAnchor.constraint(equalToConstant: 42).isActive = true
         
         dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
-        dateLabel.leadingAnchor.constraint(equalTo: previousMonth.trailingAnchor, constant: 32).isActive = true
-        dateLabel.trailingAnchor.constraint(equalTo: nextMonth.leadingAnchor, constant: -32).isActive = true
+        dateLabel.leadingAnchor.constraint(equalTo: previousMonth.trailingAnchor, constant: 16).isActive = true
+        dateLabel.trailingAnchor.constraint(equalTo: nextMonth.leadingAnchor, constant: -16).isActive = true
         
         balanceLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 50).isActive = true
         balanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
