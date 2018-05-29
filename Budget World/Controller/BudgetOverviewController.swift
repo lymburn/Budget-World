@@ -50,7 +50,7 @@ extension BudgetOverviewController {
         //Set default to current month
         let components = Calendar.current.dateComponents([.year, .month], from: Date())
         currentMonth = Calendar.current.date(from: components)!
-        budgetView.dateLabel.text = dateFormatter.string(from: currentMonth)
+        budgetView.dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
     }
     
     
@@ -60,7 +60,7 @@ extension BudgetOverviewController {
         let expenseTransactions = TransactionManager.fetchTransactions(incomeType: false, currentMonth: currentMonth)
         let totalIncome: NSDecimalNumber = calculateTransactions(for: incomeTransactions)
         let totalExpense: NSDecimalNumber = calculateTransactions(for: expenseTransactions)
-        budgetView.incomeAmount.text = "$" + String(format: "%.2f", Double(truncating: totalIncome))
+        budgetView.incomeView.incomeAmount.text = "$" + String(format: "%.2f", Double(truncating: totalIncome))
     }
     
     fileprivate func calculateTransactions(for transactions: [Transaction]) -> NSDecimalNumber {
