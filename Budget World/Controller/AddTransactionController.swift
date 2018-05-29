@@ -38,17 +38,6 @@ class AddTransactionController: UIViewController {
         picker.datePickerMode = .date
         picker.setValue(UIColor.white, forKeyPath: "textColor")
         picker.addTarget(self, action: #selector(dateValueChanged), for: .valueChanged)
-        
-        //Limit date range to be between start and end of the month
-        let components = Calendar.current.dateComponents([.year, .month], from: Date())
-        let startOfMonth = Calendar.current.date(from: components)!
-        picker.minimumDate = startOfMonth
-        //Get end of month by adding 1 month and subtracting 1 day from start of month
-        var components2 = DateComponents()
-        components2.month = 1
-        components2.day = -1
-        let endOfMonth = Calendar.current.date(byAdding: components2, to: startOfMonth)
-        picker.maximumDate = endOfMonth
         return picker
     }()
     

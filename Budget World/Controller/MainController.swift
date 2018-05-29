@@ -15,12 +15,8 @@ class MainController: UIViewController {
         view.addGradientWithColor(primary: UIColor.rgb(red: 52, green: 232, blue: 158), secondary: UIColor.rgb(red: 15, green: 52, blue: 67))
         mainView.delegate = self
         setupViews()
-        incomeTransactions = fetchTransactions(incomeType: true)
-        expenseTransactions = fetchTransactions(incomeType: false)
-        calculateBalance(incomeTransactions)
-        calculateBalance(expenseTransactions)
-        
-        animateBalanceChange()
+        setDefaultMonth()
+        updateBalance()
     }
     
     let cellId = "cellId"
@@ -29,10 +25,18 @@ class MainController: UIViewController {
     var incomeTransactions: [Transaction]!
     var expenseTransactions: [Transaction]!
     var balance: NSDecimalNumber = 0
+    var currentMonth: Date!
+    
+    let dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "MMM"
+        return df
+    }()
     
     let mainView: MainScreenView = {
         let view = MainScreenView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        
         return view
     }()
 }
@@ -50,7 +54,13 @@ extension MainController {
         mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
- 
+    }
+    
+    fileprivate func setDefaultMonth() {
+        //Set default to current month
+        let components = Calendar.current.dateComponents([.year, .month], from: Date())
+        currentMonth = Calendar.current.date(from: components)!
+        mainView.dateLabel.text = dateFormatter.string(from: currentMonth)
     }
 }
 
@@ -75,17 +85,56 @@ extension MainController: MainScreenDelegate {
         nav.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(nav, animated: true, completion: nil)
     }
+    
+    func previousMonthPressed() {
+        let currentYear = Calendar.current.dateComponents([.year], from: Date())
+        var previousMonthComponents = DateComponents()
+        previousMonthComponents.month = -1
+        currentMonth = Calendar.current.date(byAdding: previousMonthComponents, to: currentMonth)
+        let currentMonthComponents = Calendar.current.dateComponents([.year, .month], from: currentMonth)
+        //Check if year has changed
+        if currentYear.year! == currentMonthComponents.year! {
+            dateFormatter.dateFormat = "MMM"
+            mainView.dateLabel.text = dateFormatter.string(from: currentMonth)
+        } else {
+            //If year changed, show year as well
+            dateFormatter.dateFormat = "MMM YYYY"
+            mainView.dateLabel.text = dateFormatter.string(from: currentMonth)
+        }
+        updateBalance()
+    }
+    
+    func nextMonthPressed() {
+        let currentYear = Calendar.current.dateComponents([.year], from: Date())
+        var nextMonthComponents = DateComponents()
+        nextMonthComponents.month = 1
+        currentMonth = Calendar.current.date(byAdding: nextMonthComponents, to: currentMonth)
+        let currentMonthComponents = Calendar.current.dateComponents([.year, .month], from: currentMonth)
+        //Check if year has changed
+        if currentYear.year! == currentMonthComponents.year! {
+            dateFormatter.dateFormat = "MMM"
+            mainView.dateLabel.text = dateFormatter.string(from: currentMonth)
+        } else {
+            //If year changed, show year as well
+            dateFormatter.dateFormat = "MMM YYYY"
+            mainView.dateLabel.text = dateFormatter.string(from: currentMonth)
+        }
+        updateBalance()
+    }
 }
 
 //MARK: Fetch core data info about user balance for the month
 extension MainController {
     fileprivate func fetchTransactions(incomeType: Bool) -> [Transaction] {
         let transactions: [Transaction]
-        let components = Calendar.current.dateComponents([.year, .month], from: Date())
-        let startOfMonth = Calendar.current.date(from: components)!
         let request: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+        //Fetch for transactions in the current month only
+        var components = DateComponents()
+        components.month = 1
+        components.day = -1
+        let endOfMonth = Calendar.current.date(byAdding: components, to: currentMonth)!
         request.sortDescriptors = [NSSortDescriptor(key: "amount", ascending: true, selector: nil)]
-        request.predicate = NSPredicate(format: "date > %@ && incomeType == %@", startOfMonth as NSDate, NSNumber(booleanLiteral: incomeType))
+        request.predicate = NSPredicate(format: "date >= %@ && date <= %@ && incomeType == %@", currentMonth as NSDate, endOfMonth as NSDate, NSNumber(booleanLiteral: incomeType))
 
         let context = AppDelegate.viewContext
         do {
@@ -103,6 +152,7 @@ extension MainController {
 extension MainController {
     fileprivate func calculateBalance(_ transactions: [Transaction]) {
         for transaction in transactions {
+            print(dateFormatter.string(from: transaction.date!))
             if transaction.incomeType {
                 //If transaction is an income, add to balance
                 balance = NSDecimalNumber(decimal: balance.decimalValue + (transaction.amount?.decimalValue)!)
@@ -112,7 +162,6 @@ extension MainController {
             }
         }
     }
-    
     
     //Animate the balance changing from 0 to the current balance
     fileprivate func animateBalanceChange() {
@@ -144,5 +193,14 @@ extension MainController {
         }
     }
  
+    fileprivate func updateBalance() {
+        //Fetch and update the balance for the current month
+        incomeTransactions = fetchTransactions(incomeType: true)
+        expenseTransactions = fetchTransactions(incomeType: false)
+        balance = 0 //Reset balance first
+        calculateBalance(incomeTransactions)
+        calculateBalance(expenseTransactions)
+        animateBalanceChange()
+    }
 }
 

@@ -20,7 +20,6 @@ class MainScreenView : UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-
     }
     
     weak var delegate: MainScreenDelegate?
@@ -42,7 +41,6 @@ class MainScreenView : UIView {
         label.textColor = UIColor.white
         label.textAlignment = .center
         label.font = UIFont(name: "OpenSans-Regular", size: 32)
-        label.text = "December"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.5
@@ -124,16 +122,16 @@ extension MainScreenView {
     fileprivate func setupConstraints() {
         
         previousMonth.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
-        previousMonth.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 48).isActive = true
+        previousMonth.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32).isActive = true
         previousMonth.widthAnchor.constraint(equalToConstant: 42).isActive = true
         previousMonth.heightAnchor.constraint(equalToConstant: 42).isActive = true
         
         nextMonth.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
-        nextMonth.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -48).isActive = true
+        nextMonth.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32).isActive = true
         nextMonth.widthAnchor.constraint(equalToConstant: 42).isActive = true
         nextMonth.heightAnchor.constraint(equalToConstant: 42).isActive = true
         
-        dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 95).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
         dateLabel.leadingAnchor.constraint(equalTo: previousMonth.trailingAnchor, constant: 32).isActive = true
         dateLabel.trailingAnchor.constraint(equalTo: nextMonth.leadingAnchor, constant: -32).isActive = true
         
