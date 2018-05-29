@@ -22,7 +22,7 @@ class AddTransactionController: UIViewController {
     
     var transactionType: TransactionType? = nil
     let recurringPeriods = ["Never", "Weekly", "Bi-weekly", "Monthly", "Bi-monthly", "Quarterly", "Semi-annually", "Annually"]
-    var transactionAmount: NSNumber!
+    var transactionAmount: NSDecimalNumber!
     var categoryType: CategoryType!
     
     let recurringPicker : UIPickerView = {
@@ -88,6 +88,7 @@ extension AddTransactionController {
     }
     
     @objc func doneButtonPressed() {
+        storeTransaction()
         let mainController = SlideMenuController(mainViewController: MainController(), leftMenuViewController: SlideOptionsController())
         mainController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(mainController, animated: true, completion: nil)
@@ -96,6 +97,7 @@ extension AddTransactionController {
     @objc func dateValueChanged() {
         transactionView.dateTextField.text = dateFormatter.string(from: datePicker.date)
     }
+
 }
 
 //MARK: Transaction view delegate
@@ -116,13 +118,13 @@ extension AddTransactionController: AddTransactionViewDelegate {
     }
     
     func repeatingFieldPressed() {
+        transactionView.recurringTextField.text = "Never"
         transactionView.recurringTextField.inputView = UIView()
         transactionView.recurringTextField.inputAccessoryView = recurringPicker
     }
     
     func amountFieldPressed(amount: NSDecimalNumber) {
         transactionAmount = amount
-        print(transactionAmount)
     }
 }
 
@@ -153,6 +155,7 @@ extension AddTransactionController: UIPickerViewDelegate, UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return recurringPeriods.count
     }
+    
 }
 
 //MARK: Core data storing functions
@@ -164,15 +167,14 @@ extension AddTransactionController {
         transaction.date = datePicker.date
         transaction.category = self.categoryType!.rawValue
         transaction.recurringPeriod = getRecurringPeriod().rawValue
+        transaction.note = transactionView.noteTextField.text
+        transaction.incomeType = transactionType == .income ? true : false
         
-        let account = Account(context: transaction.managedObjectContext!)
-        transaction.account = account
-        //If transaction is an expense, reduce from balance. Otherwise add to balance
-        guard let transactionType = transactionType else {return}
-        if transactionType == .income {
-            
-        } else {
-            
+        //Save the context
+        do {
+            try transaction.managedObjectContext?.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
         }
     }
     

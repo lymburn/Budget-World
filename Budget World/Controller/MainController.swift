@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class MainController: UIViewController {
     override func viewDidLoad() {
@@ -14,11 +15,13 @@ class MainController: UIViewController {
         view.addGradientWithColor(primary: UIColor.rgb(red: 52, green: 232, blue: 158), secondary: UIColor.rgb(red: 15, green: 52, blue: 67))
         mainView.delegate = self
         setupViews()
+        getTransactions()
     }
     
     let cellId = "cellId"
     let menuOptions = ["Budget Overview", "Analytics", "Transvarions", "Goals", "Premium", "More"]
     let menuIcons = ["Budget", "Analytics", "Transaction", "Goals", "Premium", "More"]
+    var transactions: [NSManagedObject]!
     
     let mainView: MainScreenView = {
         let view = MainScreenView()
@@ -64,6 +67,26 @@ extension MainController: MainScreenDelegate {
         let nav = UINavigationController(rootViewController: addTransactionController)
         nav.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(nav, animated: true, completion: nil)
+    }
+}
+
+//MARK: Fetch core data info about user balance for the month
+extension MainController {
+    fileprivate func getTransactions() {
+        let components = Calendar.current.dateComponents([.year, .month], from: Date())
+        let startOfMonth = Calendar.current.date(from: components)!
+        print(startOfMonth)
+        let request: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "amount", ascending: true, selector: nil)]
+        request.predicate = NSPredicate(format: "date > %@", startOfMonth as NSDate)
+
+        let context = AppDelegate.viewContext
+        do {
+            try transactions = context.fetch(request)
+            print(transactions.count)
+        } catch {
+            fatalError("Failure to fetch request: \(error)")
+        }
     }
 }
 
