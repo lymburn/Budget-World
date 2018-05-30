@@ -10,12 +10,24 @@ import UIKit
 class ExpenseOverview: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .clear
         setupViews()
+    }
+    
+    override func draw(_ rect: CGRect) {
+        //Draw separator line under expense
+        let aPath = UIBezierPath()
+        aPath.move(to: CGPoint(x:30, y: 23))
+        aPath.addLine(to: CGPoint(x: frame.width - 30, y: 23))
+        aPath.close()
+        UIColor.gray.set()
+        aPath.stroke()
     }
     
     let expenseLabel: BudgetLabel = {
         let label = BudgetLabel()
         label.text = "Expense"
+        label.textColor = UIColor.red
         return label
     }()
     
@@ -88,95 +100,72 @@ class ExpenseOverview: UIView {
     let expenseAmount: BudgetLabel = {
         let label = BudgetLabel()
         label.textColor = UIColor.red
-        label.text = "$0.00"
         label.textAlignment = .right
         return label
     }()
     
     let generalAmount: BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.red
-        label.text = "$0.00"
         label.textAlignment = .right
         return label
     }()
     
     let eatingAmount: BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.red
-        label.text = "$0.00"
         label.textAlignment = .right
         return label
     }()
     
     let housingAmount: BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.red
-        label.text = "$0.00"
         label.textAlignment = .right
         return label
     }()
     
     let fuelAmount: BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.red
-        label.text = "$0.00"
         label.textAlignment = .right
         return label
     }()
     
     let transportationAmount: BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.red
-        label.text = "$0.00"
         label.textAlignment = .right
         return label
     }()
     
     let entertainmentAmount: BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.red
-        label.text = "$0.00"
         label.textAlignment = .right
         return label
     }()
     
     let groceriesAmount: BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.red
-        label.text = "$0.00"
         label.textAlignment = .right
         return label
     }()
     
     let clothingAmount: BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.red
-        label.text = "$0.00"
         label.textAlignment = .right
         return label
     }()
     
     let educationAmount: BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.red
-        label.text = "$0.00"
         label.textAlignment = .right
         return label
     }()
     
     let hobbiesAmount: BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.red
-        label.text = "$0.00"
         label.textAlignment = .right
         return label
     }()
     
     let medicalAmount: BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.red
-        label.text = "$0.00"
         label.textAlignment = .right
         return label
     }()

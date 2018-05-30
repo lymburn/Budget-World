@@ -21,7 +21,7 @@ enum TransactionType {
     case eatingOut = 4
     case housing = 5
     case fuel = 6
-    case transporation = 7
+    case transportation = 7
     case entertainment = 8
     case groceries = 9
     case clothing = 10

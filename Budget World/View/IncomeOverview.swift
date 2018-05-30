@@ -11,11 +11,23 @@ import UIKit
 class IncomeOverview: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .clear
         setupViews()
+    }
+    
+    override func draw(_ rect: CGRect) {
+        //Draw separator line under income
+        let aPath = UIBezierPath()
+        aPath.move(to: CGPoint(x:30, y: 23))
+        aPath.addLine(to: CGPoint(x: frame.width - 30, y: 23))
+        aPath.close()
+        UIColor.gray.set()
+        aPath.stroke()
     }
     
     let incomeLabel: BudgetLabel = {
         let label = BudgetLabel()
+        label.textColor = UIColor.rgb(red: 44, green: 197, blue: 94)
         label.text = "Income"
         return label
     }()
@@ -40,21 +52,19 @@ class IncomeOverview: UIView {
     
     let salaryAmount: BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.rgb(red: 44, green: 197, blue: 94)
         label.textAlignment = .right
         return label
     }()
     
     let investmentAmount : BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.rgb(red: 44, green: 197, blue: 94)
+        
         label.textAlignment = .right
         return label
     }()
     
     let saleAmount: BudgetLabel = {
         let label = BudgetLabel()
-        label.textColor = UIColor.rgb(red: 44, green: 197, blue: 94)
         label.textAlignment = .right
         return label
     }()

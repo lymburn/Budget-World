@@ -60,11 +60,9 @@ extension BudgetOverviewController {
     
     
     fileprivate func setBalanceAmounts() {
-        //Set income/expense amount
+        //Income
         let incomeTransactions = TransactionManager.fetchTransactions(incomeType: true, currentMonth: currentMonth)
-        let expenseTransactions = TransactionManager.fetchTransactions(incomeType: false, currentMonth: currentMonth)
         let totalIncome = calculateTotalTransactions(for: incomeTransactions)
-        let totalExpense = calculateTotalTransactions(for: expenseTransactions)
         let salary = calculateTransactions(incomeTransactions, for: .salary)
         let investment = calculateTransactions(incomeTransactions, for: .investment)
         let sale = calculateTransactions(incomeTransactions, for: .sale)
@@ -72,6 +70,41 @@ extension BudgetOverviewController {
         budgetView.incomeView.salaryAmount.text = "$" + String(format: "%.2f", Double(truncating: salary))
         budgetView.incomeView.investmentAmount.text = "$" + String(format: "%.2f", Double(truncating: investment))
         budgetView.incomeView.saleAmount.text = "$" + String(format: "%.2f", Double(truncating: sale))
+        
+        //Expenses
+        let expenseTransactions = TransactionManager.fetchTransactions(incomeType: false, currentMonth: currentMonth)
+        let totalExpense = calculateTotalTransactions(for: expenseTransactions)
+        let general = calculateTransactions(expenseTransactions, for: .general)
+        let eating = calculateTransactions(expenseTransactions, for: .eatingOut)
+        let housing = calculateTransactions(expenseTransactions, for: .housing)
+        let fuel = calculateTransactions(expenseTransactions, for: .fuel)
+        let transportation = calculateTransactions(expenseTransactions, for: .transportation)
+        let entertainment = calculateTransactions(expenseTransactions, for: .entertainment)
+        let groceries = calculateTransactions(expenseTransactions, for: .groceries)
+        let clothing = calculateTransactions(expenseTransactions, for: .clothing)
+        let education = calculateTransactions(expenseTransactions, for: .education)
+        let hobbies = calculateTransactions(expenseTransactions, for: .hobbies)
+        let medical = calculateTransactions(expenseTransactions, for: .medical)
+        budgetView.expenseView.expenseAmount.text = "$" + String(format: "%.2f", Double(truncating: totalExpense))
+        budgetView.expenseView.generalAmount.text = "$" + String(format: "%.2f", Double(truncating: general))
+        budgetView.expenseView.eatingAmount.text = "$" + String(format: "%.2f", Double(truncating: eating))
+        budgetView.expenseView.housingAmount.text = "$" + String(format: "%.2f", Double(truncating: housing))
+        budgetView.expenseView.fuelAmount.text = "$" + String(format: "%.2f", Double(truncating: fuel))
+        budgetView.expenseView.transportationAmount.text = "$" + String(format: "%.2f", Double(truncating: transportation))
+        budgetView.expenseView.entertainmentAmount.text = "$" + String(format: "%.2f", Double(truncating: entertainment))
+        budgetView.expenseView.groceriesAmount.text = "$" + String(format: "%.2f", Double(truncating: groceries))
+        budgetView.expenseView.clothingAmount.text = "$" + String(format: "%.2f", Double(truncating: clothing))
+        budgetView.expenseView.educationAmount.text = "$" + String(format: "%.2f", Double(truncating: education))
+        budgetView.expenseView.hobbiesAmount.text = "$" + String(format: "%.2f", Double(truncating: hobbies))
+        budgetView.expenseView.medicalAmount.text = "$" + String(format: "%.2f", Double(truncating: medical))
+        
+        //Total balance
+        let totalBalance = NSDecimalNumber(decimal: totalIncome.decimalValue - totalExpense.decimalValue)
+        if totalBalance.decimalValue >= 0 {
+            budgetView.balanceView.balanceAmount.text = "$" + String(format: "%.2f", Double(truncating: totalBalance))
+        } else {
+            budgetView.balanceView.balanceAmount.text = "-$" + String(format: "%.2f", -Double(truncating: totalBalance))
+        }
     }
     
     fileprivate func calculateTotalTransactions(for transactions: [Transaction]) -> NSDecimalNumber {

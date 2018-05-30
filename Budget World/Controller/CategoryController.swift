@@ -102,7 +102,7 @@ extension CategoryController: UITableViewDelegate, UITableViewDataSource {
             case "Eating Out": categoryType = .eatingOut
             case "Housing": categoryType = .housing
             case "Fuel": categoryType = .fuel
-            case "Transportation": categoryType = .transporation
+            case "Transportation": categoryType = .transportation
             case "Entertainment": categoryType = .entertainment
             case "Groceries": categoryType = .groceries
             case "Clothing": categoryType = .clothing
