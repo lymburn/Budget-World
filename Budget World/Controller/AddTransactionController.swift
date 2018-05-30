@@ -193,13 +193,13 @@ extension AddTransactionController {
         
         switch periodText {
             case "Never": recurringPeriod = .never
-            case "Weekly": recurringPeriod = .never
-            case "Bi-weekly": recurringPeriod = .never
-            case "Monthly": recurringPeriod = .never
-            case "Bi-monthly": recurringPeriod = .never
-            case "Quarterly": recurringPeriod = .never
-            case "Semi-annually": recurringPeriod = .never
-            case "Annually": recurringPeriod = .never
+            case "Weekly": recurringPeriod = .weekly
+            case "Bi-weekly": recurringPeriod = .biWeekly
+            case "Monthly": recurringPeriod = .monthly
+            case "Bi-monthly": recurringPeriod = .biMonthly
+            case "Quarterly": recurringPeriod = .quarterly
+            case "Semi-annually": recurringPeriod = .semiAnnually
+            case "Annually": recurringPeriod = .annually
             default: recurringPeriod = .never
         }
         return recurringPeriod

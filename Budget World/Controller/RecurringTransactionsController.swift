@@ -28,7 +28,18 @@ class RecurringTransactionsController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return transactions.count
+        //Get number of transactions that have a matching recurring period to the section
+        //print(section)
+        var numberOfRows: Int = 0
+        
+        for transaction in transactions {
+            print(transaction.recurringPeriod - 1)
+            //Subtract 1 due to missing "never" period
+            if (transaction.recurringPeriod - 1) == section {
+                numberOfRows += 1
+            }
+        }
+        return numberOfRows
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

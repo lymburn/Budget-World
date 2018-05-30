@@ -63,7 +63,6 @@ class TransactionManager {
         } catch {
             fatalError("Failure to fetch request: \(error)")
         }
-        print(transactions.count)
         
         return transactions
     }
