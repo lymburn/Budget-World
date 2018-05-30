@@ -28,7 +28,7 @@ class TransactionCell: BaseTableViewCell {
     
     let categoryName: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "OpenSans-Regular", size: 15)
+        label.font = UIFont(name: "OpenSans-Regular", size: 14)
         label.text = "Category name"
         label.textColor = UIColor.rgb(red: 51, green: 51, blue: 51)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +37,7 @@ class TransactionCell: BaseTableViewCell {
     
     let date: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "OpenSans-Regular", size: 13)
+        label.font = UIFont(name: "OpenSans-Regular", size: 12)
         label.textColor = .gray
         label.text = "Date"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -59,17 +59,17 @@ extension TransactionCell {
     fileprivate func setupConstraints() {
         icon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
         icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        icon.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        icon.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        icon.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        icon.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
-        categoryName.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 8).isActive = true
+        categoryName.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 16).isActive = true
         categoryName.trailingAnchor.constraint(equalTo: transactionAmount.leadingAnchor, constant: -16).isActive = true
-        categoryName.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        categoryName.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        categoryName.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
+        categoryName.heightAnchor.constraint(equalToConstant: 18).isActive = true
         
-        date.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 8).isActive = true
+        date.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 16).isActive = true
         date.trailingAnchor.constraint(equalTo: transactionAmount.leadingAnchor, constant: -16).isActive = true
-        date.topAnchor.constraint(equalTo: categoryName.bottomAnchor).isActive = true
+        date.topAnchor.constraint(equalTo: categoryName.bottomAnchor, constant: 4).isActive = true
         date.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
         transactionAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true

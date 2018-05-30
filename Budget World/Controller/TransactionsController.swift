@@ -21,6 +21,7 @@ class TransactionsController: UIViewController {
     
     var currentMonth: Date!
     let cellId = "cellId"
+    var transactions: [Transaction]!
     
     let dateFormatter: DateFormatter = {
         let df = DateFormatter()
@@ -45,8 +46,9 @@ class TransactionsController: UIViewController {
     
     let tableView: UITableView = {
         let tv = UITableView()
-        tv.rowHeight = 50
+        tv.rowHeight = 66
         tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.tableFooterView = UIView()
         return tv
     }()
 }
@@ -60,6 +62,7 @@ extension TransactionsController {
         view.addSubview(tableView)
         setupConstraints()
         setDefaultMonth()
+        getTransactions()
     }
     
     fileprivate func setupConstraints() {
@@ -86,6 +89,11 @@ extension TransactionsController {
         currentMonth = Calendar.current.date(from: components)!
         dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
     }
+    
+    fileprivate func getTransactions() {
+        //Get transactions info from core data for the month
+        transactions = TransactionManager.fetchTransactionsByDate(currentMonth: currentMonth)
+    }
 }
 
 //MARK: Date bar delegate methods
@@ -106,12 +114,30 @@ extension TransactionsController: DateBarDelegate {
 //MARK: Table view delegate and data source
 extension TransactionsController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return transactions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TransactionCell
-        cell.icon.image = UIImage(named: "Salary")
+        cell.selectionStyle = .none
+        dateFormatter.dateFormat = "MMM dd, YYYY"
+        //Set cell info
+        let transaction = transactions[indexPath.row]
+        cell.date.text = dateFormatter.string(from: transaction.date!)
+        let cellInfo = TransactionManager.getCategoryNameAndImage(for: transaction)
+        let categoryName = cellInfo.0
+        let iconName = cellInfo.1
+        cell.categoryName.text = categoryName
+        cell.icon.image = UIImage(named: iconName)
+        
+        //Set transaction amount text to green if income and red if expense
+        if transaction.incomeType {
+            cell.transactionAmount.textColor = UIColor.rgb(red: 44, green: 197, blue: 94)
+        } else {
+            cell.transactionAmount.textColor = .red
+        }
+        cell.transactionAmount.text = "$" + String(format: "%.2f", Double(truncating: transactions[indexPath.row].amount!))
+
         return cell
     }
 }
