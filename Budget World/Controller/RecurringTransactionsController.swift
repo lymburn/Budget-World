@@ -15,10 +15,21 @@ class RecurringTransactionsController: UITableViewController {
         navigationController?.navigationBar.barTintColor = UIColor.rgb(red: 15, green: 52, blue: 67)
         tableView.register(TransactionCell.self, forCellReuseIdentifier: cellId)
         tableView.rowHeight = 66
-        
-        transactions = TransactionManager.fetchRecurringTransactions()
+        getTransactions()
     }
     
+    fileprivate func getTransactions() {
+        //Populate 2d array with arrays of transactions as values and section as keys
+        let recurringTransactions = TransactionManager.fetchRecurringTransactions()
+        for _ in 0...6 {
+            transactions.append([Transaction]())
+        }
+        
+        for transaction in recurringTransactions {
+            transactions[Int(transaction.recurringPeriod - 1)].append(transaction)
+        }
+    }
+
     let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateFormat = "MMM dd, YYYY"
@@ -27,27 +38,20 @@ class RecurringTransactionsController: UITableViewController {
     
     let recurringPeriods = ["Weekly", "Bi-weekly", "Monthly", "Bi-monthly", "Quarterly", "Semi-annually", "Annually"]
     let cellId = "cellId"
-    var transactions: [Transaction]!
+    var transactions = [[Transaction]]()
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return recurringPeriods.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //Get number of transactions that have a matching recurring period to the section
-        var numberOfRows: Int = 0
-        for transaction in transactions {
-            //Subtract 1 due to missing "never" period
-            if (transaction.recurringPeriod - 1) == section {
-                numberOfRows += 1
-            }
-        }
-        return numberOfRows
+        return transactions[section].count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TransactionCell
-        let transaction = transactions[indexPath.row]
+        let transaction = transactions[indexPath.section][indexPath.row]
+
         cell.date.text = dateFormatter.string(from: transaction.date!)
         let cellInfo = TransactionManager.getCategoryNameAndImage(for: transaction)
         let categoryName = cellInfo.0
