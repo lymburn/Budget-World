@@ -22,6 +22,7 @@
 		268D7CFE20B898290002ACE3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268D7CFD20B898290002ACE3 /* Extensions.swift */; };
 		268D7D0120B89BEE0002ACE3 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268D7D0020B89BEE0002ACE3 /* MainScreenView.swift */; };
 		2697A1BB20BF38DC00103684 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2697A1BA20BF38DC00103684 /* TransactionCell.swift */; };
+		2697A1BD20BF560A00103684 /* RecurringTransactionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2697A1BC20BF560A00103684 /* RecurringTransactionsController.swift */; };
 		26C032D920BDDFF100A86A09 /* BudgetOverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C032D820BDDFF100A86A09 /* BudgetOverviewController.swift */; };
 		26C032DB20BE00AA00A86A09 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C032DA20BE00AA00A86A09 /* BudgetView.swift */; };
 		26D96D5D20B9DF77000CFB9C /* AddTransactionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D96D5C20B9DF77000CFB9C /* AddTransactionController.swift */; };
@@ -55,6 +56,7 @@
 		268D7CFD20B898290002ACE3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		268D7D0020B89BEE0002ACE3 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		2697A1BA20BF38DC00103684 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
+		2697A1BC20BF560A00103684 /* RecurringTransactionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringTransactionsController.swift; sourceTree = "<group>"; };
 		26C032D820BDDFF100A86A09 /* BudgetOverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetOverviewController.swift; sourceTree = "<group>"; };
 		26C032DA20BE00AA00A86A09 /* BudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
 		26D96D5C20B9DF77000CFB9C /* AddTransactionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				26D96D6020BA0FDA000CFB9C /* CategoryController.swift */,
 				26C032D820BDDFF100A86A09 /* BudgetOverviewController.swift */,
 				26222DCB20BF1896000864E0 /* TransactionsController.swift */,
+				2697A1BC20BF560A00103684 /* RecurringTransactionsController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2697A1BD20BF560A00103684 /* RecurringTransactionsController.swift in Sources */,
 				26DB9F0B20BE172C00E9AD55 /* DateBar.swift in Sources */,
 				26222DCC20BF1896000864E0 /* TransactionsController.swift in Sources */,
 				26C032D920BDDFF100A86A09 /* BudgetOverviewController.swift in Sources */,

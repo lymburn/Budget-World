@@ -26,7 +26,7 @@ class TransactionManager {
         } catch {
             fatalError("Failure to fetch request: \(error)")
         }
-        //Set balance to the account balance of the transactions
+        
         return transactions
     }
     
@@ -48,7 +48,23 @@ class TransactionManager {
             fatalError("Failure to fetch request: \(error)")
         }
         
-        //Set balance to the account balance of the transactions
+        return transactions
+    }
+    
+    static func fetchRecurringTransactions() -> [Transaction] {
+        //Fetch only recurring transactions
+        let transactions: [Transaction]
+        let request: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true, selector: nil)]
+        request.predicate = NSPredicate(format: "recurringPeriod != %@", Int32(0))
+        let context = AppDelegate.viewContext
+        do {
+            try transactions = context.fetch(request)
+        } catch {
+            fatalError("Failure to fetch request: \(error)")
+        }
+        print(transactions.count)
+        
         return transactions
     }
     

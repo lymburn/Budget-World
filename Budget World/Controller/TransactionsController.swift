@@ -41,6 +41,7 @@ class TransactionsController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.setTitle("View Recurring Transactions", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(recurringTransactionsPressed), for: .touchDown)
         return button
     }()
     
@@ -171,5 +172,15 @@ extension TransactionsController: UITableViewDelegate, UITableViewDataSource {
         cell.transactionAmount.text = "$" + String(format: "%.2f", Double(truncating: transactions[indexPath.row].amount!))
 
         return cell
+    }
+}
+
+//Touch events
+extension TransactionsController {
+    @objc func recurringTransactionsPressed() {
+        print("hi")
+        let recurringController = RecurringTransactionsController()
+        let nav = UINavigationController(rootViewController: recurringController)
+        present(nav, animated: true, completion: nil)
     }
 }
