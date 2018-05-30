@@ -178,7 +178,6 @@ extension TransactionsController: UITableViewDelegate, UITableViewDataSource {
 //Touch events
 extension TransactionsController {
     @objc func recurringTransactionsPressed() {
-        print("hi")
         let recurringController = RecurringTransactionsController()
         let nav = UINavigationController(rootViewController: recurringController)
         present(nav, animated: true, completion: nil)

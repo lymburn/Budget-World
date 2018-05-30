@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import SlideMenuControllerSwift
 
 class RecurringTransactionsController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Recurring Transactions"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationController?.navigationBar.barTintColor = UIColor.rgb(red: 15, green: 52, blue: 67)
         tableView.register(TransactionCell.self, forCellReuseIdentifier: cellId)
         tableView.rowHeight = 66
+        setupBack()
         getTransactions()
     }
     
@@ -28,6 +31,12 @@ class RecurringTransactionsController: UITableViewController {
         for transaction in recurringTransactions {
             transactions[Int(transaction.recurringPeriod - 1)].append(transaction)
         }
+    }
+    
+    fileprivate func setupBack() {
+        let cancelItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonPressed))
+        cancelItem.tintColor = UIColor.white
+        navigationItem.leftBarButtonItem = cancelItem
     }
 
     let dateFormatter: DateFormatter = {
@@ -46,6 +55,7 @@ class RecurringTransactionsController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return transactions[section].count
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -71,5 +81,14 @@ class RecurringTransactionsController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return recurringPeriods[section]
+    }
+}
+
+//MARK: Touch events
+extension RecurringTransactionsController {
+    @objc func backButtonPressed() {
+        let transactionController = SlideMenuController(mainViewController: TransactionsController(), leftMenuViewController: SlideOptionsController())
+        transactionController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        present(transactionController, animated: true, completion: nil)
     }
 }
