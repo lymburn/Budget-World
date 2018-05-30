@@ -169,7 +169,7 @@ extension TransactionsController: UITableViewDelegate, UITableViewDataSource {
         } else {
             cell.transactionAmount.textColor = .red
         }
-        cell.transactionAmount.text = "$" + String(format: "%.2f", Double(truncating: transactions[indexPath.row].amount!))
+        cell.transactionAmount.text = "$" + String(format: "%.2f", Double(truncating: transaction.amount!))
 
         return cell
     }

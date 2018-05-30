@@ -56,7 +56,7 @@ class TransactionManager {
         let transactions: [Transaction]
         let request: NSFetchRequest<Transaction> = Transaction.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true, selector: nil)]
-        request.predicate = NSPredicate(format: "recurringPeriod != %@", Int32(0))
+        request.predicate = NSPredicate(format: "recurringPeriod > %@", NSNumber(value: 0))
         let context = AppDelegate.viewContext
         do {
             try transactions = context.fetch(request)
