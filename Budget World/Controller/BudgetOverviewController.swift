@@ -135,11 +135,39 @@ extension BudgetOverviewController: DateBarDelegate {
     }
     
     func previousMonthPressed() {
-        
+        let currentYear = Calendar.current.dateComponents([.year], from: Date())
+        var previousMonthComponents = DateComponents()
+        previousMonthComponents.month = -1
+        currentMonth = Calendar.current.date(byAdding: previousMonthComponents, to: currentMonth)
+        let currentMonthComponents = Calendar.current.dateComponents([.year, .month], from: currentMonth)
+        //Check if year has changed
+        if currentYear.year! == currentMonthComponents.year! {
+            dateFormatter.dateFormat = "MMM"
+            budgetView.dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
+        } else {
+            //If year changed, show year as well
+            dateFormatter.dateFormat = "MMM YYYY"
+            budgetView.dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
+        }
+        setBalanceAmounts()
     }
     
     func nextMonthPressed() {
-        
+        let currentYear = Calendar.current.dateComponents([.year], from: Date())
+        var nextMonthComponents = DateComponents()
+        nextMonthComponents.month = 1
+        currentMonth = Calendar.current.date(byAdding: nextMonthComponents, to: currentMonth)
+        let currentMonthComponents = Calendar.current.dateComponents([.year, .month], from: currentMonth)
+        //Check if year has changed
+        if currentYear.year! == currentMonthComponents.year! {
+            dateFormatter.dateFormat = "MMM"
+            budgetView.dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
+        } else {
+            //If year changed, show year as well
+            dateFormatter.dateFormat = "MMM YYYY"
+            budgetView.dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
+        }
+        setBalanceAmounts()
     }
 }
 
