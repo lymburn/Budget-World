@@ -8,11 +8,27 @@
 
 import UIKit
 
+protocol DateBarDelegate: class {
+    func slideMenuPressed()
+    func previousMonthPressed()
+    func nextMonthPressed()
+}
+
 class DateBar: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
+    
+    weak var delegate: DateBarDelegate? = nil
+    
+    let slideMenu: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Menu.png"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(slideMenuPressed), for: .touchDown)
+        return button
+    }()
     
     let dateLabel: UILabel = {
         let label = UILabel()
@@ -51,6 +67,7 @@ class DateBar: UIView {
 extension DateBar {
     fileprivate func setupViews() {
         backgroundColor = .black
+        addSubview(slideMenu)
         addSubview(dateLabel)
         addSubview(previousMonth)
         addSubview(nextMonth)
@@ -58,13 +75,18 @@ extension DateBar {
     }
     
     fileprivate func setupConstraints() {
+        slideMenu.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
+        slideMenu.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        slideMenu.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        slideMenu.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        
         previousMonth.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        previousMonth.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32).isActive = true
+        previousMonth.leadingAnchor.constraint(equalTo: slideMenu.trailingAnchor, constant: 42).isActive = true
         previousMonth.widthAnchor.constraint(equalToConstant: 22).isActive = true
         previousMonth.heightAnchor.constraint(equalToConstant: 22).isActive = true
         
         nextMonth.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        nextMonth.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32).isActive = true
+        nextMonth.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50).isActive = true
         nextMonth.widthAnchor.constraint(equalToConstant: 22).isActive = true
         nextMonth.heightAnchor.constraint(equalToConstant: 22).isActive = true
         
@@ -77,10 +99,14 @@ extension DateBar {
 //MARK: Touch events
 extension DateBar {
     @objc func previousMonthPressed() {
-        
+        delegate?.previousMonthPressed()
     }
     
     @objc func nextMonthPressed() {
-        
+        delegate?.nextMonthPressed()
+    }
+    
+    @objc func slideMenuPressed() {
+        delegate?.slideMenuPressed()
     }
 }

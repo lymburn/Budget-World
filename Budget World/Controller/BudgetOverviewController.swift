@@ -12,6 +12,7 @@ class BudgetOverviewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        budgetView.dateBar.delegate = self
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -93,3 +94,19 @@ extension BudgetOverviewController {
         return sum
     }
 }
+
+//MARK: Budgetview delegate methods
+extension BudgetOverviewController: DateBarDelegate {
+    func slideMenuPressed() {
+        self.slideMenuController()?.openLeft()
+    }
+    
+    func previousMonthPressed() {
+        
+    }
+    
+    func nextMonthPressed() {
+        
+    }
+}
+

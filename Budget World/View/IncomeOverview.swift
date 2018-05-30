@@ -42,7 +42,6 @@ class IncomeOverview: UIView {
         let label = BudgetLabel()
         label.textColor = UIColor.rgb(red: 44, green: 197, blue: 94)
         label.textAlignment = .right
-        label.text = "$0.00"
         return label
     }()
     
@@ -50,7 +49,6 @@ class IncomeOverview: UIView {
         let label = BudgetLabel()
         label.textColor = UIColor.rgb(red: 44, green: 197, blue: 94)
         label.textAlignment = .right
-        label.text = "$0.00"
         return label
     }()
     
@@ -58,14 +56,12 @@ class IncomeOverview: UIView {
         let label = BudgetLabel()
         label.textColor = UIColor.rgb(red: 44, green: 197, blue: 94)
         label.textAlignment = .right
-        label.text = "$0.00"
         return label
     }()
     
     let incomeAmount: BudgetLabel = {
         let label = BudgetLabel()
         label.textColor = UIColor.rgb(red: 44, green: 197, blue: 94)
-        label.text = "$0.00"
         label.textAlignment = .right
         return label
     }()
@@ -90,28 +86,28 @@ extension IncomeOverview {
     }
     
     fileprivate func setupConstraints() {
-        incomeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 42).isActive = true
+        incomeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30).isActive = true
         incomeLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         
-        salaryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 62).isActive = true
-        salaryLabel.topAnchor.constraint(equalTo: incomeAmount.bottomAnchor, constant: 8).isActive = true
+        salaryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
+        salaryLabel.topAnchor.constraint(equalTo: incomeAmount.bottomAnchor, constant: 6).isActive = true
         
-        investmentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 62).isActive = true
-        investmentLabel.topAnchor.constraint(equalTo: salaryLabel.bottomAnchor, constant: 8).isActive = true
+        investmentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
+        investmentLabel.topAnchor.constraint(equalTo: salaryLabel.bottomAnchor, constant: 6).isActive = true
         
-        saleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 62).isActive = true
-        saleLabel.topAnchor.constraint(equalTo: investmentLabel.bottomAnchor, constant: 8).isActive = true
+        saleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
+        saleLabel.topAnchor.constraint(equalTo: investmentLabel.bottomAnchor, constant: 6).isActive = true
         
-        incomeAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -42).isActive = true
+        incomeAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
         incomeAmount.topAnchor.constraint(equalTo: topAnchor).isActive = true
         
-        salaryAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -42).isActive = true
-        salaryAmount.topAnchor.constraint(equalTo: incomeAmount.bottomAnchor, constant: 8).isActive = true
+        salaryAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
+        salaryAmount.topAnchor.constraint(equalTo: incomeAmount.bottomAnchor, constant: 6).isActive = true
         
-        investmentAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -42).isActive = true
-        investmentAmount.topAnchor.constraint(equalTo: salaryAmount.bottomAnchor, constant: 8).isActive = true
+        investmentAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
+        investmentAmount.topAnchor.constraint(equalTo: salaryAmount.bottomAnchor, constant: 6).isActive = true
         
-        saleAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -42).isActive = true
-        saleAmount.topAnchor.constraint(equalTo: investmentAmount.bottomAnchor, constant: 8).isActive = true
+        saleAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
+        saleAmount.topAnchor.constraint(equalTo: investmentAmount.bottomAnchor, constant: 6).isActive = true
     }
 }
