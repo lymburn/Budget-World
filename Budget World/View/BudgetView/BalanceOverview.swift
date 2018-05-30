@@ -23,7 +23,6 @@ class BalanceOverview: UIView {
         aPath.close()
         UIColor.rgb(red: 51, green: 51, blue: 51).set()
         aPath.stroke()
-        aPath.fill()
     }
     
     let balanceLabel : BudgetLabel = {

@@ -81,7 +81,7 @@ extension DateBar {
         slideMenu.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
         previousMonth.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        previousMonth.leadingAnchor.constraint(equalTo: slideMenu.trailingAnchor, constant: 42).isActive = true
+        previousMonth.leadingAnchor.constraint(equalTo: slideMenu.trailingAnchor, constant: 17).isActive = true
         previousMonth.widthAnchor.constraint(equalToConstant: 22).isActive = true
         previousMonth.heightAnchor.constraint(equalToConstant: 22).isActive = true
         

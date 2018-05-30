@@ -58,7 +58,6 @@ extension BudgetOverviewController {
         budgetView.dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
     }
     
-    
     fileprivate func setBalanceAmounts() {
         //Income
         let incomeTransactions = TransactionManager.fetchTransactions(incomeType: true, currentMonth: currentMonth)
@@ -128,7 +127,7 @@ extension BudgetOverviewController {
     }
 }
 
-//MARK: Budgetview delegate methods
+//MARK: Datebar delegate methods
 extension BudgetOverviewController: DateBarDelegate {
     func slideMenuPressed() {
         self.slideMenuController()?.openLeft()
