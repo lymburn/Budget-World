@@ -59,8 +59,8 @@ extension TransactionCell {
     fileprivate func setupConstraints() {
         icon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
         icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        icon.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        icon.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        icon.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        icon.widthAnchor.constraint(equalToConstant: 30).isActive = true
         
         categoryName.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 16).isActive = true
         categoryName.trailingAnchor.constraint(equalTo: transactionAmount.leadingAnchor, constant: -16).isActive = true

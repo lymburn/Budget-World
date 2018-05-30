@@ -173,6 +173,7 @@ extension AddTransactionController {
         let transaction = Transaction(context: context)
         transaction.amount = transactionAmount
         transaction.date = datePicker.date
+        print(datePicker.date)
         transaction.category = self.categoryType!.rawValue
         transaction.recurringPeriod = getRecurringPeriod().rawValue
         transaction.incomeType = transactionType == .income ? true : false

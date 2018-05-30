@@ -103,11 +103,43 @@ extension TransactionsController: DateBarDelegate {
     }
     
     func previousMonthPressed() {
-        
+        let currentYear = Calendar.current.dateComponents([.year], from: Date())
+        var previousMonthComponents = DateComponents()
+        previousMonthComponents.month = -1
+        currentMonth = Calendar.current.date(byAdding: previousMonthComponents, to: currentMonth)
+        let currentMonthComponents = Calendar.current.dateComponents([.year, .month], from: currentMonth)
+        //Check if year has changed
+        if currentYear.year! == currentMonthComponents.year! {
+            dateFormatter.dateFormat = "MMM"
+            dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
+        } else {
+            //If year changed, show year as well
+            dateFormatter.dateFormat = "MMM YYYY"
+            dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
+        }
+        //Get transactions from previous month
+        getTransactions()
+        tableView.reloadData()
     }
     
     func nextMonthPressed() {
-        
+        let currentYear = Calendar.current.dateComponents([.year], from: Date())
+        var nextMonthComponents = DateComponents()
+        nextMonthComponents.month = 1
+        currentMonth = Calendar.current.date(byAdding: nextMonthComponents, to: currentMonth)
+        let currentMonthComponents = Calendar.current.dateComponents([.year, .month], from: currentMonth)
+        //Check if year has changed
+        if currentYear.year! == currentMonthComponents.year! {
+            dateFormatter.dateFormat = "MMM"
+            dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
+        } else {
+            //If year changed, show year as well
+            dateFormatter.dateFormat = "MMM YYYY"
+            dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
+        }
+        //Get transactions from next month
+        getTransactions()
+        tableView.reloadData()
     }
 }
 

@@ -16,10 +16,9 @@ class TransactionManager {
         //Fetch for transactions in the current month only
         var components = DateComponents()
         components.month = 1
-        components.day = -1
         let endOfMonth = Calendar.current.date(byAdding: components, to: currentMonth)!
         request.sortDescriptors = [NSSortDescriptor(key: "amount", ascending: true, selector: nil)]
-        request.predicate = NSPredicate(format: "date >= %@ && date <= %@ && incomeType == %@", currentMonth as NSDate, endOfMonth as NSDate, NSNumber(booleanLiteral: incomeType))
+        request.predicate = NSPredicate(format: "date >= %@ && date < %@ && incomeType == %@", currentMonth as NSDate, endOfMonth as NSDate, NSNumber(booleanLiteral: incomeType))
         
         let context = AppDelegate.viewContext
         do {
@@ -27,7 +26,6 @@ class TransactionManager {
         } catch {
             fatalError("Failure to fetch request: \(error)")
         }
-        
         //Set balance to the account balance of the transactions
         return transactions
     }
@@ -39,10 +37,9 @@ class TransactionManager {
         //Fetch for transactions in the current month only
         var components = DateComponents()
         components.month = 1
-        components.day = -1
         let endOfMonth = Calendar.current.date(byAdding: components, to: currentMonth)!
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false, selector: nil)]
-        request.predicate = NSPredicate(format: "date >= %@ && date <= %@", currentMonth as NSDate, endOfMonth as NSDate)
+        request.predicate = NSPredicate(format: "date >= %@ && date < %@", currentMonth as NSDate, endOfMonth as NSDate)
         
         let context = AppDelegate.viewContext
         do {
