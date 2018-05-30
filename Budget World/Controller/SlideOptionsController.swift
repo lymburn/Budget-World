@@ -84,7 +84,6 @@ extension SlideOptionsController: UITableViewDelegate, UITableViewDataSource {
         return 1
     }
     
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Menu"
     }

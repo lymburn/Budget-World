@@ -20,6 +20,8 @@ class TransactionsView: UIView {
         return db
     }()
     
+
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

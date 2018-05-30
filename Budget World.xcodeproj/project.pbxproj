@@ -21,7 +21,7 @@
 		268D7CF220B8952E0002ACE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 268D7CF020B8952E0002ACE3 /* LaunchScreen.storyboard */; };
 		268D7CFE20B898290002ACE3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268D7CFD20B898290002ACE3 /* Extensions.swift */; };
 		268D7D0120B89BEE0002ACE3 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268D7D0020B89BEE0002ACE3 /* MainScreenView.swift */; };
-		2697A1B620BF299300103684 /* TransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2697A1B520BF299300103684 /* TransactionsView.swift */; };
+		2697A1BB20BF38DC00103684 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2697A1BA20BF38DC00103684 /* TransactionCell.swift */; };
 		26C032D920BDDFF100A86A09 /* BudgetOverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C032D820BDDFF100A86A09 /* BudgetOverviewController.swift */; };
 		26C032DB20BE00AA00A86A09 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C032DA20BE00AA00A86A09 /* BudgetView.swift */; };
 		26D96D5D20B9DF77000CFB9C /* AddTransactionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D96D5C20B9DF77000CFB9C /* AddTransactionController.swift */; };
@@ -54,7 +54,7 @@
 		268D7CF320B8952E0002ACE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		268D7CFD20B898290002ACE3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		268D7D0020B89BEE0002ACE3 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
-		2697A1B520BF299300103684 /* TransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsView.swift; sourceTree = "<group>"; };
+		2697A1BA20BF38DC00103684 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		26C032D820BDDFF100A86A09 /* BudgetOverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetOverviewController.swift; sourceTree = "<group>"; };
 		26C032DA20BE00AA00A86A09 /* BudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
 		26D96D5C20B9DF77000CFB9C /* AddTransactionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionController.swift; sourceTree = "<group>"; };
@@ -140,13 +140,19 @@
 		268D7CFB20B895800002ACE3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2697A1B920BF2ACC00103684 /* AddTransactionView */,
-				2697A1B720BF2A5300103684 /* BudgetView */,
+				26D96D5E20B9E292000CFB9C /* AddTransactionView.swift */,
+				26D96D6220BA130B000CFB9C /* TransactionTextField.swift */,
+				26D96D6420BA16C0000CFB9C /* CategoryCell.swift */,
+				26C032DA20BE00AA00A86A09 /* BudgetView.swift */,
+				26DB9F0820BE12DE00E9AD55 /* BudgetLabel.swift */,
+				26DB9F0C20BE1A1F00E9AD55 /* IncomeOverview.swift */,
+				26DB9F0E20BE241600E9AD55 /* ExpenseOverview.swift */,
+				26DB9F1020BE4A4100E9AD55 /* BalanceOverview.swift */,
 				268D7D0020B89BEE0002ACE3 /* MainScreenView.swift */,
 				260080D620B8C6670025DD27 /* SlideOptionCell.swift */,
 				260080D820B8C6E40025DD27 /* BaseTableViewCell.swift */,
 				26DB9F0A20BE172C00E9AD55 /* DateBar.swift */,
-				2697A1B520BF299300103684 /* TransactionsView.swift */,
+				2697A1BA20BF38DC00103684 /* TransactionCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -172,28 +178,6 @@
 				26DB9F0620BE0CD300E9AD55 /* TransactionManager.swift */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		2697A1B720BF2A5300103684 /* BudgetView */ = {
-			isa = PBXGroup;
-			children = (
-				26C032DA20BE00AA00A86A09 /* BudgetView.swift */,
-				26DB9F0820BE12DE00E9AD55 /* BudgetLabel.swift */,
-				26DB9F0C20BE1A1F00E9AD55 /* IncomeOverview.swift */,
-				26DB9F0E20BE241600E9AD55 /* ExpenseOverview.swift */,
-				26DB9F1020BE4A4100E9AD55 /* BalanceOverview.swift */,
-			);
-			path = BudgetView;
-			sourceTree = "<group>";
-		};
-		2697A1B920BF2ACC00103684 /* AddTransactionView */ = {
-			isa = PBXGroup;
-			children = (
-				26D96D5E20B9E292000CFB9C /* AddTransactionView.swift */,
-				26D96D6220BA130B000CFB9C /* TransactionTextField.swift */,
-				26D96D6420BA16C0000CFB9C /* CategoryCell.swift */,
-			);
-			path = AddTransactionView;
 			sourceTree = "<group>";
 		};
 		7FC9EF3FBDDB52789BB90590 /* Frameworks */ = {
@@ -331,7 +315,6 @@
 				26C032D920BDDFF100A86A09 /* BudgetOverviewController.swift in Sources */,
 				26D96D6520BA16C0000CFB9C /* CategoryCell.swift in Sources */,
 				265C799220B8D8ED00AA6F01 /* SlideOptionsController.swift in Sources */,
-				2697A1B620BF299300103684 /* TransactionsView.swift in Sources */,
 				268D7D0120B89BEE0002ACE3 /* MainScreenView.swift in Sources */,
 				26DB9F0F20BE241600E9AD55 /* ExpenseOverview.swift in Sources */,
 				26DB9F0720BE0CD300E9AD55 /* TransactionManager.swift in Sources */,
@@ -341,6 +324,7 @@
 				26D96D6720BA197C000CFB9C /* Enums.swift in Sources */,
 				268D7CFE20B898290002ACE3 /* Extensions.swift in Sources */,
 				268D7CE720B8952C0002ACE3 /* MainController.swift in Sources */,
+				2697A1BB20BF38DC00103684 /* TransactionCell.swift in Sources */,
 				26DB9F1120BE4A4100E9AD55 /* BalanceOverview.swift in Sources */,
 				26D96D6120BA0FDA000CFB9C /* CategoryController.swift in Sources */,
 				26D96D5D20B9DF77000CFB9C /* AddTransactionController.swift in Sources */,
