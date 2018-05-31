@@ -153,6 +153,7 @@ extension TransactionsController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TransactionCell
         cell.selectionStyle = .none
+        cell.separatorInset = UIEdgeInsets.zero
         dateFormatter.dateFormat = "MMM dd, YYYY"
         //Set cell info
         let transaction = transactions[indexPath.row]

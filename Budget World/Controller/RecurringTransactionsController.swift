@@ -17,7 +17,7 @@ class RecurringTransactionsController: UITableViewController {
         navigationController?.navigationBar.barTintColor = UIColor.rgb(red: 15, green: 52, blue: 67)
         tableView.register(TransactionCell.self, forCellReuseIdentifier: cellId)
         tableView.rowHeight = 66
-        setupBack()
+        setupBackButton()
         getTransactions()
     }
     
@@ -33,7 +33,7 @@ class RecurringTransactionsController: UITableViewController {
         }
     }
     
-    fileprivate func setupBack() {
+    fileprivate func setupBackButton() {
         let cancelItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonPressed))
         cancelItem.tintColor = UIColor.white
         navigationItem.leftBarButtonItem = cancelItem
@@ -55,13 +55,22 @@ class RecurringTransactionsController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return transactions[section].count
-        
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        //Only show section if the section has rows
+        if transactions[section].count == 0 {
+            return 0.0
+        } else {
+            return UITableViewAutomaticDimension
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TransactionCell
+        cell.selectionStyle = .none
+        cell.separatorInset = UIEdgeInsets.zero
         let transaction = transactions[indexPath.section][indexPath.row]
-
         cell.date.text = dateFormatter.string(from: transaction.date!)
         let cellInfo = TransactionManager.getCategoryNameAndImage(for: transaction)
         let categoryName = cellInfo.0
@@ -81,6 +90,16 @@ class RecurringTransactionsController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return recurringPeriods[section]
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            
+        }
     }
 }
 
