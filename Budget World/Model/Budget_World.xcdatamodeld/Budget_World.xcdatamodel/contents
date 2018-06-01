@@ -6,8 +6,9 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="incomeType" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="recurringPeriod" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="recurringPeriodsCount" optional="YES" attributeType="Integer 32" minValueString="1" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Transaction" positionX="-2115" positionY="-18" width="128" height="118"/>
+        <element name="Transaction" positionX="-2115" positionY="-18" width="128" height="133"/>
     </elements>
 </model>

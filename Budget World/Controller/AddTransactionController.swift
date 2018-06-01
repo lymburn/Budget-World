@@ -27,7 +27,7 @@ class AddTransactionController: UIViewController {
     
     var transactionType: TransactionType? = nil
     let recurringPeriods = ["Never", "Weekly", "Bi-weekly", "Monthly", "Bi-monthly", "Quarterly", "Semi-annually", "Annually"]
-    var transactionAmount: NSDecimalNumber!
+    var transactionAmount: NSDecimalNumber = 0
     var categoryType: CategoryType!
     
     let recurringPicker : UIPickerView = {
@@ -158,6 +158,11 @@ extension AddTransactionController: UIPickerViewDelegate, UIPickerViewDataSource
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         transactionView.recurringTextField.text = recurringPeriods[row]
+        let recurringPeriod: RecurringPeriod = getRecurringPeriod()
+        if recurringPeriod != .never {
+            let amountPerDay:NSDecimalNumber = getRecurringTransactionAmount(period: recurringPeriod, date: datePicker.date)
+            transactionView.amountPerDayLabel.text = "$" + String(format: "%.2f", Double(truncating: amountPerDay)) + "/day"
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -173,7 +178,6 @@ extension AddTransactionController {
         let transaction = Transaction(context: context)
         transaction.amount = transactionAmount
         transaction.date = datePicker.date
-        print(datePicker.date)
         transaction.category = self.categoryType!.rawValue
         transaction.recurringPeriod = getRecurringPeriod().rawValue
         transaction.incomeType = transactionType == .income ? true : false
@@ -203,5 +207,49 @@ extension AddTransactionController {
             default: recurringPeriod = .never
         }
         return recurringPeriod
+    }
+    
+    //Get the transaction amount per day depending on the recurring period
+    fileprivate func getRecurringTransactionAmount(period: RecurringPeriod, date: Date) -> NSDecimalNumber {
+        var amountPerDay: NSDecimalNumber = 0
+        let numberOfDaysInWeek = NSDecimalNumber(value: 7)
+        // Calculate start and end of the month
+        let interval = Calendar.current.dateInterval(of: .month, for: date)!
+        let numberOfDaysInMonth = NSDecimalNumber(value: Calendar.current.dateComponents([.day], from: interval.start, to: interval.end).day!)
+
+        switch period {
+            case .never: amountPerDay = transactionAmount
+            case .weekly: amountPerDay = NSDecimalNumber(decimal: transactionAmount.decimalValue/numberOfDaysInWeek.decimalValue)
+            case .biWeekly: amountPerDay = NSDecimalNumber(decimal: transactionAmount.decimalValue/numberOfDaysInWeek.decimalValue*2)
+            case .monthly: amountPerDay = NSDecimalNumber(decimal: transactionAmount.decimalValue/numberOfDaysInMonth.decimalValue)
+            case .biMonthly:
+                let biMonthlyDays = calculateNumberOfDaysForRecurringPeriod(startingDate: date, numberOfMonths: 2)
+                amountPerDay = NSDecimalNumber(decimal: transactionAmount.decimalValue/biMonthlyDays.decimalValue)
+            case .quarterly:
+                let quarterlyDays = calculateNumberOfDaysForRecurringPeriod(startingDate: date, numberOfMonths: 4)
+                amountPerDay = NSDecimalNumber(decimal: transactionAmount.decimalValue/quarterlyDays.decimalValue)
+            case .semiAnnually:
+                let semiAnnuallyDays = calculateNumberOfDaysForRecurringPeriod(startingDate: date, numberOfMonths: 6)
+                amountPerDay = NSDecimalNumber(decimal: transactionAmount.decimalValue/semiAnnuallyDays.decimalValue)
+            case .annually:
+                let annuallyDays = calculateNumberOfDaysForRecurringPeriod(startingDate: date, numberOfMonths: 12)
+                amountPerDay = NSDecimalNumber(decimal: transactionAmount.decimalValue/annuallyDays.decimalValue)
+        }
+        
+        return amountPerDay
+    }
+    
+    private func calculateNumberOfDaysForRecurringPeriod(startingDate: Date, numberOfMonths: Int) -> NSDecimalNumber {
+        //Calculate the number of days in the following months from the start date
+        var numberOfDays: NSDecimalNumber = 0
+        for i in 0...numberOfMonths - 1 {
+            var nextMonthComponents = DateComponents()
+            nextMonthComponents.month = i
+            let nextMonth = Calendar.current.date(byAdding: nextMonthComponents, to: startingDate)!
+            let interval = Calendar.current.dateInterval(of: .month, for: nextMonth)!
+            let numberOfDaysInNextMonth = NSDecimalNumber(value: Calendar.current.dateComponents([.day], from: interval.start, to: interval.end).day!)
+            numberOfDays = NSDecimalNumber(decimal: numberOfDays.decimalValue + numberOfDaysInNextMonth.decimalValue)
+        }
+        return numberOfDays
     }
 }

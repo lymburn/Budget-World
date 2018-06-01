@@ -56,9 +56,18 @@ class AddTransactionView: UIView {
     
     let recurringTextField: TransactionTextField = {
         let textField = TransactionTextField()
-        textField.placeholder = "Recurring?"
+        textField.placeholder = "Repeat"
         textField.addTarget(self, action: #selector(repeatingTextFieldPressed), for: .touchDown)
         return textField
+    }()
+    
+    let amountPerDayLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "OpenSans-Regular", size: 22)
+        return label
     }()
     
     required init?(coder aDecoder: NSCoder) {
@@ -73,6 +82,7 @@ extension AddTransactionView {
         addSubview(dateTextField)
         addSubview(categoryTextField)
         addSubview(recurringTextField)
+        addSubview(amountPerDayLabel)
         setupConstraints()
     }
     
@@ -96,6 +106,11 @@ extension AddTransactionView {
         recurringTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         recurringTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
         recurringTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        amountPerDayLabel.topAnchor.constraint(equalTo: recurringTextField.bottomAnchor, constant: 32).isActive = true
+        amountPerDayLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        amountPerDayLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+        amountPerDayLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 }
 

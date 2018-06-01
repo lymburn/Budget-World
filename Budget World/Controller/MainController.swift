@@ -178,6 +178,19 @@ extension MainController {
         calculateBalance(incomeTransactions)
         calculateBalance(expenseTransactions)
         animateBalanceChange()
+        createRecurringTransactions()
+    }
+    
+    fileprivate func createRecurringTransactions() {
+        //Check to see if there are recurring transactions that need to be created
+        let recurringTransactions = TransactionManager.fetchRecurringTransactions()
+        for transaction in recurringTransactions {
+            //For each recurring transaction, calculate the number of periods since the creation date
+            //let currentDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+            //let startingDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: transaction.date!)
+            let daysDifference = abs(Calendar.current.dateComponents([.day], from: transaction.date!, to: Date()).day!)
+            
+        }
     }
 }
 
