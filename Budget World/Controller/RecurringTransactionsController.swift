@@ -98,7 +98,18 @@ class RecurringTransactionsController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
+            //Set recurring period to be never
+            transactions[indexPath.section][indexPath.row].recurringPeriod = RecurringPeriod.never.rawValue
+            //Update recurring period
+            do {
+                try transactions[indexPath.section][indexPath.row].managedObjectContext?.save()
+            } catch {
+                fatalError("Failure to save context: \(error)")
+            }
             
+            //Update table
+            transactions[indexPath.section].remove(at: indexPath.row)
+            tableView.reloadData()
         }
     }
 }
