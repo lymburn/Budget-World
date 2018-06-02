@@ -53,6 +53,7 @@ class SavingsController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor.rgb(red: 15, green: 52, blue: 67)
         button.titleLabel?.font = UIFont(name: "OpenSans-Regular", size: 17)
+        button.addTarget(self, action: #selector(createSavingPressed), for: .touchDown)
         return button
     }()
 }
@@ -95,5 +96,11 @@ extension SavingsController {
 extension SavingsController {
     @objc func slideMenuPressed() {
         self.slideMenuController()?.openLeft()
+    }
+    
+    @objc func createSavingPressed() {
+        let createController = CreateSavingController()
+        let nav = UINavigationController(rootViewController: createController)
+        self.present(nav, animated: true, completion: nil)
     }
 }

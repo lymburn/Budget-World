@@ -38,6 +38,8 @@
 		26DB9F0D20BE1A1F00E9AD55 /* IncomeOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DB9F0C20BE1A1F00E9AD55 /* IncomeOverview.swift */; };
 		26DB9F0F20BE241600E9AD55 /* ExpenseOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DB9F0E20BE241600E9AD55 /* ExpenseOverview.swift */; };
 		26DB9F1120BE4A4100E9AD55 /* BalanceOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DB9F1020BE4A4100E9AD55 /* BalanceOverview.swift */; };
+		26EBF21220C25BF0008D9E3B /* CreateSavingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EBF21120C25BF0008D9E3B /* CreateSavingController.swift */; };
+		26EBF21420C25CD7008D9E3B /* CreateSavingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EBF21320C25CD7008D9E3B /* CreateSavingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +75,8 @@
 		26DB9F0C20BE1A1F00E9AD55 /* IncomeOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeOverview.swift; sourceTree = "<group>"; };
 		26DB9F0E20BE241600E9AD55 /* ExpenseOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseOverview.swift; sourceTree = "<group>"; };
 		26DB9F1020BE4A4100E9AD55 /* BalanceOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceOverview.swift; sourceTree = "<group>"; };
+		26EBF21120C25BF0008D9E3B /* CreateSavingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSavingController.swift; sourceTree = "<group>"; };
+		26EBF21320C25CD7008D9E3B /* CreateSavingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSavingView.swift; sourceTree = "<group>"; };
 		60520938E494FB55F34F3658 /* Pods-Budget World.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Budget World.release.xcconfig"; path = "Pods/Target Support Files/Pods-Budget World/Pods-Budget World.release.xcconfig"; sourceTree = "<group>"; };
 		80DCB5A40F786B8AAA358A95 /* Pods_Budget_World.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Budget_World.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9616980B44095F93909481C4 /* Pods-Budget World.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Budget World.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Budget World/Pods-Budget World.debug.xcconfig"; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 				260080D820B8C6E40025DD27 /* BaseTableViewCell.swift */,
 				26DB9F0A20BE172C00E9AD55 /* DateBar.swift */,
 				2697A1BA20BF38DC00103684 /* TransactionCell.swift */,
+				26EBF21320C25CD7008D9E3B /* CreateSavingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -172,6 +177,7 @@
 				26222DCB20BF1896000864E0 /* TransactionsController.swift */,
 				2697A1BC20BF560A00103684 /* RecurringTransactionsController.swift */,
 				269F9E3420C2547100699E00 /* SavingsController.swift */,
+				26EBF21120C25BF0008D9E3B /* CreateSavingController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -332,9 +338,11 @@
 				269F9E3520C2547100699E00 /* SavingsController.swift in Sources */,
 				268D7CFE20B898290002ACE3 /* Extensions.swift in Sources */,
 				268D7CE720B8952C0002ACE3 /* MainController.swift in Sources */,
+				26EBF21220C25BF0008D9E3B /* CreateSavingController.swift in Sources */,
 				2697A1BB20BF38DC00103684 /* TransactionCell.swift in Sources */,
 				26DB9F1120BE4A4100E9AD55 /* BalanceOverview.swift in Sources */,
 				26D96D6120BA0FDA000CFB9C /* CategoryController.swift in Sources */,
+				26EBF21420C25CD7008D9E3B /* CreateSavingView.swift in Sources */,
 				26D96D5D20B9DF77000CFB9C /* AddTransactionController.swift in Sources */,
 				260080D920B8C6E40025DD27 /* BaseTableViewCell.swift in Sources */,
 				26D96D6320BA130B000CFB9C /* TransactionTextField.swift in Sources */,
