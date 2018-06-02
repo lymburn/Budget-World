@@ -21,16 +21,12 @@ class AddTransactionController: UIViewController {
         recurringPicker.dataSource = self
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
-    }
-    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.portrait
     }
     
     override var shouldAutorotate: Bool {
-        return false
+        return true
     }
     
     var transactionType: TransactionType? = nil

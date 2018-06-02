@@ -18,17 +18,13 @@ class MainController: UIViewController {
         setDefaultMonth()
         updateBalance()
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
+
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.portrait
     }
     
     override var shouldAutorotate: Bool {
-        return false
+        return true
     }
     
     let cellId = "cellId"

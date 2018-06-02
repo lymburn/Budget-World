@@ -19,6 +19,15 @@ class TransactionsController: UIViewController {
         tableView.dataSource = self
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        //Change to portrait if moving away
+        if (self.isMovingFromParentViewController) {
+            UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+        }
+    }
+    
     var currentMonth: Date!
     let cellId = "cellId"
     var transactions: [Transaction]!
