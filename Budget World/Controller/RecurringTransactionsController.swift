@@ -99,7 +99,7 @@ class RecurringTransactionsController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
             //Set recurring period to be never
-            transactions[indexPath.section][indexPath.row].recurringPeriod = RecurringPeriod.never.rawValue
+            transactions[indexPath.section][indexPath.row].recurringDaysCount = -1
             //Update recurring period
             do {
                 try transactions[indexPath.section][indexPath.row].managedObjectContext?.save()

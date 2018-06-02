@@ -23,6 +23,14 @@ class MainController: UIViewController {
         return .lightContent
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
     let cellId = "cellId"
     let menuOptions = ["Budget Overview", "Analytics", "Transvarions", "Goals", "Premium", "More"]
     let menuIcons = ["Budget", "Analytics", "Transaction", "Goals", "Premium", "More"]
@@ -189,6 +197,9 @@ extension MainController {
         let context = AppDelegate.viewContext
         let calendar = Calendar.current
         for transaction in recurringTransactions {
+            //If recurring days count is negative, the transaction is no longer recurring so return
+            guard transaction.recurringDaysCount >= 0 else {return}
+            
             //Increment from the starting date to the number of recurring days so far
             var recurringPeriodComponents = DateComponents()
             recurringPeriodComponents.day = Int(transaction.recurringDaysCount)

@@ -20,8 +20,12 @@ class SlideOptionsController: UIViewController {
         self.title = "Menu"
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    override var shouldAutorotate: Bool {
+        return false
     }
     
     let slideMenuOptions: UITableView = {
@@ -71,12 +75,12 @@ extension SlideOptionsController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.row {
             case 0: self.slideMenuController()?.changeMainViewController(MainController(), close: true)
             case 1: self.slideMenuController()?.changeMainViewController(BudgetOverviewController(), close: true)
-            case 2: self.slideMenuController()?.changeMainViewController(MainController(), close: true)
+            case 2: self.slideMenuController()?.changeMainViewController(AnalyticsController(), close: true)
             case 3: self.slideMenuController()?.changeMainViewController(TransactionsController(), close: true)
             case 4: self.slideMenuController()?.changeMainViewController(SavingsController(), close: true)
             case 5: self.slideMenuController()?.changeMainViewController(MainController(), close: true)
             case 6: self.slideMenuController()?.changeMainViewController(MainController(), close: true)
-            default: self.slideMenuController()?.changeMainViewController(MainController(), close: true)
+            default: break
         }
     }
     

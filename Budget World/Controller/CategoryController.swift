@@ -27,6 +27,14 @@ class CategoryController: UIViewController {
         return .default
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
     weak var delegate: CategoryDelegate? = nil
     var transactionType: TransactionType!
     let cellId = "cellId"
