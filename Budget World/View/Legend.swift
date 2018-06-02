@@ -16,16 +16,9 @@ class Legend: UIView, UICollectionViewDelegateFlowLayout  {
     }
     
     let cellId = "cellId"
-    let legendNames = ["General", "Eating Out", "Housing", "Fuel", "Transportation", "Entertainment", "Groceries", "Clothing","Education", "Hobbies", "Medical"]
-    
-    let title: UILabel = {
-        let label = UILabel()
-        label.text = "Legend"
-        label.font = UIFont(name: "OpenSans-Regular", size: 20)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let legendNames = ["General", "Eating out", "Housing", "Fuel", "Transportation", "Entertainment", "Groceries", "Clothing","Education", "Hobbies", "Medical"]
+    let legendIconNames = ["GeneralC", "Eating OutC", "HousingC", "FuelC", "TransportationC", "EntertainmentC", "GroceriesC", "ClothingC","EducationC", "HobbiesC", "MedicalC"]
+    var legendColors: [UIColor]!
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -45,17 +38,15 @@ class Legend: UIView, UICollectionViewDelegateFlowLayout  {
 //MARK: Setup
 extension Legend {
     fileprivate func setupViews() {
-        addSubview(title)
-        //addSubview(collectionView)
+        addSubview(collectionView)
         setupConstraints()
     }
     
     fileprivate func setupConstraints() {
-        title.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        title.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        title.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        title.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        
+        collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
     }
 }
 
@@ -67,10 +58,22 @@ extension Legend: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! LegendCell
+        cell.title.text = legendNames[indexPath.row]
+        cell.icon.image = UIImage(named: legendIconNames[indexPath.row])
+        cell.title.textColor = legendColors[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: frame.width/2, height: frame.height/6)
+        return CGSize(width: collectionView.frame.width/2, height: collectionView.frame.height/6)
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }

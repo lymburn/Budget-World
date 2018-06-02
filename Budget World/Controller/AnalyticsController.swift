@@ -15,30 +15,21 @@ class AnalyticsController: UIViewController {
         view.backgroundColor = .white
         setupViews()
         dateBar.delegate = self
-        //Lock to landscape
-        //UIDevice.current.setValue(Int(UIInterfaceOrientation.landscapeLeft.rawValue), forKey: "orientation")
+        setLegendColors()
         setChart(dataPoints: months, values: unitsSold)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        //Change to portrait if moving away
-        if (self.isMovingFromParentViewController) {
-            UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
-        }
-    }
-    
     var currentMonth: Date!
+    var legendColors = [UIColor]()
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0, 18.0, 2.0, 4.0, 5.0, 4.0]
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.all
+        return UIInterfaceOrientationMask.portrait
     }
     
     override var shouldAutorotate: Bool {
-        return true
+        return false
     }
     
     let dateFormatter: DateFormatter = {
@@ -91,7 +82,7 @@ extension AnalyticsController {
         
         legend.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         legend.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        legend.topAnchor.constraint(equalTo: pieChart.bottomAnchor, constant: 8).isActive = true
+        legend.topAnchor.constraint(equalTo: pieChart.bottomAnchor, constant: 0).isActive = true
         legend.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
     }
     
@@ -100,6 +91,22 @@ extension AnalyticsController {
         let components = Calendar.current.dateComponents([.year, .month], from: Date())
         currentMonth = Calendar.current.date(from: components)!
         dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
+    }
+    
+    fileprivate func setLegendColors() {
+        legendColors.append(UIColor.rgb(red: 18, green: 80, blue: 44))
+        legendColors.append(UIColor.rgb(red: 83, green: 33, blue: 0))
+        legendColors.append(UIColor.rgb(red: 95, green: 87, blue: 7))
+        legendColors.append(UIColor.black)
+        legendColors.append(UIColor.rgb(red: 20, green: 60, blue: 86))
+        legendColors.append(UIColor.rgb(red: 91, green: 30, blue: 24))
+        legendColors.append(UIColor.rgb(red: 10, green: 74, blue: 61))
+        legendColors.append(UIColor.rgb(red: 56, green: 27, blue: 68))
+        legendColors.append(UIColor.rgb(red: 17, green: 24, blue: 31))
+        legendColors.append(UIColor.rgb(red: 25, green: 16, blue: 73))
+        legendColors.append(UIColor.rgb(red: 255, green: 0, blue: 0))
+        
+        legend.legendColors = legendColors
     }
     
     fileprivate func setChart(dataPoints: [String], values: [Double]) {

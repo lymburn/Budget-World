@@ -74,7 +74,7 @@ extension CategoryController {
             categoryNames = ["Salary", "Investment", "Sale"]
             categoryIcons = ["Salary", "Investment", "Sale"]
         } else {
-            categoryNames = ["General", "Eating Out", "Housing", "Fuel", "Transportation", "Entertainment", "Groceries", "Clothing","Education", "Hobbies", "Medical"]
+            categoryNames = ["General", "Eating out", "Housing", "Fuel", "Transportation", "Entertainment", "Groceries", "Clothing","Education", "Hobbies", "Medical"]
             categoryIcons = ["General", "Eating Out", "Housing", "Fuel", "Transportation", "Entertainment", "Groceries", "Clothing","Education", "Hobbies", "Medical"]
         }
     }

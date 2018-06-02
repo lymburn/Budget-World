@@ -19,7 +19,8 @@ class LegendCell: BaseCollectionViewCell {
     let title: UILabel = {
         let label = UILabel()
         label.text = "Legend"
-        label.font = UIFont(name: "OpenSans-Regular", size: 14)
+        
+        label.font = UIFont(name: "OpenSans-Regular", size: 10)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,13 +35,14 @@ class LegendCell: BaseCollectionViewCell {
 //MARK: Constraints
 extension LegendCell {
     fileprivate func setupConstraints() {
-        icon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
+        icon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width/4).isActive = true
         icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        icon.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        icon.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        icon.widthAnchor.constraint(equalToConstant: 15).isActive = true
+        icon.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
         title.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 8).isActive = true
-        title.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 8).isActive = true
+        title.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
         title.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        title.heightAnchor.constraint(equalToConstant: 15).isActive = true
     }
 }
