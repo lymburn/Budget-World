@@ -17,11 +17,12 @@ class CreateSavingController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationController?.navigationBar.barTintColor = UIColor.rgb(red: 15, green: 52, blue: 67)
         navigationItem.title = "Create Saving"
+        
+        createSavingView.delegate = self
         setupBarItems()
     }
     
     var savingAmount: NSDecimalNumber = 0
-    var savingDescription: String = ""
     
     let createSavingView: CreateSavingView = {
         let view = CreateSavingView()
@@ -85,7 +86,7 @@ extension CreateSavingController {
         let context = AppDelegate.viewContext
         let saving = Saving(context: context)
         saving.amount = savingAmount
-        saving.savingDescription = savingDescription
+        saving.savingDescription = createSavingView.descriptionTextField.text ?? ""
         
         do {
             try saving.managedObjectContext?.save()

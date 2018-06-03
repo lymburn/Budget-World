@@ -11,13 +11,52 @@ import UIKit
 class SavingCell: BaseTableViewCell {
     override func setupViews() {
         super.setupViews()
+        addSubview(savingDescription)
+        addSubview(amountLabel)
+        addSubview(progressView)
         setupConstraints()
     }
+    
+    let savingDescription: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "OpenSans-Regular", size: 20)
+        label.textColor = UIColor.rgb(red: 51, green: 51, blue: 51)
+        return label
+    }()
+    
+    let amountLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "OpenSans-Regular", size: 20)
+        label.textColor = UIColor.rgb(red: 43, green: 132, blue: 210)
+        label.textAlignment = .right
+        return label
+    }()
+    
+    let progressView: UIProgressView = {
+        let pv = UIProgressView()
+        pv.translatesAutoresizingMaskIntoConstraints = false
+        pv.progress = 0.5
+        return pv
+    }()
 }
 
 //MARK: Constraints
 extension SavingCell {
     fileprivate func setupConstraints() {
+        savingDescription.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
+        savingDescription.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        savingDescription.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        savingDescription.trailingAnchor.constraint(equalTo: amountLabel.leadingAnchor, constant: -8).isActive = true
         
+        amountLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        amountLabel.leadingAnchor.constraint(equalTo: savingDescription.trailingAnchor, constant: 8)
+        amountLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
+        amountLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        
+        progressView.topAnchor.constraint(equalTo: savingDescription.bottomAnchor, constant: 8).isActive = true
+        progressView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
+        progressView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
     }
 }

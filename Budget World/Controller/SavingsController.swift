@@ -30,7 +30,7 @@ class SavingsController: UIViewController {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.separatorInset = UIEdgeInsets.zero
-        tv.rowHeight = 80
+        tv.rowHeight = 60
         return tv
     }()
     
@@ -103,11 +103,16 @@ extension SavingsController {
 //MARK: Table view data source and delegate
 extension SavingsController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return savings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let saving = savings[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! SavingCell
+        print(saving.amount!)
+        cell.amountLabel.text = "$" + String(format: "%.2f", Double(truncating: saving.amount!))
+        cell.savingDescription.text = saving.savingDescription ?? ""
+        print(saving.savingDescription!)
         return cell
     }
 }
