@@ -22,7 +22,7 @@ class AnalyticsController: UIViewController {
     var currentMonth: Date!
     var legendColors = [UIColor]()
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0, 18.0, 2.0, 4.0, 5.0, 4.0]
+    let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0, 18.0, 2.0, 4.0, 9.0]
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.portrait
@@ -49,6 +49,7 @@ class AnalyticsController: UIViewController {
         chart.translatesAutoresizingMaskIntoConstraints = false
         chart.chartDescription?.text = ""
         chart.legend.enabled = false
+        chart.drawHoleEnabled = false
         return chart
     }()
     
@@ -94,17 +95,18 @@ extension AnalyticsController {
     }
     
     fileprivate func setLegendColors() {
-        legendColors.append(UIColor.rgb(red: 18, green: 80, blue: 44))
-        legendColors.append(UIColor.rgb(red: 83, green: 33, blue: 0))
-        legendColors.append(UIColor.rgb(red: 95, green: 87, blue: 7))
+        legendColors.append(UIColor.rgb(red: 46, green: 204, blue: 113))
+        legendColors.append(UIColor.rgb(red: 149, green: 165, blue: 166))
+        legendColors.append(UIColor.rgb(red: 243, green: 221, blue: 18))
         legendColors.append(UIColor.black)
-        legendColors.append(UIColor.rgb(red: 20, green: 60, blue: 86))
-        legendColors.append(UIColor.rgb(red: 91, green: 30, blue: 24))
-        legendColors.append(UIColor.rgb(red: 10, green: 74, blue: 61))
-        legendColors.append(UIColor.rgb(red: 56, green: 27, blue: 68))
-        legendColors.append(UIColor.rgb(red: 17, green: 24, blue: 31))
-        legendColors.append(UIColor.rgb(red: 25, green: 16, blue: 73))
+        legendColors.append(UIColor.rgb(red: 52, green: 152, blue: 219))
+        legendColors.append(UIColor.rgb(red: 231, green: 76, blue: 60))
+        legendColors.append(UIColor.rgb(red: 22, green: 160, blue: 54))
+        legendColors.append(UIColor.rgb(red: 142, green: 68, blue: 173))
+        legendColors.append(UIColor.rgb(red: 44, green: 62, blue: 80))
+        legendColors.append(UIColor.rgb(red: 64, green: 41, blue: 185))
         legendColors.append(UIColor.rgb(red: 255, green: 0, blue: 0))
+        
         
         legend.legendColors = legendColors
     }
@@ -112,26 +114,14 @@ extension AnalyticsController {
     fileprivate func setChart(dataPoints: [String], values: [Double]) {
         var dataEntries = [ChartDataEntry]()
         
-        for i in 0..<dataPoints.count {
+        for i in 0..<11 {
             let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
             dataEntries.append(dataEntry)
         }
-        var colors: [UIColor] = []
-        
-        for i in 0..<dataPoints.count {
-            let red = Double(arc4random_uniform(256))
-            let green = Double(arc4random_uniform(256))
-            let blue = Double(arc4random_uniform(256))
-            
-            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-            colors.append(color)
-        }
-        
-        
-        let chartDataSet = PieChartDataSet(values: dataEntries, label: "Units Sold")
-        chartDataSet.colors = colors
-        chartDataSet.drawValuesEnabled = false
-        chartDataSet.drawIconsEnabled = false
+        let chartDataSet = PieChartDataSet(values: dataEntries, label: "Expenses")
+        chartDataSet.colors = legendColors
+        chartDataSet.drawValuesEnabled = true
+
         let chartData = PieChartData(dataSets: [chartDataSet])
         pieChart.data = chartData
     }
