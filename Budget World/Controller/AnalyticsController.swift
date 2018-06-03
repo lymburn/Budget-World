@@ -17,7 +17,12 @@ class AnalyticsController: UIViewController {
         dateBar.delegate = self
         setLegendColors()
         getExpenseTransactions()
-        setChart(values: expensePercentages)
+        
+        if expensesExist() {
+            setChart(values: expensePercentages)
+        }else {
+            pieChart.clear()
+        }
     }
     
     var currentMonth: Date!
@@ -51,6 +56,8 @@ class AnalyticsController: UIViewController {
         chart.chartDescription?.text = ""
         chart.legend.enabled = false
         chart.drawHoleEnabled = false
+        chart.noDataText = "No expenses recorded"
+        chart.noDataTextColor = .orange
         return chart
     }()
     
@@ -59,6 +66,18 @@ class AnalyticsController: UIViewController {
         legend.translatesAutoresizingMaskIntoConstraints = false
         return legend
     }()
+    
+    fileprivate func expensesExist() -> Bool {
+        //Check if there is at least 1 expense inside expense percentages
+        for i in 0..<expensePercentages.count {
+            if expensePercentages[i] != 0 {
+                //Atleast 1 expense
+                print (expensePercentages[i])
+                return true
+            }
+        }
+        return false
+    }
 }
 
 //MARK: Setup
@@ -108,7 +127,6 @@ extension AnalyticsController {
         legendColors.append(UIColor.rgb(red: 64, green: 41, blue: 185))
         legendColors.append(UIColor.rgb(red: 255, green: 0, blue: 0))
         
-        
         legend.legendColors = legendColors
     }
     
@@ -138,7 +156,7 @@ extension AnalyticsController {
 extension AnalyticsController {
     fileprivate func getExpenseTransactions() {
         expenseTransactions = TransactionManager.fetchTransactions(incomeType: false, currentMonth: currentMonth)
-        var totalExpense = TransactionManager.calculateBalance(expenseTransactions)
+        let totalExpense = TransactionManager.calculateBalance(expenseTransactions)
         var expenseForCategories = [NSDecimalNumber].init(repeating: 0, count: 11)
         
         //Sum up total expense for each category and insert into array
@@ -150,7 +168,8 @@ extension AnalyticsController {
         for i in 0..<expenseForCategories.count {
             let decimalPercent: NSDecimalNumber = NSDecimalNumber(decimal: expenseForCategories[i].decimalValue/totalExpense.decimalValue)
             let percent: Double = abs(Double(truncating: decimalPercent))*100
-            expensePercentages[i] = percent
+            
+            expensePercentages[i] = percent.isNaN ? 0 : percent
         }
     }
 }
@@ -163,9 +182,50 @@ extension AnalyticsController: DateBarDelegate {
     }
     
     func previousMonthPressed() {
+        let currentYear = Calendar.current.dateComponents([.year], from: Date())
+        var previousMonthComponents = DateComponents()
+        previousMonthComponents.month = -1
+        currentMonth = Calendar.current.date(byAdding: previousMonthComponents, to: currentMonth)
+        let currentMonthComponents = Calendar.current.dateComponents([.year, .month], from: currentMonth)
+        //Check if year has changed
+        if currentYear.year! == currentMonthComponents.year! {
+            dateFormatter.dateFormat = "MMM"
+            dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
+        } else {
+            //If year changed, show year as well
+            dateFormatter.dateFormat = "MMM YYYY"
+            dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
+        }
+        getExpenseTransactions()
+        
+        if expensesExist() {
+            setChart(values: expensePercentages)
+        }else {
+            pieChart.clear()
+        }
     }
     
     func nextMonthPressed() {
+        let currentYear = Calendar.current.dateComponents([.year], from: Date())
+        var nextMonthComponents = DateComponents()
+        nextMonthComponents.month = 1
+        currentMonth = Calendar.current.date(byAdding: nextMonthComponents, to: currentMonth)
+        let currentMonthComponents = Calendar.current.dateComponents([.year, .month], from: currentMonth)
+        //Check if year has changed
+        if currentYear.year! == currentMonthComponents.year! {
+            dateFormatter.dateFormat = "MMM"
+            dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
+        } else {
+            //If year changed, show year as well
+            dateFormatter.dateFormat = "MMM YYYY"
+            dateBar.dateLabel.text = dateFormatter.string(from: currentMonth)
+        }
+        getExpenseTransactions()
+        if expensesExist() {
+            setChart(values: expensePercentages)
+        } else {
+            pieChart.clear()
+        }
     }
 }
 
