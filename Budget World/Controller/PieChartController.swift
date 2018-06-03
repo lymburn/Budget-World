@@ -1,5 +1,5 @@
 //
-//  AnalyticsController.swift
+//  PieChartController.swift
 //  Budget World
 //
 //  Created by Eugene Lu on 2018-06-02.
@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-class AnalyticsController: UIViewController {
+class PieChartController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -19,8 +19,10 @@ class AnalyticsController: UIViewController {
         getExpenseTransactions()
         
         if expensesExist() {
+            chartTitle.alpha = 1
             setChart(values: expensePercentages)
         }else {
+            chartTitle.alpha = 0
             pieChart.clear()
         }
     }
@@ -61,6 +63,15 @@ class AnalyticsController: UIViewController {
         return chart
     }()
     
+    let chartTitle: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.text = "Expenses"
+        label.font = UIFont(name: "OpenSans-Regular", size: 24)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     let legend: Legend = {
         let legend = Legend()
         legend.translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +83,6 @@ class AnalyticsController: UIViewController {
         for i in 0..<expensePercentages.count {
             if expensePercentages[i] != 0 {
                 //Atleast 1 expense
-                print (expensePercentages[i])
                 return true
             }
         }
@@ -81,8 +91,9 @@ class AnalyticsController: UIViewController {
 }
 
 //MARK: Setup
-extension AnalyticsController {
+extension PieChartController {
     fileprivate func setupViews() {
+        view.addSubview(chartTitle)
         view.addSubview(dateBar)
         view.addSubview(pieChart)
         view.addSubview(legend)
@@ -96,9 +107,14 @@ extension AnalyticsController {
         dateBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         dateBar.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
+        chartTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        chartTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        chartTitle.topAnchor.constraint(equalTo: dateBar.bottomAnchor, constant: 24).isActive = true
+        chartTitle.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
         pieChart.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         pieChart.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        pieChart.topAnchor.constraint(equalTo: dateBar.bottomAnchor, constant: 32).isActive = true
+        pieChart.topAnchor.constraint(equalTo: chartTitle.bottomAnchor, constant: 8).isActive = true
         pieChart.heightAnchor.constraint(equalToConstant: view.frame.height/2).isActive = true
         
         legend.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -115,17 +131,17 @@ extension AnalyticsController {
     }
     
     fileprivate func setLegendColors() {
-        legendColors.append(UIColor.rgb(red: 46, green: 204, blue: 113))
-        legendColors.append(UIColor.rgb(red: 149, green: 165, blue: 166))
-        legendColors.append(UIColor.rgb(red: 243, green: 221, blue: 18))
-        legendColors.append(UIColor.black)
-        legendColors.append(UIColor.rgb(red: 52, green: 152, blue: 219))
-        legendColors.append(UIColor.rgb(red: 231, green: 76, blue: 60))
-        legendColors.append(UIColor.rgb(red: 22, green: 160, blue: 54))
-        legendColors.append(UIColor.rgb(red: 142, green: 68, blue: 173))
-        legendColors.append(UIColor.rgb(red: 44, green: 62, blue: 80))
-        legendColors.append(UIColor.rgb(red: 64, green: 41, blue: 185))
-        legendColors.append(UIColor.rgb(red: 255, green: 0, blue: 0))
+        legendColors.append(UIColor(rgb: 0x3498DB))
+        legendColors.append(UIColor(rgb: 0x00BDE8))
+        legendColors.append(UIColor(rgb: 0x00DEDD))
+        legendColors.append(UIColor(rgb: 0x00A6FC))
+        legendColors.append(UIColor(rgb: 0x90EE90))
+        legendColors.append(UIColor(rgb: 0x36B27C))
+        legendColors.append(UIColor(rgb: 0x007C4B))
+        legendColors.append(UIColor(rgb: 0xFC4C51))
+        legendColors.append(UIColor(rgb: 0xFFBCD9))
+        legendColors.append(UIColor(rgb: 0xCD0000))
+        legendColors.append(UIColor(rgb: 0xFF8496))
         
         legend.legendColors = legendColors
     }
@@ -153,7 +169,7 @@ extension AnalyticsController {
 }
 
 //MARK: Expense calculations
-extension AnalyticsController {
+extension PieChartController {
     fileprivate func getExpenseTransactions() {
         expenseTransactions = TransactionManager.fetchTransactions(incomeType: false, currentMonth: currentMonth)
         let totalExpense = TransactionManager.calculateBalance(expenseTransactions)
@@ -161,7 +177,7 @@ extension AnalyticsController {
         
         //Sum up total expense for each category and insert into array
         for transaction in expenseTransactions {
-            expenseForCategories[Int(transaction.category)] = NSDecimalNumber(decimal: expenseForCategories[Int(transaction.category)].decimalValue + (transaction.amount?.decimalValue)!)
+            expenseForCategories[Int(transaction.category) - 3] = NSDecimalNumber(decimal: expenseForCategories[Int(transaction.category) - 3].decimalValue + (transaction.amount?.decimalValue)!)
         }
         
         //Calculate the percentages and insert into array
@@ -175,7 +191,7 @@ extension AnalyticsController {
 }
 
 //MARK: Date bar delegate methods
-extension AnalyticsController: DateBarDelegate {
+extension PieChartController: DateBarDelegate {
     
     func slideMenuPressed() {
         self.slideMenuController()?.openLeft()
@@ -199,8 +215,10 @@ extension AnalyticsController: DateBarDelegate {
         getExpenseTransactions()
         
         if expensesExist() {
+            chartTitle.alpha = 1
             setChart(values: expensePercentages)
         }else {
+            chartTitle.alpha = 0
             pieChart.clear()
         }
     }
@@ -222,8 +240,10 @@ extension AnalyticsController: DateBarDelegate {
         }
         getExpenseTransactions()
         if expensesExist() {
+            chartTitle.alpha = 1
             setChart(values: expensePercentages)
-        } else {
+        }else {
+            chartTitle.alpha = 0
             pieChart.clear()
         }
     }

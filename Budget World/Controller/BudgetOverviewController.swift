@@ -90,7 +90,7 @@ extension BudgetOverviewController {
         let groceries = calculateTransactions(expenseTransactions, for: .groceries)
         let clothing = calculateTransactions(expenseTransactions, for: .clothing)
         let education = calculateTransactions(expenseTransactions, for: .education)
-        let hobbies = calculateTransactions(expenseTransactions, for: .hobbies)
+        let holiday = calculateTransactions(expenseTransactions, for: .holiday)
         let medical = calculateTransactions(expenseTransactions, for: .medical)
         budgetView.expenseView.expenseAmount.text = "$" + String(format: "%.2f", Double(truncating: totalExpense))
         budgetView.expenseView.generalAmount.text = "$" + String(format: "%.2f", Double(truncating: general))
@@ -102,7 +102,7 @@ extension BudgetOverviewController {
         budgetView.expenseView.groceriesAmount.text = "$" + String(format: "%.2f", Double(truncating: groceries))
         budgetView.expenseView.clothingAmount.text = "$" + String(format: "%.2f", Double(truncating: clothing))
         budgetView.expenseView.educationAmount.text = "$" + String(format: "%.2f", Double(truncating: education))
-        budgetView.expenseView.hobbiesAmount.text = "$" + String(format: "%.2f", Double(truncating: hobbies))
+        budgetView.expenseView.holidayAmount.text = "$" + String(format: "%.2f", Double(truncating: holiday))
         budgetView.expenseView.medicalAmount.text = "$" + String(format: "%.2f", Double(truncating: medical))
         
         //Total balance

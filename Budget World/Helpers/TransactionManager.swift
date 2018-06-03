@@ -111,8 +111,8 @@ class TransactionManager {
                     imageName = "ClothingG"
             case 11:categoryName = "Education"
                     imageName = "EducationG"
-            case 12:categoryName = "Hobbies"
-                    imageName = "HobbiesG"
+            case 12:categoryName = "Holiday"
+                    imageName = "HolidayG"
             case 13:categoryName = "Medical"
                     imageName = "MedicalG"
             default: break

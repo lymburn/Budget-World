@@ -18,16 +18,16 @@ enum TransactionType {
     case investment = 1
     case sale = 2
     case general = 3
-    case eatingOut = 4
-    case housing = 5
-    case fuel = 6
-    case transportation = 7
+    case housing = 4
+    case fuel = 5
+    case transportation = 6
+    case eatingOut = 7
     case entertainment = 8
-    case groceries = 9
-    case clothing = 10
-    case education = 11
-    case hobbies = 12
-    case medical = 13
+    case holiday = 9
+    case groceries = 10
+    case clothing = 11
+    case medical = 12
+    case education = 13
 }
 
 @objc enum RecurringPeriod: Int32 {

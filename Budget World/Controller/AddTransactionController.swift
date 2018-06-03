@@ -164,8 +164,11 @@ extension AddTransactionController: UIPickerViewDelegate, UIPickerViewDataSource
         transactionView.recurringTextField.text = recurringPeriods[row]
         let recurringPeriod: RecurringPeriod = getRecurringPeriod()
         if recurringPeriod != .never {
+            transactionView.amountPerDayLabel.alpha = 1
             let amountPerDay:NSDecimalNumber = getRecurringTransactionAmount(period: recurringPeriod, date: datePicker.date)
             transactionView.amountPerDayLabel.text = "$" + String(format: "%.2f", Double(truncating: amountPerDay)) + "/day"
+        } else {
+            transactionView.amountPerDayLabel.alpha = 0
         }
     }
     

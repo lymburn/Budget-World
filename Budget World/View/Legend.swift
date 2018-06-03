@@ -16,8 +16,8 @@ class Legend: UIView, UICollectionViewDelegateFlowLayout  {
     }
     
     let cellId = "cellId"
-    let legendNames = ["General", "Eating out", "Housing", "Fuel", "Transportation", "Entertainment", "Groceries", "Clothing","Education", "Hobbies", "Medical"]
-    let legendIconNames = ["GeneralC", "Eating OutC", "HousingC", "FuelC", "TransportationC", "EntertainmentC", "GroceriesC", "ClothingC","EducationC", "HobbiesC", "MedicalC"]
+    let legendNames = ["General", "Housing", "Fuel", "Transportation", "Eating Out", "Entertainment" , "Holiday", "Groceries", "Clothing", "Medical", "Education"]
+    let legendIconNames = ["GeneralC", "HousingC", "FuelC", "TransportationC", "Eating OutC", "EntertainmentC" , "HolidayC", "GroceriesC", "ClothingC", "MedicalC", "EducationC"]
     var legendColors: [UIColor]!
     
     lazy var collectionView: UICollectionView = {

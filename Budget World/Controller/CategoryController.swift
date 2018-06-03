@@ -74,8 +74,8 @@ extension CategoryController {
             categoryNames = ["Salary", "Investment", "Sale"]
             categoryIcons = ["Salary", "Investment", "Sale"]
         } else {
-            categoryNames = ["General", "Eating out", "Housing", "Fuel", "Transportation", "Entertainment", "Groceries", "Clothing","Education", "Hobbies", "Medical"]
-            categoryIcons = ["General", "Eating Out", "Housing", "Fuel", "Transportation", "Entertainment", "Groceries", "Clothing","Education", "Hobbies", "Medical"]
+            categoryNames = ["General", "Housing", "Fuel", "Transportation", "Eating Out", "Entertainment" , "Holiday", "Groceries", "Clothing", "Medical", "Education"]
+            categoryIcons = ["General", "Housing", "Fuel", "Transportation", "Eating Out", "Entertainment" , "Holiday", "Groceries", "Clothing", "Medical", "Education"]
         }
     }
 }
@@ -115,7 +115,7 @@ extension CategoryController: UITableViewDelegate, UITableViewDataSource {
             case "Groceries": categoryType = .groceries
             case "Clothing": categoryType = .clothing
             case "Education": categoryType = .education
-            case "Hobbies": categoryType = .hobbies
+            case "Holiday": categoryType = .holiday
             case "Medical": categoryType = .medical
             default: categoryType = .general
         }

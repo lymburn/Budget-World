@@ -85,9 +85,9 @@ class ExpenseOverview: UIView {
         return label
     }()
     
-    let hobbiesLabel: BudgetLabel = {
+    let holidayLabel: BudgetLabel = {
         let label = BudgetLabel()
-        label.text = "Hobbies"
+        label.text = "Holiday"
         return label
     }()
     
@@ -158,7 +158,7 @@ class ExpenseOverview: UIView {
         return label
     }()
     
-    let hobbiesAmount: BudgetLabel = {
+    let holidayAmount: BudgetLabel = {
         let label = BudgetLabel()
         label.textAlignment = .right
         return label
@@ -189,7 +189,7 @@ extension ExpenseOverview {
         addSubview(groceriesLabel)
         addSubview(clothingLabel)
         addSubview(educationLabel)
-        addSubview(hobbiesLabel)
+        addSubview(holidayLabel)
         addSubview(medicalLabel)
         addSubview(generalAmount)
         addSubview(eatingAmount)
@@ -200,7 +200,7 @@ extension ExpenseOverview {
         addSubview(groceriesAmount)
         addSubview(clothingAmount)
         addSubview(educationAmount)
-        addSubview(hobbiesAmount)
+        addSubview(holidayAmount)
         addSubview(medicalAmount)
         setupConstraints()
     }
@@ -217,11 +217,8 @@ extension ExpenseOverview {
         generalLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
         generalLabel.topAnchor.constraint(equalTo: expenseLabel.bottomAnchor, constant: 6).isActive = true
         
-        eatingLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
-        eatingLabel.topAnchor.constraint(equalTo: generalLabel.bottomAnchor, constant: 6).isActive = true
-        
         housingLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
-        housingLabel.topAnchor.constraint(equalTo: eatingLabel.bottomAnchor, constant: 6).isActive = true
+        housingLabel.topAnchor.constraint(equalTo: generalLabel.bottomAnchor, constant: 6).isActive = true
         
         fuelLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
         fuelLabel.topAnchor.constraint(equalTo: housingLabel.bottomAnchor, constant: 6).isActive = true
@@ -229,23 +226,26 @@ extension ExpenseOverview {
         transportationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
         transportationLabel.topAnchor.constraint(equalTo: fuelLabel.bottomAnchor, constant: 6).isActive = true
         
+        eatingLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
+        eatingLabel.topAnchor.constraint(equalTo: transportationLabel.bottomAnchor, constant: 6).isActive = true
+        
         entertainmentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
-        entertainmentLabel.topAnchor.constraint(equalTo: transportationLabel.bottomAnchor, constant: 6).isActive = true
+        entertainmentLabel.topAnchor.constraint(equalTo: eatingLabel.bottomAnchor, constant: 6).isActive = true
+        
+        holidayLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
+        holidayLabel.topAnchor.constraint(equalTo: entertainmentLabel.bottomAnchor, constant: 6).isActive = true
         
         groceriesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
-        groceriesLabel.topAnchor.constraint(equalTo: entertainmentLabel.bottomAnchor, constant: 6).isActive = true
+        groceriesLabel.topAnchor.constraint(equalTo: holidayLabel.bottomAnchor, constant: 6).isActive = true
         
         clothingLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
         clothingLabel.topAnchor.constraint(equalTo: groceriesLabel.bottomAnchor, constant: 6).isActive = true
         
-        educationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
-        educationLabel.topAnchor.constraint(equalTo: clothingLabel.bottomAnchor, constant: 6).isActive = true
-        
-        hobbiesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
-        hobbiesLabel.topAnchor.constraint(equalTo: educationLabel.bottomAnchor, constant: 6).isActive = true
-        
         medicalLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
-        medicalLabel.topAnchor.constraint(equalTo: hobbiesLabel.bottomAnchor, constant: 6).isActive = true
+        medicalLabel.topAnchor.constraint(equalTo: clothingLabel.bottomAnchor, constant: 6).isActive = true
+        
+        educationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
+        educationLabel.topAnchor.constraint(equalTo: medicalLabel.bottomAnchor, constant: 6).isActive = true
     }
     
     fileprivate func setupAmountConstraints() {
@@ -255,11 +255,8 @@ extension ExpenseOverview {
         generalAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
         generalAmount.topAnchor.constraint(equalTo: expenseAmount.bottomAnchor, constant: 6).isActive = true
         
-        eatingAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
-        eatingAmount.topAnchor.constraint(equalTo: generalAmount.bottomAnchor, constant: 6).isActive = true
-        
         housingAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
-        housingAmount.topAnchor.constraint(equalTo: eatingAmount.bottomAnchor, constant: 6).isActive = true
+        housingAmount.topAnchor.constraint(equalTo: generalAmount.bottomAnchor, constant: 6).isActive = true
         
         fuelAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
         fuelAmount.topAnchor.constraint(equalTo: housingAmount.bottomAnchor, constant: 6).isActive = true
@@ -267,22 +264,25 @@ extension ExpenseOverview {
         transportationAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
         transportationAmount.topAnchor.constraint(equalTo: fuelAmount.bottomAnchor, constant: 6).isActive = true
         
+        eatingAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
+        eatingAmount.topAnchor.constraint(equalTo: transportationAmount.bottomAnchor, constant: 6).isActive = true
+        
         entertainmentAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
-        entertainmentAmount.topAnchor.constraint(equalTo: transportationAmount.bottomAnchor, constant: 6).isActive = true
+        entertainmentAmount.topAnchor.constraint(equalTo: eatingAmount.bottomAnchor, constant: 6).isActive = true
+        
+        holidayAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
+        holidayAmount.topAnchor.constraint(equalTo: entertainmentAmount.bottomAnchor, constant: 6).isActive = true
         
         groceriesAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
-        groceriesAmount.topAnchor.constraint(equalTo: entertainmentAmount.bottomAnchor, constant: 6).isActive = true
+        groceriesAmount.topAnchor.constraint(equalTo: holidayAmount.bottomAnchor, constant: 6).isActive = true
         
         clothingAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
         clothingAmount.topAnchor.constraint(equalTo: groceriesAmount.bottomAnchor, constant: 6).isActive = true
         
-        educationAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
-        educationAmount.topAnchor.constraint(equalTo: clothingAmount.bottomAnchor, constant: 6).isActive = true
-        
-        hobbiesAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
-        hobbiesAmount.topAnchor.constraint(equalTo: educationAmount.bottomAnchor, constant: 6).isActive = true
-        
         medicalAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
-        medicalAmount.topAnchor.constraint(equalTo: hobbiesAmount.bottomAnchor, constant: 6).isActive = true
+        medicalAmount.topAnchor.constraint(equalTo: clothingAmount.bottomAnchor, constant: 6).isActive = true
+        
+        educationAmount.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
+        educationAmount.topAnchor.constraint(equalTo: medicalAmount.bottomAnchor, constant: 6).isActive = true
     }
 }
