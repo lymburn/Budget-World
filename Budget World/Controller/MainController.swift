@@ -132,17 +132,6 @@ extension MainController: MainScreenDelegate {
 
 //MARK: Calculate and update the UI for the user's balance
 extension MainController {
-    fileprivate func calculateBalance(_ transactions: [Transaction]) {
-        for transaction in transactions {
-            if transaction.incomeType {
-                //If transaction is an income, add to balance
-                balance = NSDecimalNumber(decimal: balance.decimalValue + (transaction.amount?.decimalValue)!)
-            } else {
-                //If expense, subtract from balance
-                balance = NSDecimalNumber(decimal: balance.decimalValue - (transaction.amount?.decimalValue)!)
-            }
-        }
-    }
     
     //Animate the balance changing from 0 to the current balance
     fileprivate func animateBalanceChange() {
@@ -180,8 +169,9 @@ extension MainController {
         incomeTransactions = TransactionManager.fetchTransactions(incomeType: true, currentMonth: currentMonth)
         expenseTransactions = TransactionManager.fetchTransactions(incomeType: false, currentMonth: currentMonth)
         balance = 0 //Reset balance first
-        calculateBalance(incomeTransactions)
-        calculateBalance(expenseTransactions)
+        balance = TransactionManager.calculateBalance(incomeTransactions)
+        balance = TransactionManager.calculateBalance(expenseTransactions)
+        print(balance)
         animateBalanceChange()
         
     }

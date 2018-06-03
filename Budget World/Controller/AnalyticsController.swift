@@ -16,13 +16,14 @@ class AnalyticsController: UIViewController {
         setupViews()
         dateBar.delegate = self
         setLegendColors()
-        setChart(dataPoints: months, values: unitsSold)
+        getExpenseTransactions()
+        setChart(values: expensePercentages)
     }
     
     var currentMonth: Date!
     var legendColors = [UIColor]()
-    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0, 18.0, 2.0, 4.0, 9.0]
+    var expensePercentages = [Double].init(repeating: 0, count: 11)
+    var expenseTransactions: [Transaction]!
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.portrait
@@ -111,19 +112,46 @@ extension AnalyticsController {
         legend.legendColors = legendColors
     }
     
-    fileprivate func setChart(dataPoints: [String], values: [Double]) {
+    fileprivate func setChart(values: [Double]) {
         var dataEntries = [ChartDataEntry]()
         
-        for i in 0..<11 {
+        for i in 0..<values.count {
             let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
             dataEntries.append(dataEntry)
         }
         let chartDataSet = PieChartDataSet(values: dataEntries, label: "Expenses")
         chartDataSet.colors = legendColors
         chartDataSet.drawValuesEnabled = true
+        let formatter = NumberFormatter()
+        formatter.zeroSymbol = ""
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = 1
+        formatter.multiplier = 1.0
+        chartDataSet.valueFormatter = DefaultValueFormatter(formatter: formatter)
 
         let chartData = PieChartData(dataSets: [chartDataSet])
         pieChart.data = chartData
+    }
+}
+
+//MARK: Expense calculations
+extension AnalyticsController {
+    fileprivate func getExpenseTransactions() {
+        expenseTransactions = TransactionManager.fetchTransactions(incomeType: false, currentMonth: currentMonth)
+        var totalExpense = TransactionManager.calculateBalance(expenseTransactions)
+        var expenseForCategories = [NSDecimalNumber].init(repeating: 0, count: 11)
+        
+        //Sum up total expense for each category and insert into array
+        for transaction in expenseTransactions {
+            expenseForCategories[Int(transaction.category)] = NSDecimalNumber(decimal: expenseForCategories[Int(transaction.category)].decimalValue + (transaction.amount?.decimalValue)!)
+        }
+        
+        //Calculate the percentages and insert into array
+        for i in 0..<expenseForCategories.count {
+            let decimalPercent: NSDecimalNumber = NSDecimalNumber(decimal: expenseForCategories[i].decimalValue/totalExpense.decimalValue)
+            let percent: Double = abs(Double(truncating: decimalPercent))*100
+            expensePercentages[i] = percent
+        }
     }
 }
 

@@ -24,10 +24,6 @@ class RecurringTransactionsController: UITableViewController {
     fileprivate func getTransactions() {
         //Populate 2d array with arrays of transactions as values and section as keys
         let recurringTransactions = TransactionManager.fetchRecurringTransactions()
-        for _ in 0...6 {
-            transactions.append([Transaction]())
-        }
-        
         for transaction in recurringTransactions {
             transactions[Int(transaction.recurringPeriod - 1)].append(transaction)
         }
@@ -47,7 +43,7 @@ class RecurringTransactionsController: UITableViewController {
     
     let recurringPeriods = ["Weekly", "Bi-weekly", "Monthly", "Bi-monthly", "Quarterly", "Semi-annually", "Annually"]
     let cellId = "cellId"
-    var transactions = [[Transaction]]()
+    var transactions = [[Transaction]].init(repeating: [Transaction](), count: 7)
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return recurringPeriods.count

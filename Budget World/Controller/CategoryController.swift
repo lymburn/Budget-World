@@ -90,7 +90,7 @@ extension CategoryController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! CategoryCell
         cell.separatorInset = UIEdgeInsets.zero
         cell.backgroundColor = UIColor.clear
-        cell.icon.image = UIImage(named: categoryNames[indexPath.row])
+        cell.icon.image = UIImage(named: categoryIcons[indexPath.row])
         cell.categoryName.text = categoryNames[indexPath.row]
         return cell
     }

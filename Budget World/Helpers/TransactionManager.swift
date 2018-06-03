@@ -69,6 +69,20 @@ class TransactionManager {
         return transactions
     }
     
+    static func calculateBalance(_ transactions: [Transaction]) -> NSDecimalNumber {
+        var balance: NSDecimalNumber = 0
+        for transaction in transactions {
+            if transaction.incomeType {
+                //If transaction is an income, add to balance
+                balance = NSDecimalNumber(decimal: balance.decimalValue + (transaction.amount?.decimalValue)!)
+            } else {
+                //If expense, subtract from balance
+                balance = NSDecimalNumber(decimal: balance.decimalValue - (transaction.amount?.decimalValue)!)
+            }
+        }
+        return balance
+    }
+    
     static func getCategoryNameAndImage(for transaction: Transaction) -> (String, String) {
         var categoryName: String = ""
         var imageName: String = ""
