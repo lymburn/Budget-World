@@ -16,7 +16,6 @@
 		26222DCC20BF1896000864E0 /* TransactionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26222DCB20BF1896000864E0 /* TransactionsController.swift */; };
 		265C799220B8D8ED00AA6F01 /* SlideOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265C799120B8D8ED00AA6F01 /* SlideOptionsController.swift */; };
 		267CF24220B9105A00E7BD8C /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 267CF24120B9105200E7BD8C /* OpenSans-Regular.ttf */; };
-		2685BEB220C39B93004CA85C /* ChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2685BEB120C39B93004CA85C /* ChartController.swift */; };
 		268D7CE520B8952C0002ACE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268D7CE420B8952C0002ACE3 /* AppDelegate.swift */; };
 		268D7CE720B8952C0002ACE3 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268D7CE620B8952C0002ACE3 /* MainController.swift */; };
 		268D7CEA20B8952C0002ACE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 268D7CE820B8952C0002ACE3 /* Main.storyboard */; };
@@ -56,7 +55,6 @@
 		26222DCB20BF1896000864E0 /* TransactionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsController.swift; sourceTree = "<group>"; };
 		265C799120B8D8ED00AA6F01 /* SlideOptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOptionsController.swift; sourceTree = "<group>"; };
 		267CF24120B9105200E7BD8C /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "Assets.xcassets/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
-		2685BEB120C39B93004CA85C /* ChartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartController.swift; sourceTree = "<group>"; };
 		268D7CE120B8952C0002ACE3 /* Budget World.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budget World.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		268D7CE420B8952C0002ACE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		268D7CE620B8952C0002ACE3 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
@@ -158,14 +156,8 @@
 		268D7CFB20B895800002ACE3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				26D96D5E20B9E292000CFB9C /* AddTransactionView.swift */,
-				26D96D6220BA130B000CFB9C /* TransactionTextField.swift */,
-				26D96D6420BA16C0000CFB9C /* CategoryCell.swift */,
-				26C032DA20BE00AA00A86A09 /* BudgetView.swift */,
-				26DB9F0820BE12DE00E9AD55 /* BudgetLabel.swift */,
-				26DB9F0C20BE1A1F00E9AD55 /* IncomeOverview.swift */,
-				26DB9F0E20BE241600E9AD55 /* ExpenseOverview.swift */,
-				26DB9F1020BE4A4100E9AD55 /* BalanceOverview.swift */,
+				26FA67F320C46934000F0058 /* BudgetOverviews */,
+				26FA67F220C46914000F0058 /* AddTransactionViews */,
 				268D7D0020B89BEE0002ACE3 /* MainScreenView.swift */,
 				260080D620B8C6670025DD27 /* SlideOptionCell.swift */,
 				260080D820B8C6E40025DD27 /* BaseTableViewCell.swift */,
@@ -192,7 +184,6 @@
 				269F9E3420C2547100699E00 /* SavingsController.swift */,
 				26EBF21120C25BF0008D9E3B /* CreateSavingController.swift */,
 				26F72B2B20C3140B00AD80EB /* PieChartController.swift */,
-				2685BEB120C39B93004CA85C /* ChartController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -205,6 +196,28 @@
 				26DB9F0620BE0CD300E9AD55 /* TransactionManager.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		26FA67F220C46914000F0058 /* AddTransactionViews */ = {
+			isa = PBXGroup;
+			children = (
+				26D96D5E20B9E292000CFB9C /* AddTransactionView.swift */,
+				26D96D6220BA130B000CFB9C /* TransactionTextField.swift */,
+				26D96D6420BA16C0000CFB9C /* CategoryCell.swift */,
+			);
+			path = AddTransactionViews;
+			sourceTree = "<group>";
+		};
+		26FA67F320C46934000F0058 /* BudgetOverviews */ = {
+			isa = PBXGroup;
+			children = (
+				26C032DA20BE00AA00A86A09 /* BudgetView.swift */,
+				26DB9F0820BE12DE00E9AD55 /* BudgetLabel.swift */,
+				26DB9F0C20BE1A1F00E9AD55 /* IncomeOverview.swift */,
+				26DB9F0E20BE241600E9AD55 /* ExpenseOverview.swift */,
+				26DB9F1020BE4A4100E9AD55 /* BalanceOverview.swift */,
+			);
+			path = BudgetOverviews;
 			sourceTree = "<group>";
 		};
 		7FC9EF3FBDDB52789BB90590 /* Frameworks */ = {
@@ -363,7 +376,6 @@
 				26F72B2C20C3140B00AD80EB /* PieChartController.swift in Sources */,
 				26EBF21420C25CD7008D9E3B /* CreateSavingView.swift in Sources */,
 				26D96D5D20B9DF77000CFB9C /* AddTransactionController.swift in Sources */,
-				2685BEB220C39B93004CA85C /* ChartController.swift in Sources */,
 				2602D24120C3497F00B1F733 /* BaseCollectionViewCell.swift in Sources */,
 				260080D920B8C6E40025DD27 /* BaseTableViewCell.swift in Sources */,
 				2602D24320C349D900B1F733 /* LegendCell.swift in Sources */,

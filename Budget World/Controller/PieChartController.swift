@@ -67,7 +67,8 @@ class PieChartController: UIViewController {
         let label = UILabel()
         label.textAlignment = .center
         label.text = "Expenses"
-        label.font = UIFont(name: "OpenSans-Regular", size: 24)
+        label.font = UIFont(name: "OpenSans-Regular", size: 20)
+        label.textColor = UIColor.rgb(red: 51, green: 51, blue: 51)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

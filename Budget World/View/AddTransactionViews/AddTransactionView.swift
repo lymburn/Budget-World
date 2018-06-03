@@ -25,10 +25,10 @@ class AddTransactionView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        amountTextField.setBottomBorder()
-        dateTextField.setBottomBorder()
-        categoryTextField.setBottomBorder()
-        recurringTextField.setBottomBorder()
+        amountTextField.setBottomBorder(color: .white)
+        dateTextField.setBottomBorder(color: .white)
+        categoryTextField.setBottomBorder(color: .white)
+        recurringTextField.setBottomBorder(color: .white)
     }
     
     let amountTextField: TransactionTextField = {

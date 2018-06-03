@@ -171,7 +171,6 @@ extension MainController {
         balance = 0 //Reset balance first
         balance = TransactionManager.calculateBalance(incomeTransactions)
         balance = TransactionManager.calculateBalance(expenseTransactions)
-        print(balance)
         animateBalanceChange()
         
     }
