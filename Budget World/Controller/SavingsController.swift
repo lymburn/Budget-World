@@ -16,8 +16,15 @@ class SavingsController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationController?.navigationBar.barTintColor = .black
         
+        tableView.register(SavingCell.self, forCellReuseIdentifier: cellId)
+        tableView.delegate = self
+        tableView.dataSource = self
         setupViews()
+        savings = SavingManager.fetchSavings()
     }
+    
+    var savings: [Saving]!
+    let cellId = "cellId"
     
     let tableView: UITableView = {
         let tv = UITableView()
@@ -89,6 +96,19 @@ extension SavingsController {
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: createButton.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+    
+}
+
+//MARK: Table view data source and delegate
+extension SavingsController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! SavingCell
+        return cell
     }
 }
 

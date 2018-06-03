@@ -8,6 +8,7 @@
 
 import UIKit
 import SlideMenuControllerSwift
+import CoreData
 
 class CreateSavingController: UIViewController {
     override func viewDidLoad() {
@@ -18,6 +19,9 @@ class CreateSavingController: UIViewController {
         navigationItem.title = "Create Saving"
         setupBarItems()
     }
+    
+    var savingAmount: NSDecimalNumber = 0
+    var savingDescription: String = ""
     
     let createSavingView: CreateSavingView = {
         let view = CreateSavingView()
@@ -61,8 +65,32 @@ extension CreateSavingController {
     }
     
     @objc func doneButtonPressed() {
+        storeSaving()
         let savingsController = SlideMenuController(mainViewController: SavingsController(), leftMenuViewController: SlideOptionsController())
         savingsController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(savingsController, animated: true, completion: nil)
+    }
+}
+
+//MARK: Create saving view delegate functions
+extension CreateSavingController: CreateSavingViewDelegate {
+    func amountPressed(amount: NSDecimalNumber) {
+        savingAmount = amount
+    }
+}
+
+//MARK: Storing into core data
+extension CreateSavingController {
+    fileprivate func storeSaving() {
+        let context = AppDelegate.viewContext
+        let saving = Saving(context: context)
+        saving.amount = savingAmount
+        saving.savingDescription = savingDescription
+        
+        do {
+            try saving.managedObjectContext?.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
     }
 }

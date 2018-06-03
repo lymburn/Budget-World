@@ -8,16 +8,22 @@
 
 import UIKit
 
+protocol CreateSavingViewDelegate: class {
+    func amountPressed(amount: NSDecimalNumber)
+}
+
 class CreateSavingView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
     
+    weak var delegate: CreateSavingViewDelegate? = nil
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         amountTextField.setBottomBorder(color: UIColor.rgb(red: 51, green: 51, blue: 51))
-        categoryTextField.setBottomBorder(color: UIColor.rgb(red: 51, green: 51, blue: 51))
+        descriptionTextField.setBottomBorder(color: UIColor.rgb(red: 51, green: 51, blue: 51))
     }
     
     let amountTextField: TransactionTextField = {
@@ -30,11 +36,10 @@ class CreateSavingView: UIView {
         return textField
     }()
     
-    let categoryTextField: TransactionTextField = {
+    let descriptionTextField: TransactionTextField = {
         let textField = TransactionTextField()
-        textField.placeholder = "Category"
+        textField.placeholder = "I am saving up for..."
         textField.textColor = UIColor.rgb(red: 51, green: 51, blue: 51)
-        textField.addTarget(self, action: #selector(categoryTextFieldPressed), for: .touchDown)
         return textField
     }()
     
@@ -48,31 +53,32 @@ extension CreateSavingView {
     fileprivate func setupViews() {
         backgroundColor = .white
         addSubview(amountTextField)
-        addSubview(categoryTextField)
+        addSubview(descriptionTextField)
         setupConstraints()
     }
     
     fileprivate func setupConstraints() {
-        amountTextField.topAnchor.constraint(equalTo: topAnchor, constant: 48).isActive = true
+        amountTextField.topAnchor.constraint(equalTo: topAnchor, constant: 60).isActive = true
         amountTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         amountTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
         amountTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        categoryTextField.topAnchor.constraint(equalTo: amountTextField.bottomAnchor, constant: 32).isActive = true
-        categoryTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-        categoryTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        categoryTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        descriptionTextField.topAnchor.constraint(equalTo: amountTextField.bottomAnchor, constant: 32).isActive = true
+        descriptionTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        descriptionTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+        descriptionTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 }
 
 //MARK: Touch events
 extension CreateSavingView {
     @objc func amountTextFieldChanged() {
-        
-    }
-    
-    @objc func categoryTextFieldPressed() {
-        
+        if let amount = amountTextField.text?.currencyInputFormatting() {
+            let amountString = amount.0
+            let amountNumber = amount.1
+            amountTextField.text = amountString
+            delegate?.amountPressed(amount: amountNumber)
+        }
     }
 }
 
