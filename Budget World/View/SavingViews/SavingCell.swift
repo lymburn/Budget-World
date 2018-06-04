@@ -37,7 +37,7 @@ class SavingCell: BaseTableViewCell {
     let progressView: UIProgressView = {
         let pv = UIProgressView()
         pv.translatesAutoresizingMaskIntoConstraints = false
-        pv.progress = 0.5
+        pv.progressTintColor = UIColor.rgb(red: 43, green: 132, blue: 210)
         return pv
     }()
 }
@@ -55,7 +55,7 @@ extension SavingCell {
         amountLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
         amountLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
-        progressView.topAnchor.constraint(equalTo: savingDescription.bottomAnchor, constant: 8).isActive = true
+        progressView.topAnchor.constraint(equalTo: savingDescription.bottomAnchor, constant: 12).isActive = true
         progressView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
         progressView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
     }

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import PMAlertController
 
 class SavingsController: UIViewController {
     override func viewDidLoad() {
@@ -25,6 +26,7 @@ class SavingsController: UIViewController {
     
     var savings: [Saving]!
     let cellId = "cellId"
+    let depositVC = PMAlertController(title: "Deposit", description: "Deposit how much you want to add towards your savings goal", image: UIImage(named: "Deposit"), style: .alert)
     
     let tableView: UITableView = {
         let tv = UITableView()
@@ -109,11 +111,27 @@ extension SavingsController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let saving = savings[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! SavingCell
-        print(saving.amount!)
         cell.amountLabel.text = "$" + String(format: "%.2f", Double(truncating: saving.amount!))
-        cell.savingDescription.text = saving.savingDescription ?? ""
-        print(saving.savingDescription!)
+        cell.savingDescription.text = saving.savingDescription!
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        depositVC.addTextField { (textField) in
+            guard let textField = textField else {return}
+            textField.placeholder = "Amount"
+            textField.keyboardType = UIKeyboardType.numberPad
+        }
+        
+        depositVC.textFields[0].addTarget(self, action: #selector(depositTextFieldChanged), for: .editingChanged)
+        depositVC.addAction(PMAlertAction(title: "Deposit", style: .default, action: { () in
+        }))
+        
+        depositVC.addAction(PMAlertAction(title: "Cancel", style: .cancel, action: { () -> Void in
+        }))
+        
+        self.present(depositVC, animated: true, completion: nil)
+
     }
 }
 
@@ -127,5 +145,11 @@ extension SavingsController {
         let createController = CreateSavingController()
         let nav = UINavigationController(rootViewController: createController)
         self.present(nav, animated: true, completion: nil)
+    }
+    
+    @objc func depositTextFieldChanged() {
+        if let amount = depositVC.textFields[0].text?.currencyInputFormatting() {
+            depositVC.textFields[0].text = amount.0
+        }
     }
 }
