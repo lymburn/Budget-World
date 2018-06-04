@@ -42,6 +42,7 @@ class LineChartController: BaseChartController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "Pie Chart"), for: .normal)
+        button.addTarget(self, action: #selector(pieChartPressed), for: .touchDown)
         return button
     }()
 }
@@ -133,4 +134,10 @@ extension LineChartController: DateBarDelegate {
     }
 }
 
-
+//MARK: Touch events
+extension LineChartController {
+    @objc func pieChartPressed() {
+        let pieChartController = SlideMenuController(mainViewController: PieChartController(), leftMenuViewController: SlideOptionsController())
+        present(pieChartController, animated: true, completion: nil)
+    }
+}
