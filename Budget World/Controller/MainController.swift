@@ -172,23 +172,67 @@ extension MainController {
  
     fileprivate func updateBalance() {
         //Fetch and update the balance for the current month
+        createRecurringTransactions()
         incomeTransactions = TransactionManager.fetchTransactions(incomeType: true, currentMonth: currentMonth)
         expenseTransactions = TransactionManager.fetchTransactions(incomeType: false, currentMonth: currentMonth)
         balance = 0 //Reset balance first
         calculateBalance(incomeTransactions)
         calculateBalance(expenseTransactions)
         animateBalanceChange()
-        createRecurringTransactions()
+        
     }
+    
     
     fileprivate func createRecurringTransactions() {
         //Check to see if there are recurring transactions that need to be created
         let recurringTransactions = TransactionManager.fetchRecurringTransactions()
+        let context = AppDelegate.viewContext
+        let calendar = Calendar.current
         for transaction in recurringTransactions {
-            //For each recurring transaction, calculate the number of periods since the creation date
-            //let currentDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-            //let startingDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: transaction.date!)
-            let daysDifference = abs(Calendar.current.dateComponents([.day], from: transaction.date!, to: Date()).day!)
+            //Increment from the starting date to the number of recurring days so far
+            var recurringPeriodComponents = DateComponents()
+            recurringPeriodComponents.day = Int(transaction.recurringDaysCount)
+            //Calculate number of dates since last recurring transactions was last updated
+            let incrementedTransactionDate = calendar.date(byAdding: recurringPeriodComponents, to: transaction.date!)!
+            let daysDifference = Calendar.current.dateComponents([.day], from: incrementedTransactionDate, to: Date()).day!
+            
+            //Only add recurring transactions if the days were in the past. Don't show future recurrences until the time comes
+            if daysDifference > 0 {
+                //Loop through each day and create a new transaction
+                //If updating recurring transaction for the first time, start at 0th index. Else, skip the 0th index to prevent adding the same transaction twice
+                let startingIndex: Int = transaction.recurringDaysCount > 0 ? 1 : 0
+                for i in startingIndex...daysDifference {
+                    //Create new transaction with no recurring period and with amount equal to the amount per day
+                    let recurringTran = Transaction(context: context)
+                    recurringTran.amount = transaction.amountPerDay
+                    recurringTran.category = transaction.category
+                    recurringTran.incomeType = transaction.incomeType
+                    
+                    //Date is based on which date it is in between the starting date and current date
+                    var transactionDateComponents = DateComponents()
+                    transactionDateComponents.day = i
+
+                    let transactionDate = calendar.date(byAdding: transactionDateComponents, to: incrementedTransactionDate)
+                    recurringTran.date = transactionDate
+                    
+                    //Store transaction
+                    do {
+                        try recurringTran.managedObjectContext?.save()
+                    } catch {
+                        fatalError("Failure to save context: \(error)")
+                    }
+                }
+                
+                //Update the recurring transactions period count so that its starting date can match the current date
+                transaction.recurringDaysCount = transaction.recurringDaysCount + Int32(daysDifference)
+                
+                //Save context
+                do {
+                    try transaction.managedObjectContext?.save()
+                } catch {
+                    fatalError("Failure to save context: \(error)")
+                }
+            }
             
         }
     }

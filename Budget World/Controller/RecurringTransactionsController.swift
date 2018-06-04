@@ -71,7 +71,7 @@ class RecurringTransactionsController: UITableViewController {
         cell.selectionStyle = .none
         cell.separatorInset = UIEdgeInsets.zero
         let transaction = transactions[indexPath.section][indexPath.row]
-        cell.date.text = dateFormatter.string(from: transaction.date!)
+        cell.date.text = "Started on " + dateFormatter.string(from: transaction.date!)
         let cellInfo = TransactionManager.getCategoryNameAndImage(for: transaction)
         let categoryName = cellInfo.0
         let iconName = cellInfo.1

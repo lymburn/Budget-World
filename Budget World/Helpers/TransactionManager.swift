@@ -10,6 +10,8 @@ import CoreData
 
 //Helper class for transaction info
 class TransactionManager {
+    
+    //Fetch NON-RECURRING transactions
     static func fetchTransactions(incomeType: Bool, currentMonth: Date) -> [Transaction] {
         let transactions: [Transaction]
         let request: NSFetchRequest<Transaction> = Transaction.fetchRequest()
@@ -18,7 +20,7 @@ class TransactionManager {
         components.month = 1
         let endOfMonth = Calendar.current.date(byAdding: components, to: currentMonth)!
         request.sortDescriptors = [NSSortDescriptor(key: "amount", ascending: true, selector: nil)]
-        request.predicate = NSPredicate(format: "date >= %@ && date < %@ && incomeType == %@", currentMonth as NSDate, endOfMonth as NSDate, NSNumber(booleanLiteral: incomeType))
+        request.predicate = NSPredicate(format: "date >= %@ && date < %@ && incomeType == %@ && recurringPeriod == %@", currentMonth as NSDate, endOfMonth as NSDate, NSNumber(booleanLiteral: incomeType), NSNumber(value: 0))
         
         let context = AppDelegate.viewContext
         do {
@@ -39,7 +41,7 @@ class TransactionManager {
         components.month = 1
         let endOfMonth = Calendar.current.date(byAdding: components, to: currentMonth)!
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false, selector: nil)]
-        request.predicate = NSPredicate(format: "date >= %@ && date < %@", currentMonth as NSDate, endOfMonth as NSDate)
+        request.predicate = NSPredicate(format: "date >= %@ && date < %@ && recurringPeriod == %@", currentMonth as NSDate, endOfMonth as NSDate, NSNumber(value: 0))
         
         let context = AppDelegate.viewContext
         do {

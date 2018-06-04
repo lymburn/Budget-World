@@ -177,6 +177,7 @@ extension AddTransactionController {
         let context = AppDelegate.viewContext
         let transaction = Transaction(context: context)
         transaction.amount = transactionAmount
+        transaction.amountPerDay = getRecurringTransactionAmount(period: getRecurringPeriod(), date: datePicker.date)
         transaction.date = datePicker.date
         transaction.category = self.categoryType!.rawValue
         transaction.recurringPeriod = getRecurringPeriod().rawValue
@@ -220,7 +221,7 @@ extension AddTransactionController {
         switch period {
             case .never: amountPerDay = transactionAmount
             case .weekly: amountPerDay = NSDecimalNumber(decimal: transactionAmount.decimalValue/numberOfDaysInWeek.decimalValue)
-            case .biWeekly: amountPerDay = NSDecimalNumber(decimal: transactionAmount.decimalValue/numberOfDaysInWeek.decimalValue*2)
+            case .biWeekly: amountPerDay = NSDecimalNumber(decimal: transactionAmount.decimalValue/(numberOfDaysInWeek.decimalValue*2))
             case .monthly: amountPerDay = NSDecimalNumber(decimal: transactionAmount.decimalValue/numberOfDaysInMonth.decimalValue)
             case .biMonthly:
                 let biMonthlyDays = calculateNumberOfDaysForRecurringPeriod(startingDate: date, numberOfMonths: 2)
