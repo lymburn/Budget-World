@@ -46,6 +46,8 @@
 		26F72B2C20C3140B00AD80EB /* PieChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F72B2B20C3140B00AD80EB /* PieChartController.swift */; };
 		26FA67F520C49E71000F0058 /* SavingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FA67F420C49E71000F0058 /* SavingManager.swift */; };
 		26FA67F720C4A043000F0058 /* SavingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FA67F620C4A043000F0058 /* SavingCell.swift */; };
+		26FA67FF20C4E672000F0058 /* LineChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FA67FE20C4E672000F0058 /* LineChartController.swift */; };
+		26FA680120C4ECDD000F0058 /* BaseChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FA680020C4ECDD000F0058 /* BaseChartController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +91,8 @@
 		26F72B2B20C3140B00AD80EB /* PieChartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartController.swift; sourceTree = "<group>"; };
 		26FA67F420C49E71000F0058 /* SavingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingManager.swift; sourceTree = "<group>"; };
 		26FA67F620C4A043000F0058 /* SavingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingCell.swift; sourceTree = "<group>"; };
+		26FA67FE20C4E672000F0058 /* LineChartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartController.swift; sourceTree = "<group>"; };
+		26FA680020C4ECDD000F0058 /* BaseChartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseChartController.swift; sourceTree = "<group>"; };
 		60520938E494FB55F34F3658 /* Pods-Budget World.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Budget World.release.xcconfig"; path = "Pods/Target Support Files/Pods-Budget World/Pods-Budget World.release.xcconfig"; sourceTree = "<group>"; };
 		80DCB5A40F786B8AAA358A95 /* Pods_Budget_World.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Budget_World.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9616980B44095F93909481C4 /* Pods-Budget World.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Budget World.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Budget World/Pods-Budget World.debug.xcconfig"; sourceTree = "<group>"; };
@@ -187,6 +191,8 @@
 				269F9E3420C2547100699E00 /* SavingsController.swift */,
 				26EBF21120C25BF0008D9E3B /* CreateSavingController.swift */,
 				26F72B2B20C3140B00AD80EB /* PieChartController.swift */,
+				26FA67FE20C4E672000F0058 /* LineChartController.swift */,
+				26FA680020C4ECDD000F0058 /* BaseChartController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -385,6 +391,7 @@
 				268D7D0120B89BEE0002ACE3 /* MainScreenView.swift in Sources */,
 				26DB9F0F20BE241600E9AD55 /* ExpenseOverview.swift in Sources */,
 				26DB9F0720BE0CD300E9AD55 /* TransactionManager.swift in Sources */,
+				26FA680120C4ECDD000F0058 /* BaseChartController.swift in Sources */,
 				268D7CED20B8952C0002ACE3 /* Budget_World.xcdatamodeld in Sources */,
 				26C032DB20BE00AA00A86A09 /* BudgetView.swift in Sources */,
 				26DB9F0920BE12DE00E9AD55 /* BudgetLabel.swift in Sources */,
@@ -405,6 +412,7 @@
 				2602D24120C3497F00B1F733 /* BaseCollectionViewCell.swift in Sources */,
 				260080D920B8C6E40025DD27 /* BaseTableViewCell.swift in Sources */,
 				2602D24320C349D900B1F733 /* LegendCell.swift in Sources */,
+				26FA67FF20C4E672000F0058 /* LineChartController.swift in Sources */,
 				26D96D6320BA130B000CFB9C /* TransactionTextField.swift in Sources */,
 				260080D720B8C6670025DD27 /* SlideOptionCell.swift in Sources */,
 				26DB9F0D20BE1A1F00E9AD55 /* IncomeOverview.swift in Sources */,
@@ -558,7 +566,10 @@
 				DEVELOPMENT_TEAM = UJ6RY8Y8CY;
 				INFOPLIST_FILE = "Budget World/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.eugenelu.budgetWorld.Budget-World";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -575,7 +586,10 @@
 				DEVELOPMENT_TEAM = UJ6RY8Y8CY;
 				INFOPLIST_FILE = "Budget World/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.eugenelu.budgetWorld.Budget-World";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

@@ -8,11 +8,11 @@
 
 import UIKit
 import Charts
+import SlideMenuControllerSwift
 
-class PieChartController: UIViewController {
+class PieChartController: BaseChartController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         setupViews()
         dateBar.delegate = self
         setLegendColors()
@@ -21,7 +21,7 @@ class PieChartController: UIViewController {
         if expensesExist() {
             chartTitle.alpha = 1
             setChart(values: expensePercentages)
-        }else {
+        } else {
             chartTitle.alpha = 0
             pieChart.clear()
         }
@@ -40,18 +40,6 @@ class PieChartController: UIViewController {
         return false
     }
     
-    let dateFormatter: DateFormatter = {
-        let df = DateFormatter()
-        df.dateFormat = "LLLL"
-        return df
-    }()
-    
-    let dateBar: DateBar = {
-        let db = DateBar()
-        db.translatesAutoresizingMaskIntoConstraints = false
-        return db
-    }()
-    
     let pieChart: PieChartView = {
         let chart = PieChartView()
         chart.translatesAutoresizingMaskIntoConstraints = false
@@ -62,21 +50,19 @@ class PieChartController: UIViewController {
         chart.noDataTextColor = .orange
         return chart
     }()
-    
-    let chartTitle: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.text = "Expenses"
-        label.font = UIFont(name: "OpenSans-Regular", size: 20)
-        label.textColor = UIColor.rgb(red: 51, green: 51, blue: 51)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
+
     let legend: Legend = {
         let legend = Legend()
         legend.translatesAutoresizingMaskIntoConstraints = false
         return legend
+    }()
+    
+    let lineChartButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "Line Chart"), for: .normal)
+        button.addTarget(self, action: #selector(lineChartPressed), for: .touchDown)
+        return button
     }()
     
     fileprivate func expensesExist() -> Bool {
@@ -98,6 +84,7 @@ extension PieChartController {
         view.addSubview(dateBar)
         view.addSubview(pieChart)
         view.addSubview(legend)
+        dateBar.addSubview(lineChartButton)
         setupConstraints()
         setDefaultMonth()
     }
@@ -107,6 +94,11 @@ extension PieChartController {
         dateBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         dateBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         dateBar.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        lineChartButton.centerYAnchor.constraint(equalTo: dateBar.centerYAnchor).isActive = true
+        lineChartButton.trailingAnchor.constraint(equalTo: dateBar.trailingAnchor, constant: -12).isActive = true
+        lineChartButton.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        lineChartButton.widthAnchor.constraint(equalToConstant: 22).isActive = true
         
         chartTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         chartTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -250,3 +242,10 @@ extension PieChartController: DateBarDelegate {
     }
 }
 
+//MARK: Touch events
+extension PieChartController {
+    @objc func lineChartPressed() {
+        let lineChartController = SlideMenuController(mainViewController: LineChartController(), leftMenuViewController: SlideOptionsController())
+        present(lineChartController, animated: true, completion: nil)
+    }
+}
