@@ -86,6 +86,7 @@ extension CreateSavingController {
         let context = AppDelegate.viewContext
         let saving = Saving(context: context)
         saving.amount = savingAmount
+        saving.originalAmount = savingAmount
         saving.savingDescription = createSavingView.descriptionTextField.text ?? ""
         
         do {

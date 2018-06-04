@@ -22,17 +22,20 @@ class SavingsController: UIViewController {
         tableView.dataSource = self
         setupViews()
         savings = SavingManager.fetchSavings()
+        
+
     }
     
     var savings: [Saving]!
     let cellId = "cellId"
-    let depositVC = PMAlertController(title: "Deposit", description: "Deposit how much you want to add towards your savings goal", image: UIImage(named: "Deposit"), style: .alert)
+    var depositVC: PMAlertController!
     
     let tableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.separatorInset = UIEdgeInsets.zero
-        tv.rowHeight = 60
+        tv.rowHeight = 70
+        tv.tableFooterView = UIView()
         return tv
     }()
     
@@ -111,27 +114,43 @@ extension SavingsController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let saving = savings[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! SavingCell
+        cell.selectionStyle = .none
         cell.amountLabel.text = "$" + String(format: "%.2f", Double(truncating: saving.amount!))
         cell.savingDescription.text = saving.savingDescription!
+        
+        //Progress bar amount
+        let decimalProgress = NSDecimalNumber(decimal: 1 - (saving.amount?.decimalValue)!/(saving.originalAmount?.decimalValue)!)
+        let progress = Float(truncating: decimalProgress)
+        cell.progressView.progress = progress
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        depositVC = PMAlertController(title: "Deposit", description: "Deposit how much you want to add towards your savings goal.", image: UIImage(named: "Deposit"), style: .alert)
         depositVC.addTextField { (textField) in
             guard let textField = textField else {return}
             textField.placeholder = "Amount"
             textField.keyboardType = UIKeyboardType.numberPad
         }
-        
         depositVC.textFields[0].addTarget(self, action: #selector(depositTextFieldChanged), for: .editingChanged)
         depositVC.addAction(PMAlertAction(title: "Deposit", style: .default, action: { () in
+            //Update savings amount
+            if let amount = self.depositVC.textFields[0].text?.currencyInputFormatting() {
+                let newAmount = NSDecimalNumber(decimal: (self.savings[indexPath.row].amount?.decimalValue)! - amount.1.decimalValue)
+                //Default to 0 if new deposit result in negative
+                self.savings[indexPath.row].amount = newAmount.decimalValue >= 0 ? newAmount : NSDecimalNumber(decimal: 0)
+                do {
+                    try self.savings[indexPath.row].managedObjectContext?.save()
+                } catch {
+                    fatalError("Failure to save context: \(error)")
+                }
+            }
+            //Reload table
+            self.tableView.reloadData()
         }))
-        
         depositVC.addAction(PMAlertAction(title: "Cancel", style: .cancel, action: { () -> Void in
         }))
-        
         self.present(depositVC, animated: true, completion: nil)
-
     }
 }
 

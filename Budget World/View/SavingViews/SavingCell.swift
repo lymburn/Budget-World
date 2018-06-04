@@ -21,7 +21,7 @@ class SavingCell: BaseTableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "OpenSans-Regular", size: 20)
-        label.textColor = UIColor.rgb(red: 51, green: 51, blue: 51)
+        label.textColor = UIColor.rgb(red: 15, green: 52, blue: 67)
         return label
     }()
     
@@ -45,15 +45,15 @@ class SavingCell: BaseTableViewCell {
 //MARK: Constraints
 extension SavingCell {
     fileprivate func setupConstraints() {
-        savingDescription.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
+        savingDescription.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
         savingDescription.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        savingDescription.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        savingDescription.heightAnchor.constraint(equalToConstant: 27).isActive = true
         savingDescription.trailingAnchor.constraint(equalTo: amountLabel.leadingAnchor, constant: -8).isActive = true
         
-        amountLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        amountLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
         amountLabel.leadingAnchor.constraint(equalTo: savingDescription.trailingAnchor, constant: 8)
         amountLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
-        amountLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        amountLabel.heightAnchor.constraint(equalToConstant: 27).isActive = true
         
         progressView.topAnchor.constraint(equalTo: savingDescription.bottomAnchor, constant: 12).isActive = true
         progressView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
