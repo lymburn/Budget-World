@@ -33,7 +33,7 @@ class TransactionManager {
     }
     
     //Fetch transactions in order of descending date
-    static func fetchTransactionsByDate(currentMonth: Date) -> [Transaction] {
+    static func fetchTransactionsByMonth(currentMonth: Date) -> [Transaction] {
         let transactions: [Transaction]
         let request: NSFetchRequest<Transaction> = Transaction.fetchRequest()
         //Fetch for transactions in the current month only
@@ -59,6 +59,27 @@ class TransactionManager {
         let request: NSFetchRequest<Transaction> = Transaction.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true, selector: nil)]
         request.predicate = NSPredicate(format: "recurringPeriod > %@", NSNumber(value: 0))
+        let context = AppDelegate.viewContext
+        do {
+            try transactions = context.fetch(request)
+        } catch {
+            fatalError("Failure to fetch request: \(error)")
+        }
+        
+        return transactions
+    }
+    
+    static func fetchTransactionsByDay(day: Date) -> [Transaction] {
+        let transactions: [Transaction]
+        var components = DateComponents()
+        components.day = 1
+        let nextDay = Calendar.current.date(byAdding: components, to: day)!
+        
+        let request: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+        //Fetch for transactions in the current month only
+        request.sortDescriptors = [NSSortDescriptor(key: "amount", ascending: true, selector: nil)]
+        request.predicate = NSPredicate(format: "date >= %@ && date < %@", day as NSDate, nextDay as NSDate)
+        
         let context = AppDelegate.viewContext
         do {
             try transactions = context.fetch(request)

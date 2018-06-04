@@ -101,7 +101,7 @@ extension TransactionsController {
     
     fileprivate func getTransactions() {
         //Get transactions info from core data for the month
-        transactions = TransactionManager.fetchTransactionsByDate(currentMonth: currentMonth)
+        transactions = TransactionManager.fetchTransactionsByMonth(currentMonth: currentMonth)
     }
 }
 

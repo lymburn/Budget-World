@@ -16,9 +16,13 @@ class LineChartController: BaseChartController {
         super.chartTitle.text = "Balance Over Time"
         dateBar.delegate = self
         setupViews()
+        populateDataSet()
+        setChart(values: balances)
     }
     
     var currentMonth: Date!
+    var balances = [Double]()
+    var dayBalance: NSDecimalNumber = 0
     
     let lineChart: LineChartView = {
         let chart = LineChartView()
@@ -26,6 +30,11 @@ class LineChartController: BaseChartController {
         chart.chartDescription?.text = ""
         chart.noDataText = "No expenses recorded"
         chart.noDataTextColor = .orange
+        chart.legend.enabled = false
+        chart.xAxis.drawGridLinesEnabled = false
+        chart.xAxis.labelPosition = .bottom
+        chart.rightAxis.enabled = false
+        chart.leftAxis.drawGridLinesEnabled = false
         return chart
     }()
     
@@ -78,6 +87,34 @@ extension LineChartController {
     }
     
     fileprivate func setChart(values: [Double]) {
+        var dataEntries: [ChartDataEntry] = []
+        
+        for i in 0..<values.count {
+            let dataEntry = ChartDataEntry(x: Double(i+1), y: values[i])
+            dataEntries.append(dataEntry)
+        }
+        
+        let lineChartDataSet = LineChartDataSet(values: dataEntries, label: "Balance")
+        lineChartDataSet.drawCirclesEnabled = false
+        lineChartDataSet.drawValuesEnabled = false
+        let lineChartData = LineChartData(dataSets: [lineChartDataSet])
+        lineChart.data = lineChartData
+    }
+    
+    fileprivate func populateDataSet() {
+        //Loop through the days of the current month
+        let calendar = Calendar.current
+        var startDate = currentMonth
+        var components = DateComponents()
+        components.month = 1
+        let endOfMonth = Calendar.current.date(byAdding: components, to: currentMonth)!
+        
+        while startDate! <= endOfMonth {
+            let dayTransactions = TransactionManager.fetchTransactionsByDay(day: startDate!)
+            dayBalance = NSDecimalNumber(decimal: dayBalance.decimalValue + TransactionManager.calculateBalance(dayTransactions).decimalValue)
+            balances.append(Double(truncating: dayBalance))
+            startDate! = calendar.date(byAdding: .day, value: 1, to: startDate!)!
+        }
     }
 }
 
