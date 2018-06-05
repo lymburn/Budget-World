@@ -22,8 +22,6 @@ class SavingsController: UIViewController {
         tableView.dataSource = self
         setupViews()
         savings = SavingManager.fetchSavings()
-        
-
     }
     
     var savings: [Saving]!
@@ -151,6 +149,19 @@ extension SavingsController: UITableViewDataSource, UITableViewDelegate {
         depositVC.addAction(PMAlertAction(title: "Cancel", style: .cancel, action: { () -> Void in
         }))
         self.present(depositVC, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            let context = AppDelegate.viewContext
+            context.delete(savings[indexPath.row])
+            savings.remove(at: indexPath.row)
+            tableView.reloadData()
+        }
     }
 }
 

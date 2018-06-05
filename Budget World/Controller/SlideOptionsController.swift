@@ -37,8 +37,8 @@ class SlideOptionsController: UIViewController {
     }()
     
     let cellId = "cellId"
-    let menuOptions = ["Home", "Budget Overview", "Analytics", "Transactions", "Savings", "Upgrade", "More"]
-    let menuIcons = ["Home","Budget", "Analytics", "Transaction", "Goals", "Premium", "More"]
+    let menuOptions = ["Home", "Budget Overview", "Analytics", "Transactions", "Savings", "More"]
+    let menuIcons = ["Home","Budget", "Analytics", "Transaction", "Goals", "More"]
 }
 
 //MARK: Setup
@@ -79,7 +79,6 @@ extension SlideOptionsController: UITableViewDelegate, UITableViewDataSource {
             case 3: self.slideMenuController()?.changeMainViewController(TransactionsController(), close: true)
             case 4: self.slideMenuController()?.changeMainViewController(SavingsController(), close: true)
             case 5: self.slideMenuController()?.changeMainViewController(MainController(), close: true)
-            case 6: self.slideMenuController()?.changeMainViewController(MainController(), close: true)
             default: break
         }
     }

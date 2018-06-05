@@ -140,7 +140,7 @@ extension MainScreenView {
         balanceLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         balanceLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
-        addIncomeButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -200).isActive = true
+        addIncomeButton.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 180).isActive = true
         addIncomeButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         addExpenseButton.topAnchor.constraint(equalTo: addIncomeButton.bottomAnchor, constant: 50).isActive = true
