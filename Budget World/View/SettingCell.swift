@@ -12,8 +12,17 @@ class SettingCell: BaseTableViewCell {
     override func setupViews() {
         super.setupViews()
         addSubview(settingLabel)
+        addSubview(icon)
         setupConstraints()
     }
+    
+    let icon: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFit
+        iv.clipsToBounds = true
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
     
     let settingLabel: UILabel = {
         let label = UILabel()
@@ -26,8 +35,14 @@ class SettingCell: BaseTableViewCell {
 
 extension SettingCell {
     fileprivate func setupConstraints() {
+        icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        icon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
+        icon.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        icon.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        
         settingLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        settingLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
+        settingLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 12).isActive = true
+        settingLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
         settingLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
     }
 }

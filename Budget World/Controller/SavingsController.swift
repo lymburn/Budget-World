@@ -112,7 +112,7 @@ extension SavingsController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let saving = savings[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! SavingCell
-        cell.selectionStyle = .none
+        cell.selectionStyle = .default
         cell.amountLabel.text = "$" + String(format: "%.2f", Double(truncating: saving.amount!))
         cell.savingDescription.text = saving.savingDescription!
         

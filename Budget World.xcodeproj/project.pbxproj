@@ -28,6 +28,8 @@
 		268D7D0120B89BEE0002ACE3 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268D7D0020B89BEE0002ACE3 /* MainScreenView.swift */; };
 		2697A1BB20BF38DC00103684 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2697A1BA20BF38DC00103684 /* TransactionCell.swift */; };
 		2697A1BD20BF560A00103684 /* RecurringTransactionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2697A1BC20BF560A00103684 /* RecurringTransactionsController.swift */; };
+		269ABB8A20C6367000C29596 /* CurrenciesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269ABB8920C6367000C29596 /* CurrenciesController.swift */; };
+		269ABB8C20C645B300C29596 /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269ABB8B20C645B300C29596 /* CurrencyCell.swift */; };
 		269F9E3520C2547100699E00 /* SavingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269F9E3420C2547100699E00 /* SavingsController.swift */; };
 		26C032D920BDDFF100A86A09 /* BudgetOverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C032D820BDDFF100A86A09 /* BudgetOverviewController.swift */; };
 		26C032DB20BE00AA00A86A09 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C032DA20BE00AA00A86A09 /* BudgetView.swift */; };
@@ -75,6 +77,8 @@
 		268D7D0020B89BEE0002ACE3 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		2697A1BA20BF38DC00103684 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		2697A1BC20BF560A00103684 /* RecurringTransactionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringTransactionsController.swift; sourceTree = "<group>"; };
+		269ABB8920C6367000C29596 /* CurrenciesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesController.swift; sourceTree = "<group>"; };
+		269ABB8B20C645B300C29596 /* CurrencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCell.swift; sourceTree = "<group>"; };
 		269F9E3420C2547100699E00 /* SavingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsController.swift; sourceTree = "<group>"; };
 		26C032D820BDDFF100A86A09 /* BudgetOverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetOverviewController.swift; sourceTree = "<group>"; };
 		26C032DA20BE00AA00A86A09 /* BudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 				2697A1BA20BF38DC00103684 /* TransactionCell.swift */,
 				2602D24020C3497F00B1F733 /* BaseCollectionViewCell.swift */,
 				263636BB20C62B0100D76409 /* SettingCell.swift */,
+				269ABB8B20C645B300C29596 /* CurrencyCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -199,6 +204,7 @@
 				26FA67FE20C4E672000F0058 /* LineChartController.swift */,
 				26FA680020C4ECDD000F0058 /* BaseChartController.swift */,
 				263636B920C61A7A00D76409 /* SettingsController.swift */,
+				269ABB8920C6367000C29596 /* CurrenciesController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -388,6 +394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				269ABB8C20C645B300C29596 /* CurrencyCell.swift in Sources */,
 				2697A1BD20BF560A00103684 /* RecurringTransactionsController.swift in Sources */,
 				26DB9F0B20BE172C00E9AD55 /* DateBar.swift in Sources */,
 				26222DCC20BF1896000864E0 /* TransactionsController.swift in Sources */,
@@ -416,6 +423,7 @@
 				26EBF21420C25CD7008D9E3B /* CreateSavingView.swift in Sources */,
 				26D96D5D20B9DF77000CFB9C /* AddTransactionController.swift in Sources */,
 				2602D24120C3497F00B1F733 /* BaseCollectionViewCell.swift in Sources */,
+				269ABB8A20C6367000C29596 /* CurrenciesController.swift in Sources */,
 				263636BC20C62B0100D76409 /* SettingCell.swift in Sources */,
 				260080D920B8C6E40025DD27 /* BaseTableViewCell.swift in Sources */,
 				2602D24320C349D900B1F733 /* LegendCell.swift in Sources */,

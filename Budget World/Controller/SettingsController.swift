@@ -18,8 +18,15 @@ class SettingsController: UIViewController {
         tableView.dataSource = self
     }
     
+    func getSymbolForCurrencyCode(code: String) -> String? {
+        let result = Locale.availableIdentifiers.map { Locale(identifier: $0) }.first { $0.currencyCode == code }
+        return result?.currencySymbol
+    }
+    
+    
     let cellId = "cellId"
     let settingNames = ["Choose currency", "Rate us", "Send feedback"]
+    let iconNames = ["Currency", "Rate", "Feedback"]
 
     let tableView: UITableView = {
         let tv = UITableView()
@@ -86,8 +93,22 @@ extension SettingsController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! SettingCell
+        cell.selectionStyle = .default
         cell.settingLabel.text = settingNames[indexPath.row]
+        cell.icon.image = UIImage(named: iconNames[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("hi")
+        switch indexPath.row {
+            case 0: let currenciesController = CurrenciesController()
+                    let nav = UINavigationController(rootViewController: currenciesController)
+                    present(nav, animated: true, completion: nil)
+            case 1: break
+            case 2: break
+            default: break
+        }
     }
 }
 
