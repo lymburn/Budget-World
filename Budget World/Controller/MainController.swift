@@ -31,6 +31,7 @@ class MainController: UIViewController {
     override var shouldAutorotate: Bool {
         return true
     }
+    
     var currentSymbol: String!
     let cellId = "cellId"
     let menuOptions = ["Budget Overview", "Analytics", "Transvarions", "Goals", "Premium", "More"]

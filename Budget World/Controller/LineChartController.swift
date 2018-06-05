@@ -14,12 +14,16 @@ class LineChartController: BaseChartController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIDevice.current.setValue(Int(UIInterfaceOrientation.landscapeLeft.rawValue), forKey: "orientation")
         super.chartTitle.text = "Balance Over Time"
         dateBar.delegate = self
         setupViews()
         populateDataSet()
         setChart(values: balances)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIDevice.current.setValue(Int(UIInterfaceOrientation.landscapeLeft.rawValue), forKey: "orientation")
     }
     
     override func viewWillDisappear(_ animated: Bool) {

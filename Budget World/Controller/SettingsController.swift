@@ -18,6 +18,14 @@ class SettingsController: UIViewController {
         tableView.dataSource = self
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
     func getSymbolForCurrencyCode(code: String) -> String? {
         let result = Locale.availableIdentifiers.map { Locale(identifier: $0) }.first { $0.currencyCode == code }
         return result?.currencySymbol

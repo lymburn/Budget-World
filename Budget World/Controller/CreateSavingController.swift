@@ -22,6 +22,14 @@ class CreateSavingController: UIViewController {
         setupBarItems()
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
     var savingAmount: NSDecimalNumber = 0
     
     let createSavingView: CreateSavingView = {

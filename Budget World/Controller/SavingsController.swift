@@ -29,6 +29,14 @@ class SavingsController: UIViewController {
         savings = SavingManager.fetchSavings()
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
     var savings: [Saving]!
     let cellId = "cellId"
     var depositVC: PMAlertController!

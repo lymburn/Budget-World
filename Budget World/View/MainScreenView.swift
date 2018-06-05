@@ -19,10 +19,12 @@ protocol MainScreenDelegate: class {
 class MainScreenView : UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
+        isPad = UIDevice.current.userInterfaceIdiom == .pad ? true : false
         setupViews()
     }
     
     weak var delegate: MainScreenDelegate?
+    var isPad: Bool = false
     
     let balanceLabel : UILabel = {
         let label = UILabel()
@@ -122,12 +124,10 @@ extension MainScreenView {
     fileprivate func setupConstraints() {
         
         previousMonth.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
-        previousMonth.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32).isActive = true
         previousMonth.widthAnchor.constraint(equalToConstant: 42).isActive = true
         previousMonth.heightAnchor.constraint(equalToConstant: 42).isActive = true
         
         nextMonth.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
-        nextMonth.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32).isActive = true
         nextMonth.widthAnchor.constraint(equalToConstant: 42).isActive = true
         nextMonth.heightAnchor.constraint(equalToConstant: 42).isActive = true
         
@@ -135,13 +135,24 @@ extension MainScreenView {
         dateLabel.leadingAnchor.constraint(equalTo: previousMonth.trailingAnchor, constant: 16).isActive = true
         dateLabel.trailingAnchor.constraint(equalTo: nextMonth.leadingAnchor, constant: -16).isActive = true
         
-        balanceLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 50).isActive = true
+
         balanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         balanceLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         balanceLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
-        addIncomeButton.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 180).isActive = true
-        addIncomeButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        if isPad {
+            addIncomeButton.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 400).isActive = true
+            addIncomeButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+            previousMonth.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 100).isActive = true
+            nextMonth.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -100).isActive = true
+            balanceLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 100).isActive = true
+        } else {
+            addIncomeButton.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 180).isActive = true
+            addIncomeButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+            previousMonth.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32).isActive = true
+            nextMonth.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32).isActive = true
+            balanceLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 50).isActive = true
+        }
         
         addExpenseButton.topAnchor.constraint(equalTo: addIncomeButton.bottomAnchor, constant: 50).isActive = true
         addExpenseButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true

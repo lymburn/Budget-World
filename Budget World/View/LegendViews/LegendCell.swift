@@ -26,16 +26,24 @@ class LegendCell: BaseCollectionViewCell {
     }()
     
     override func setupViews() {
+        isPad = UIDevice.current.userInterfaceIdiom == .pad ? true : false
         addSubview(icon)
         addSubview(title)
         setupConstraints()
     }
+    
+    var isPad: Bool = false
 }
 
 //MARK: Constraints
 extension LegendCell {
     fileprivate func setupConstraints() {
-        icon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width/5).isActive = true
+        if isPad {
+            icon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width/3).isActive = true
+        } else {
+            icon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width/5).isActive = true
+        }
+        
         icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         icon.widthAnchor.constraint(equalToConstant: 14).isActive = true
         icon.heightAnchor.constraint(equalToConstant: 14).isActive = true
