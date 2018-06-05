@@ -11,13 +11,22 @@ import UIKit
 class TransactionsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        currentSymbol = UserDefaults.standard.string(forKey: "currency")
+        if currentSymbol == nil {
+            currentSymbol = "$"
+        }
+        
         setupViews()
         dateBar.delegate = self
         
         tableView.register(TransactionCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
         tableView.dataSource = self
+        
     }
+    
+    var currentSymbol:String!
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -178,7 +187,7 @@ extension TransactionsController: UITableViewDelegate, UITableViewDataSource {
         } else {
             cell.transactionAmount.textColor = .red
         }
-        cell.transactionAmount.text = "$" + String(format: "%.2f", Double(truncating: transaction.amount!))
+        cell.transactionAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: transaction.amount!))
 
         return cell
     }

@@ -11,10 +11,16 @@ import UIKit
 class BudgetOverviewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        currentSymbol = UserDefaults.standard.string(forKey: "currency")
+        if currentSymbol == nil {
+            currentSymbol = "$"
+        }
+        
         setupViews()
         budgetView.dateBar.delegate = self
     }
-    
+    var currentSymbol:String!
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }
@@ -73,10 +79,10 @@ extension BudgetOverviewController {
         let salary = calculateTransactions(incomeTransactions, for: .salary)
         let investment = calculateTransactions(incomeTransactions, for: .investment)
         let sale = calculateTransactions(incomeTransactions, for: .sale)
-        budgetView.incomeView.incomeAmount.text = "$" + String(format: "%.2f", Double(truncating: totalIncome))
-        budgetView.incomeView.salaryAmount.text = "$" + String(format: "%.2f", Double(truncating: salary))
-        budgetView.incomeView.investmentAmount.text = "$" + String(format: "%.2f", Double(truncating: investment))
-        budgetView.incomeView.saleAmount.text = "$" + String(format: "%.2f", Double(truncating: sale))
+        budgetView.incomeView.incomeAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: totalIncome))
+        budgetView.incomeView.salaryAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: salary))
+        budgetView.incomeView.investmentAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: investment))
+        budgetView.incomeView.saleAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: sale))
         
         //Expenses
         let expenseTransactions = TransactionManager.fetchTransactions(incomeType: false, currentMonth: currentMonth)
@@ -92,25 +98,25 @@ extension BudgetOverviewController {
         let education = calculateTransactions(expenseTransactions, for: .education)
         let holiday = calculateTransactions(expenseTransactions, for: .holiday)
         let medical = calculateTransactions(expenseTransactions, for: .medical)
-        budgetView.expenseView.expenseAmount.text = "$" + String(format: "%.2f", Double(truncating: totalExpense))
-        budgetView.expenseView.generalAmount.text = "$" + String(format: "%.2f", Double(truncating: general))
-        budgetView.expenseView.eatingAmount.text = "$" + String(format: "%.2f", Double(truncating: eating))
-        budgetView.expenseView.housingAmount.text = "$" + String(format: "%.2f", Double(truncating: housing))
-        budgetView.expenseView.fuelAmount.text = "$" + String(format: "%.2f", Double(truncating: fuel))
-        budgetView.expenseView.transportationAmount.text = "$" + String(format: "%.2f", Double(truncating: transportation))
-        budgetView.expenseView.entertainmentAmount.text = "$" + String(format: "%.2f", Double(truncating: entertainment))
-        budgetView.expenseView.groceriesAmount.text = "$" + String(format: "%.2f", Double(truncating: groceries))
-        budgetView.expenseView.clothingAmount.text = "$" + String(format: "%.2f", Double(truncating: clothing))
-        budgetView.expenseView.educationAmount.text = "$" + String(format: "%.2f", Double(truncating: education))
-        budgetView.expenseView.holidayAmount.text = "$" + String(format: "%.2f", Double(truncating: holiday))
-        budgetView.expenseView.medicalAmount.text = "$" + String(format: "%.2f", Double(truncating: medical))
+        budgetView.expenseView.expenseAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: totalExpense))
+        budgetView.expenseView.generalAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: general))
+        budgetView.expenseView.eatingAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: eating))
+        budgetView.expenseView.housingAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: housing))
+        budgetView.expenseView.fuelAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: fuel))
+        budgetView.expenseView.transportationAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: transportation))
+        budgetView.expenseView.entertainmentAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: entertainment))
+        budgetView.expenseView.groceriesAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: groceries))
+        budgetView.expenseView.clothingAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: clothing))
+        budgetView.expenseView.educationAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: education))
+        budgetView.expenseView.holidayAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: holiday))
+        budgetView.expenseView.medicalAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: medical))
         
         //Total balance
         let totalBalance = NSDecimalNumber(decimal: totalIncome.decimalValue - totalExpense.decimalValue)
         if totalBalance.decimalValue >= 0 {
-            budgetView.balanceView.balanceAmount.text = "$" + String(format: "%.2f", Double(truncating: totalBalance))
+            budgetView.balanceView.balanceAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: totalBalance))
         } else {
-            budgetView.balanceView.balanceAmount.text = "-$" + String(format: "%.2f", -Double(truncating: totalBalance))
+            budgetView.balanceView.balanceAmount.text = "-" + currentSymbol + String(format: "%.2f", -Double(truncating: totalBalance))
         }
     }
     

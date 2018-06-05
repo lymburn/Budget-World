@@ -14,6 +14,11 @@ class MainController: UIViewController {
         super.viewDidLoad()
         view.addGradientWithColor(primary: UIColor.rgb(red: 52, green: 232, blue: 158), secondary: UIColor.rgb(red: 15, green: 52, blue: 67))
         mainView.delegate = self
+        currentSymbol = UserDefaults.standard.string(forKey: "currency")
+        if currentSymbol == nil {
+            currentSymbol = "$"
+        }
+        
         setupViews()
         setDefaultMonth()
         updateBalance()
@@ -26,7 +31,7 @@ class MainController: UIViewController {
     override var shouldAutorotate: Bool {
         return true
     }
-    
+    var currentSymbol: String!
     let cellId = "cellId"
     let menuOptions = ["Budget Overview", "Analytics", "Transvarions", "Goals", "Premium", "More"]
     let menuIcons = ["Budget", "Analytics", "Transaction", "Goals", "Premium", "More"]
@@ -144,9 +149,9 @@ extension MainController {
                 timer.invalidate()
                 //Format based on whether balance is positive or negative
                 if self.balance.decimalValue >= 0 {
-                    self.mainView.balanceLabel.text = "$" + String(format: "%.2f", Double(truncating: self.balance))
+                    self.mainView.balanceLabel.text = self.currentSymbol + String(format: "%.2f", Double(truncating: self.balance))
                 } else {
-                    self.mainView.balanceLabel.text = "-$" + String(format: "%.2f", -Double(truncating: self.balance))
+                    self.mainView.balanceLabel.text = "-" + self.currentSymbol + String(format: "%.2f", -Double(truncating: self.balance))
                 }
                 return
             } else if self.balance.decimalValue < 0 {
@@ -156,9 +161,9 @@ extension MainController {
             }
             
             if self.balance.decimalValue >= 0 {
-                self.mainView.balanceLabel.text = "$" + String(format: "%.2f", Double(truncating: current))
+                self.mainView.balanceLabel.text = self.currentSymbol + String(format: "%.2f", Double(truncating: current))
             } else {
-                self.mainView.balanceLabel.text = "-$" + String(format: "%.2f", Double(truncating: current))
+                self.mainView.balanceLabel.text = "-" + self.currentSymbol + String(format: "%.2f", Double(truncating: current))
             }
         }
     }
@@ -170,10 +175,10 @@ extension MainController {
         expenseTransactions = TransactionManager.fetchTransactions(incomeType: false, currentMonth: currentMonth)
         balance = 0 //Reset balance first
         balance = TransactionManager.calculateBalance(incomeTransactions)
+        print(balance)
         balance = NSDecimalNumber(decimal: balance.decimalValue + TransactionManager.calculateBalance(expenseTransactions).decimalValue)
-
+        print(balance)
         animateBalanceChange()
-        
     }
     
     

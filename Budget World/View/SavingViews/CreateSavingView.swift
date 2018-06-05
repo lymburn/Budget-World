@@ -27,8 +27,12 @@ class CreateSavingView: UIView {
     }
     
     let amountTextField: TransactionTextField = {
+        var currentSymbol = UserDefaults.standard.string(forKey: "currency")
+        if currentSymbol == nil {
+            currentSymbol = "$"
+        }
         let textField = TransactionTextField()
-        textField.text = "$0.00"
+        textField.text = currentSymbol! + "0.00"
         textField.placeholder = "Amount"
         textField.textColor = UIColor.rgb(red: 51, green: 51, blue: 51)
         textField.addTarget(self, action: #selector(amountTextFieldChanged), for: .editingChanged)

@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = .black
         UIApplication.shared.isStatusBarHidden = true
         
+        UserDefaults.standard.register(defaults: ["currency" : "$"])
         return true
     }
 

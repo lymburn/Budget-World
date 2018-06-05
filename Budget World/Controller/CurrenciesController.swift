@@ -26,6 +26,7 @@ class CurrenciesController: UIViewController {
     
     let cellId = "cellId"
     let currencies = ["USD", "EUR", "GBP", "INR", "JPY", "RUB", "KPW","CRC", "CZK", "DKK",  "AFN", "ALL", "DZD","ILS", "AOA", "AMD", "BHD", "BDT", "GEL", "GHS", "GNF", "KZT", "MYR", "QAR", "ZAR"]
+    var selectedIndex: Int = 0
     
     let tableView: UITableView = {
         let tv = UITableView()
@@ -77,19 +78,36 @@ extension CurrenciesController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! CurrencyCell
+        cell.selectionStyle = .none
         let currencySymbol = getSymbolForCurrencyCode(code: currencies[indexPath.row])
         if currencySymbol != nil {
             cell.currencyLabel.text = currencySymbol!
         }
+        //Check if cell is the current symbol and set checkmark if it is
+        var currentSymbol = UserDefaults.standard.string(forKey: "currency")
+        if currentSymbol == nil {
+            currentSymbol = "$"
+        }
+        if currentSymbol! == currencySymbol {
+            cell.accessoryType = .checkmark
+            selectedIndex = indexPath.row
+        }
         return cell
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        for row in 0..<tableView.numberOfRows(inSection: indexPath.section) {
+            if let cell = tableView.cellForRow(at: IndexPath(row: row, section: indexPath.section)) {
+                cell.accessoryType = row == indexPath.row ? .checkmark : .none
+                selectedIndex = indexPath.row
+            }
+        }
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return ""
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.accessoryType = .none
+        }
     }
 }
 
@@ -102,6 +120,8 @@ extension CurrenciesController {
     }
     
     @objc func doneButtonPressed() {
+        //Save currency symbol to user defaults
+        UserDefaults.standard.set(getSymbolForCurrencyCode(code: currencies[selectedIndex]), forKey: "currency")
         let savingsController = SlideMenuController(mainViewController: SettingsController(), leftMenuViewController: SlideOptionsController())
         savingsController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(savingsController, animated: true, completion: nil)

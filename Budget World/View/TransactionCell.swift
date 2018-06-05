@@ -48,7 +48,6 @@ class TransactionCell: BaseTableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "OpenSans-Regular", size: 18)
         label.textAlignment = .right
-        label.text = "$100000.00"
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

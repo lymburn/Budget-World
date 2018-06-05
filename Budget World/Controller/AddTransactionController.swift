@@ -15,11 +15,19 @@ class AddTransactionController: UIViewController {
         super.viewDidLoad()
         view.addGradientWithColor(primary: UIColor.rgb(red: 52, green: 232, blue: 158), secondary: UIColor.rgb(red: 15, green: 52, blue: 67))
         setupBarItems()
+        
+        currentSymbol = UserDefaults.standard.string(forKey: "currency")
+        if currentSymbol == nil {
+            currentSymbol = "$"
+        }
+        
         setupViews()
         transactionView.delegate = self
         recurringPicker.delegate = self
         recurringPicker.dataSource = self
     }
+    
+    var currentSymbol: String!
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.portrait
@@ -166,7 +174,7 @@ extension AddTransactionController: UIPickerViewDelegate, UIPickerViewDataSource
         if recurringPeriod != .never {
             transactionView.amountPerDayLabel.alpha = 1
             let amountPerDay:NSDecimalNumber = getRecurringTransactionAmount(period: recurringPeriod, date: datePicker.date)
-            transactionView.amountPerDayLabel.text = "$" + String(format: "%.2f", Double(truncating: amountPerDay)) + "/day"
+            transactionView.amountPerDayLabel.text = currentSymbol + String(format: "%.2f", Double(truncating: amountPerDay)) + "/day"
         } else {
             transactionView.amountPerDayLabel.alpha = 0
         }

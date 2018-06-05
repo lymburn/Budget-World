@@ -17,6 +17,11 @@ class SavingsController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationController?.navigationBar.barTintColor = .black
         
+        currentSymbol = UserDefaults.standard.string(forKey: "currency")
+        if currentSymbol == nil {
+            currentSymbol = "$"
+        }
+        
         tableView.register(SavingCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
         tableView.dataSource = self
@@ -27,6 +32,7 @@ class SavingsController: UIViewController {
     var savings: [Saving]!
     let cellId = "cellId"
     var depositVC: PMAlertController!
+    var currentSymbol: String!
     
     let tableView: UITableView = {
         let tv = UITableView()
@@ -113,7 +119,7 @@ extension SavingsController: UITableViewDataSource, UITableViewDelegate {
         let saving = savings[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! SavingCell
         cell.selectionStyle = .default
-        cell.amountLabel.text = "$" + String(format: "%.2f", Double(truncating: saving.amount!))
+        cell.amountLabel.text = currentSymbol + String(format: "%.2f", Double(truncating: saving.amount!))
         cell.savingDescription.text = saving.savingDescription!
         
         //Progress bar amount

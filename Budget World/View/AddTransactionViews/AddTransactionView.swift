@@ -32,8 +32,12 @@ class AddTransactionView: UIView {
     }
     
     let amountTextField: TransactionTextField = {
+        var currentSymbol = UserDefaults.standard.string(forKey: "currency")
+        if currentSymbol == nil {
+            currentSymbol = "$"
+        }
         let textField = TransactionTextField()
-        textField.text = "$0.00"
+        textField.text = currentSymbol! + "0.00"
         textField.placeholder = "Amount"
         textField.addTarget(self, action: #selector(amountTextFieldChanged), for: .editingChanged)
         textField.keyboardType = UIKeyboardType.numberPad

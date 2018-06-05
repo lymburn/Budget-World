@@ -46,11 +46,15 @@ extension String {
     
     //Formatting text for currency text field
     func currencyInputFormatting() -> (String, NSDecimalNumber) {
+        var currentSymbol = UserDefaults.standard.string(forKey: "currency")
+        if currentSymbol == nil {
+            currentSymbol = "$"
+        }
         
         var number: NSDecimalNumber!
         let formatter = NumberFormatter()
         formatter.numberStyle = .currencyAccounting
-        formatter.currencySymbol = "$"
+        formatter.currencySymbol = currentSymbol
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 2
         

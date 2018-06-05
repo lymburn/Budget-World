@@ -17,15 +17,26 @@ class RecurringTransactionsController: UITableViewController {
         navigationController?.navigationBar.barTintColor = UIColor.rgb(red: 15, green: 52, blue: 67)
         tableView.register(TransactionCell.self, forCellReuseIdentifier: cellId)
         tableView.rowHeight = 66
+        
+        currentSymbol = UserDefaults.standard.string(forKey: "currency")
+        if currentSymbol == nil {
+            currentSymbol = "$"
+        }
+        
         setupBackButton()
         getTransactions()
     }
+    
+    var currentSymbol:String!
     
     fileprivate func getTransactions() {
         //Populate 2d array with arrays of transactions as values and section as keys
         let recurringTransactions = TransactionManager.fetchRecurringTransactions()
         for transaction in recurringTransactions {
-            transactions[Int(transaction.recurringPeriod - 1)].append(transaction)
+            if transaction.recurringDaysCount != -1 {
+                //If the recurring transaction hasn't been deleted yet
+                transactions[Int(transaction.recurringPeriod - 1)].append(transaction)
+            }
         }
     }
     
@@ -80,7 +91,7 @@ class RecurringTransactionsController: UITableViewController {
         } else {
             cell.transactionAmount.textColor = .red
         }
-        cell.transactionAmount.text = "$" + String(format: "%.2f", Double(truncating: transaction.amount!))
+        cell.transactionAmount.text = currentSymbol + String(format: "%.2f", Double(truncating: transaction.amount!))
         return cell
     }
     
