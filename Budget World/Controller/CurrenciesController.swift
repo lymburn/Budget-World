@@ -17,7 +17,7 @@ class CurrenciesController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationController?.navigationBar.barTintColor = UIColor.rgb(red: 15, green: 52, blue: 67)
         setupViews()
-        setupBarItems()
+        setupBarItem()
         
         tableView.register(CurrencyCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
@@ -26,7 +26,7 @@ class CurrenciesController: UIViewController {
     
     let cellId = "cellId"
     let currencies = ["USD", "EUR", "GBP", "INR", "JPY", "RUB", "KPW","CRC", "CZK", "DKK",  "AFN", "ALL", "DZD","ILS", "AOA", "AMD", "BHD", "BDT", "GEL", "GHS", "GNF", "KZT", "MYR", "QAR", "ZAR"]
-    var selectedIndex: Int = 0
+    var currentSymbol: String!
     
     let tableView: UITableView = {
         let tv = UITableView()
@@ -54,14 +54,10 @@ extension CurrenciesController {
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
-    fileprivate func setupBarItems() {
+    fileprivate func setupBarItem() {
         let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonPressed))
         cancelItem.tintColor = UIColor.white
         navigationItem.leftBarButtonItem = cancelItem
-        
-        let doneItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonPressed))
-        doneItem.tintColor = UIColor.white
-        navigationItem.rightBarButtonItem = doneItem
     }
     
     fileprivate func getSymbolForCurrencyCode(code: String) -> String? {
@@ -78,50 +74,26 @@ extension CurrenciesController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! CurrencyCell
-        cell.selectionStyle = .none
+        cell.selectionStyle = .default
         let currencySymbol = getSymbolForCurrencyCode(code: currencies[indexPath.row])
         if currencySymbol != nil {
             cell.currencyLabel.text = currencySymbol!
-        }
-        //Check if cell is the current symbol and set checkmark if it is
-        var currentSymbol = UserDefaults.standard.string(forKey: "currency")
-        if currentSymbol == nil {
-            currentSymbol = "$"
-        }
-        if currentSymbol! == currencySymbol {
-            cell.accessoryType = .checkmark
-            selectedIndex = indexPath.row
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        for row in 0..<tableView.numberOfRows(inSection: indexPath.section) {
-            if let cell = tableView.cellForRow(at: IndexPath(row: row, section: indexPath.section)) {
-                cell.accessoryType = row == indexPath.row ? .checkmark : .none
-                selectedIndex = indexPath.row
-            }
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) {
-            cell.accessoryType = .none
-        }
+        //Save currency symbol to user defaults
+        UserDefaults.standard.set(getSymbolForCurrencyCode(code: currencies[indexPath.row]), forKey: "currency")
+        let savingsController = SlideMenuController(mainViewController: SettingsController(), leftMenuViewController: SlideOptionsController())
+        savingsController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        present(savingsController, animated: true, completion: nil)
     }
 }
 
 //MARK: Touch events
 extension CurrenciesController {
     @objc func cancelButtonPressed() {
-        let savingsController = SlideMenuController(mainViewController: SettingsController(), leftMenuViewController: SlideOptionsController())
-        savingsController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-        present(savingsController, animated: true, completion: nil)
-    }
-    
-    @objc func doneButtonPressed() {
-        //Save currency symbol to user defaults
-        UserDefaults.standard.set(getSymbolForCurrencyCode(code: currencies[selectedIndex]), forKey: "currency")
         let savingsController = SlideMenuController(mainViewController: SettingsController(), leftMenuViewController: SlideOptionsController())
         savingsController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(savingsController, animated: true, completion: nil)

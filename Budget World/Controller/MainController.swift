@@ -175,9 +175,7 @@ extension MainController {
         expenseTransactions = TransactionManager.fetchTransactions(incomeType: false, currentMonth: currentMonth)
         balance = 0 //Reset balance first
         balance = TransactionManager.calculateBalance(incomeTransactions)
-        print(balance)
         balance = NSDecimalNumber(decimal: balance.decimalValue + TransactionManager.calculateBalance(expenseTransactions).decimalValue)
-        print(balance)
         animateBalanceChange()
     }
     

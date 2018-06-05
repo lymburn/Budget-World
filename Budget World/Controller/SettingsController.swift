@@ -100,7 +100,6 @@ extension SettingsController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("hi")
         switch indexPath.row {
             case 0: let currenciesController = CurrenciesController()
                     let nav = UINavigationController(rootViewController: currenciesController)
