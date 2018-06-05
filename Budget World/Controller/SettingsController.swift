@@ -26,7 +26,7 @@ class SettingsController: UIViewController {
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.separatorInset = UIEdgeInsets.zero
         tv.rowHeight = 50
-        tv.tableFooterView = UIView()
+        //tv.tableFooterView = UIView()
         return tv
     }()
     
