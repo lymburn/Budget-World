@@ -9,6 +9,7 @@
 import UIKit
 import SlideMenuControllerSwift
 import CoreData
+import PMAlertController
 
 class AddTransactionController: UIViewController {
     override func viewDidLoad() {
@@ -40,7 +41,7 @@ class AddTransactionController: UIViewController {
     var transactionType: TransactionType? = nil
     let recurringPeriods = ["Never", "Weekly", "Bi-weekly", "Monthly", "Bi-monthly", "Quarterly", "Semi-annually", "Annually"]
     var transactionAmount: NSDecimalNumber = 0
-    var categoryType: CategoryType!
+    var categoryType: CategoryType? = nil
     
     let recurringPicker : UIPickerView = {
         let picker = UIPickerView()
@@ -68,6 +69,17 @@ class AddTransactionController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    fileprivate func displayAmountPerDayAmount() {
+        let recurringPeriod: RecurringPeriod = getRecurringPeriod()
+        if recurringPeriod != .never {
+            transactionView.amountPerDayLabel.alpha = 1
+            let amountPerDay:NSDecimalNumber = getRecurringTransactionAmount(period: recurringPeriod, date: datePicker.date)
+            transactionView.amountPerDayLabel.text = currentSymbol + String(format: "%.2f", Double(truncating: amountPerDay)) + "/day"
+        } else {
+            transactionView.amountPerDayLabel.alpha = 0
+        }
+    }
 }
 
 //MARK: Setup
@@ -105,6 +117,10 @@ extension AddTransactionController {
     }
     
     @objc func doneButtonPressed() {
+        if categoryType == nil {
+            displayMissingCategory()
+            return
+        }
         storeTransaction()
         let mainController = SlideMenuController(mainViewController: MainController(), leftMenuViewController: SlideOptionsController())
         mainController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
@@ -114,7 +130,13 @@ extension AddTransactionController {
     @objc func dateValueChanged() {
         transactionView.dateTextField.text = dateFormatter.string(from: datePicker.date)
     }
-
+    
+    private func displayMissingCategory() {
+        //Display alert asking for category
+        let alert = PMAlertController(title: "Category missing", description: "Please select a category to continue.", image: nil, style: .alert)
+        alert.addAction(PMAlertAction(title: "Ok", style: .default))
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 //MARK: Transaction view delegate
@@ -145,6 +167,7 @@ extension AddTransactionController: AddTransactionViewDelegate {
     
     func amountFieldPressed(amount: NSDecimalNumber) {
         transactionAmount = amount
+        displayAmountPerDayAmount()
     }
 }
 
@@ -170,20 +193,12 @@ extension AddTransactionController: UIPickerViewDelegate, UIPickerViewDataSource
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         transactionView.recurringTextField.text = recurringPeriods[row]
-        let recurringPeriod: RecurringPeriod = getRecurringPeriod()
-        if recurringPeriod != .never {
-            transactionView.amountPerDayLabel.alpha = 1
-            let amountPerDay:NSDecimalNumber = getRecurringTransactionAmount(period: recurringPeriod, date: datePicker.date)
-            transactionView.amountPerDayLabel.text = currentSymbol + String(format: "%.2f", Double(truncating: amountPerDay)) + "/day"
-        } else {
-            transactionView.amountPerDayLabel.alpha = 0
-        }
+        displayAmountPerDayAmount()
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return recurringPeriods.count
     }
-    
 }
 
 //MARK: Core data storing functions
@@ -194,6 +209,7 @@ extension AddTransactionController {
         transaction.amount = transactionAmount
         transaction.amountPerDay = getRecurringTransactionAmount(period: getRecurringPeriod(), date: datePicker.date)
         transaction.date = datePicker.date
+        print(self.categoryType?.rawValue)
         transaction.category = self.categoryType!.rawValue
         transaction.recurringPeriod = getRecurringPeriod().rawValue
         transaction.incomeType = transactionType == .income ? true : false

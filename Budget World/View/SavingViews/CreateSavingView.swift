@@ -81,7 +81,6 @@ extension CreateSavingView {
             let amountString = amount.0
             let amountNumber = amount.1
             amountTextField.text = amountString
-            print(amountNumber)
             delegate?.amountPressed(amount: amountNumber)
         }
     }

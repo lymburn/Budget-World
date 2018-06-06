@@ -83,6 +83,7 @@ class RecurringTransactionsController: UITableViewController {
         let categoryName = cellInfo.0
         let iconName = cellInfo.1
         cell.categoryName.text = categoryName
+        print(categoryName)
         cell.icon.image = UIImage(named: iconName)
         
         //Set transaction amount text to green if income and red if expense

@@ -112,8 +112,10 @@ extension SettingsController: UITableViewDelegate, UITableViewDataSource {
             case 0: let currenciesController = CurrenciesController()
                     let nav = UINavigationController(rootViewController: currenciesController)
                     present(nav, animated: true, completion: nil)
-            case 1: break
-            case 2: break
+            case 1: guard let url = URL(string : "https://itunes.apple.com/us/app/budget-world/id1394895650?ls=1&mt=8") else {return}
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            case 2: guard let url = URL(string: "https://www.facebook.com/Budget-World-2053059578349259/") else {return}
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
             default: break
         }
     }
