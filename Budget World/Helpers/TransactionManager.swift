@@ -90,6 +90,23 @@ class TransactionManager {
         return transactions
     }
     
+    static func fetchAllTransactions() -> [Transaction] {
+        let transactions: [Transaction]
+        
+        let request: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "amount", ascending: true, selector: nil)]
+        request.predicate = nil
+        
+        let context = AppDelegate.viewContext
+        do {
+            try transactions = context.fetch(request)
+        } catch {
+            fatalError("Failure to fetch request: \(error)")
+        }
+        
+        return transactions
+    }
+    
     static func calculateBalance(_ transactions: [Transaction]) -> NSDecimalNumber {
         var balance: NSDecimalNumber = 0
         for transaction in transactions {

@@ -33,7 +33,7 @@ class CurrenciesController: UIViewController {
     }
     
     let cellId = "cellId"
-    let currencies = ["USD", "EUR", "GBP", "INR", "JPY", "RUB", "KPW","CRC", "CZK", "DKK",  "AFN", "ALL", "DZD","ILS", "AOA", "AMD", "BHD", "BDT", "GEL", "GHS", "GNF", "KZT", "MYR", "QAR", "ZAR"]
+    var currencies = ["USD", "CAD", "EUR", "GBP", "JPY", "RUB", "KRW", "CNY"]
     var currentSymbol: String!
     
     let tableView: UITableView = {
@@ -85,13 +85,18 @@ extension CurrenciesController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .default
         let currencySymbol = getSymbolForCurrencyCode(code: currencies[indexPath.row])
         if currencySymbol != nil {
-            cell.currencyLabel.text = currencySymbol!
+            cell.currencyLabel.text = currencySymbol! + " \(currencies[indexPath.row])"
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //Convert currencies
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.convertCurrencies(to: self.currencies[indexPath.row])
+        }
         //Save currency symbol to user defaults
+        UserDefaults.standard.set(currencies[indexPath.row], forKey: "currencyString")
         UserDefaults.standard.set(getSymbolForCurrencyCode(code: currencies[indexPath.row]), forKey: "currency")
         let savingsController = SlideMenuController(mainViewController: SettingsController(), leftMenuViewController: SlideOptionsController())
         savingsController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
@@ -108,3 +113,58 @@ extension CurrenciesController {
     }
 }
 
+//MARK: Currency conversion API functions
+extension CurrenciesController {
+    //Convert all transactions in database to new currency
+    func convertCurrencies(to newCurrency: String) {
+        let currentCurrencyString = UserDefaults.standard.string(forKey: "currencyString")
+        guard let currentCurrency = currentCurrencyString else {return}
+        if currentCurrency == newCurrency {
+            //If switching to same currency, return
+            return
+        }
+        
+        var currentToEurosRate: NSDecimalNumber!
+        var eurosToNewRate: NSDecimalNumber!
+        
+        guard let url = URL(string: "http://data.fixer.io/api/latest?access_key=873b83641d14b43af0a3fff0dd3b1d53") else {return}
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else {return}
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: AnyObject] {
+                    for currency in json["rates"] as! NSDictionary {
+                        let currencyString = currency.key as! String
+                        if currencyString == currentCurrency {
+                            //Get conversion rate from current currency to euros
+                            currentToEurosRate = NSDecimalNumber(decimal: (NSNumber(value: 1).decimalValue)/(currency.value as! NSNumber).decimalValue)
+                        } else if currencyString == newCurrency {
+                            //Get conversion rate from euros to new currency
+                            eurosToNewRate = NSDecimalNumber(decimal: (currency.value as! NSNumber).decimalValue)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.updateCurrencies(currentToEuros: currentToEurosRate, eurosToNew: eurosToNewRate)
+                    }
+                }
+            } catch {
+                print("json error: \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //Update all the currencies stored in Core Data
+    func updateCurrencies(currentToEuros: NSDecimalNumber, eurosToNew: NSDecimalNumber) {
+        let transactions = TransactionManager.fetchAllTransactions()
+        for transaction in transactions {
+            transaction.amount = NSDecimalNumber(decimal: (transaction.amount?.decimalValue)! * currentToEuros.decimalValue)
+            transaction.amount = NSDecimalNumber(decimal: (transaction.amount?.decimalValue)! * eurosToNew.decimalValue)
+            //Save change
+            do {
+                try transaction.managedObjectContext?.save()
+            } catch {
+                fatalError("Failure to save context: \(error)")
+            }
+        }
+    }
+}

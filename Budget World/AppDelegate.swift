@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.isStatusBarHidden = true
         
         UserDefaults.standard.register(defaults: ["currency" : "$"])
+        UserDefaults.standard.register(defaults: ["currencyString": "USD"])
         return true
     }
 
