@@ -111,7 +111,6 @@ extension LineChartController {
         var dataEntries: [ChartDataEntry] = []
         
         for i in 0..<values.count {
-            print(Double(i+1))
             let dataEntry = ChartDataEntry(x: Double(i+1), y: values[i])
             dataEntries.append(dataEntry)
         }

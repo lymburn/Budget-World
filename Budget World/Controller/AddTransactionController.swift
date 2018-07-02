@@ -209,7 +209,6 @@ extension AddTransactionController {
         transaction.amount = transactionAmount
         transaction.amountPerDay = getRecurringTransactionAmount(period: getRecurringPeriod(), date: datePicker.date)
         transaction.date = datePicker.date
-        print(self.categoryType?.rawValue)
         transaction.category = self.categoryType!.rawValue
         transaction.recurringPeriod = getRecurringPeriod().rawValue
         transaction.incomeType = transactionType == .income ? true : false
