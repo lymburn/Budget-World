@@ -10,9 +10,11 @@ Key Features:
 • Listing of transactions in a table along with the category, date, and amount  
 • Ability to create saving plans and deposit money into them  
 • Line and pie charts showing balance over a month and expenses respectively  
+• Real-time currency conversions with Fixer API (personal use, not released available for App Store version)  
 
 Skills Practiced:  
 • Practiced the fundamentals of Core Data such as storing, deleting, and querying  
+• Practiced API calls and JSON parsing (Fixer API)  
 • Further practiced creating UI from code and autolayout  
 • Learned how to use the iOS Charts library  
 • Worked heavily with date handling  
