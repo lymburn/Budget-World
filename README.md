@@ -1,6 +1,6 @@
 # Budget-World
 
-Budget World is an income/expense tracking app to allow for simple budgetting. This app was more complex as I included many more features
+Budget World is an income/expense tracking app to allow for simple budgeting. This app was more complex as I included many more features
 such as charts, transactions tracking, recurring transactions, and savings. It provided me with a way to learn Core Data and work
 on a larger app with more views and data management.  
 
