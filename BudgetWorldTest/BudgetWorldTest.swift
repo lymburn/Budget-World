@@ -26,7 +26,7 @@ class BudgetWorldTest: XCTestCase {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
-            var currencies = ["USD", "CAD", "EUR", "CNY", "GBP", "JPY", "RUB", "KRW", "IDR", "BRL", "PKR", "BDT", "NGN", "MXN", "VND", "PHP",
+            let currencies = ["USD", "CAD", "EUR", "CNY", "GBP", "JPY", "RUB", "KRW", "IDR", "BRL", "PKR", "BDT", "NGN", "MXN", "VND", "PHP",
                               "ETB", "EGP", "YTL", "IRR", "THB", "CDF", "MMK", "ZAR", "UAH", "COP", "ARS", "PLN", "MAD", "NPR", "VEF", "MYR"]
             
             DispatchQueue.global(qos: .userInitiated).async {
