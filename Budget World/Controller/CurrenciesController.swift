@@ -18,6 +18,7 @@ class CurrenciesController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.rgb(red: 15, green: 52, blue: 67)
         setupViews()
         setupBarItem()
+        populateCurrencySymbols()
         
         tableView.register(CurrencyCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
@@ -33,7 +34,9 @@ class CurrenciesController: UIViewController {
     }
     
     let cellId = "cellId"
-    var currencies = ["USD", "CAD", "EUR", "GBP", "JPY", "RUB", "KRW", "CNY"]
+    var currencyCodes = ["USD", "CAD", "EUR", "CNY", "GBP", "JPY", "RUB", "KRW", "BRL", "BDT", "NGN", "VND", "PHP",
+                        "EGP", "IRR", "MMK", "ZAR", "UAH", "PLN", "NPR"]
+    var currencySymbols = [String]()
     var currentSymbol: String!
     
     let tableView: UITableView = {
@@ -69,35 +72,47 @@ extension CurrenciesController {
     }
     
     fileprivate func getSymbolForCurrencyCode(code: String) -> String? {
-        let result = Locale.availableIdentifiers.map { Locale(identifier: $0) }.first { $0.currencyCode == code }
-        return result?.currencySymbol
+        guard let identifier = Locale.availableIdentifiers.first(where: { Locale(identifier: $0).currencyCode == code }) else { return nil }
+        return Locale(identifier: identifier).currencySymbol
+    }
+    
+    fileprivate func populateCurrencySymbols() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            for code in self.currencyCodes {
+                let symbol = self.getSymbolForCurrencyCode(code: code) ?? code
+                self.currencySymbols.append(symbol)
+                if self.currencySymbols.count == self.currencyCodes.count {
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
     }
 }
 
 //MARK: Table view delegate and data source
 extension CurrenciesController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currencies.count
+        //Return 0 if currency symbols is not fully populated
+        return currencySymbols.count == currencyCodes.count ? currencySymbols.count : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! CurrencyCell
         cell.selectionStyle = .default
-        let currencySymbol = getSymbolForCurrencyCode(code: currencies[indexPath.row])
-        if currencySymbol != nil {
-            cell.currencyLabel.text = currencySymbol! + " \(currencies[indexPath.row])"
-        }
+        cell.currencyLabel.text = currencySymbols[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Convert currencies
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.convertCurrencies(to: self.currencies[indexPath.row])
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.convertCurrencies(to: (self?.currencyCodes[indexPath.row])!)
         }
         //Save currency symbol to user defaults
-        UserDefaults.standard.set(currencies[indexPath.row], forKey: "currencyString")
-        UserDefaults.standard.set(getSymbolForCurrencyCode(code: currencies[indexPath.row]), forKey: "currency")
+        UserDefaults.standard.set(currencyCodes[indexPath.row], forKey: "currencyString")
+        UserDefaults.standard.set(getSymbolForCurrencyCode(code: currencyCodes[indexPath.row]), forKey: "currency")
         let savingsController = SlideMenuController(mainViewController: SettingsController(), leftMenuViewController: SlideOptionsController())
         savingsController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(savingsController, animated: true, completion: nil)
@@ -119,10 +134,8 @@ extension CurrenciesController {
     func convertCurrencies(to newCurrency: String) {
         let currentCurrencyString = UserDefaults.standard.string(forKey: "currencyString")
         guard let currentCurrency = currentCurrencyString else {return}
-        if currentCurrency == newCurrency {
-            //If switching to same currency, return
-            return
-        }
+        //If switching to same currency, return
+        if currentCurrency == newCurrency {return}
         
         var currentToEurosRate: NSDecimalNumber!
         var eurosToNewRate: NSDecimalNumber!

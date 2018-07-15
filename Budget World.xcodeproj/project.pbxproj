@@ -17,6 +17,7 @@
 		263636BA20C61A7A00D76409 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263636B920C61A7A00D76409 /* SettingsController.swift */; };
 		263636BC20C62B0100D76409 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263636BB20C62B0100D76409 /* SettingCell.swift */; };
 		265C799220B8D8ED00AA6F01 /* SlideOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265C799120B8D8ED00AA6F01 /* SlideOptionsController.swift */; };
+		26734E9420FAE9DC001B7C98 /* BudgetWorldTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26734E9320FAE9DC001B7C98 /* BudgetWorldTest.swift */; };
 		267CF24220B9105A00E7BD8C /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 267CF24120B9105200E7BD8C /* OpenSans-Regular.ttf */; };
 		268D7CE520B8952C0002ACE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268D7CE420B8952C0002ACE3 /* AppDelegate.swift */; };
 		268D7CE720B8952C0002ACE3 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268D7CE620B8952C0002ACE3 /* MainController.swift */; };
@@ -54,6 +55,23 @@
 		26FA680120C4ECDD000F0058 /* BaseChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FA680020C4ECDD000F0058 /* BaseChartController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		26734E8820FAE1E2001B7C98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 268D7CD920B8952C0002ACE3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 268D7CE020B8952C0002ACE3;
+			remoteInfo = "Budget World";
+		};
+		26734E9620FAE9DC001B7C98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 268D7CD920B8952C0002ACE3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 268D7CE020B8952C0002ACE3;
+			remoteInfo = "Budget World";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		260080D620B8C6670025DD27 /* SlideOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOptionCell.swift; sourceTree = "<group>"; };
 		260080D820B8C6E40025DD27 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
@@ -64,6 +82,10 @@
 		263636B920C61A7A00D76409 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		263636BB20C62B0100D76409 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		265C799120B8D8ED00AA6F01 /* SlideOptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOptionsController.swift; sourceTree = "<group>"; };
+		26734E8320FAE1E2001B7C98 /* BudgetWorldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BudgetWorldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		26734E9120FAE9DC001B7C98 /* BudgetWorldTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BudgetWorldTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		26734E9320FAE9DC001B7C98 /* BudgetWorldTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetWorldTest.swift; sourceTree = "<group>"; };
+		26734E9520FAE9DC001B7C98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		267CF24120B9105200E7BD8C /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "Assets.xcassets/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		268D7CE120B8952C0002ACE3 /* Budget World.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budget World.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		268D7CE420B8952C0002ACE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +129,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		26734E8020FAE1E2001B7C98 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26734E8E20FAE9DC001B7C98 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		268D7CDE20B8952C0002ACE3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -118,10 +154,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		26734E9220FAE9DC001B7C98 /* BudgetWorldTest */ = {
+			isa = PBXGroup;
+			children = (
+				26734E9320FAE9DC001B7C98 /* BudgetWorldTest.swift */,
+				26734E9520FAE9DC001B7C98 /* Info.plist */,
+			);
+			path = BudgetWorldTest;
+			sourceTree = "<group>";
+		};
 		268D7CD820B8952C0002ACE3 = {
 			isa = PBXGroup;
 			children = (
 				268D7CE320B8952C0002ACE3 /* Budget World */,
+				26734E9220FAE9DC001B7C98 /* BudgetWorldTest */,
 				268D7CE220B8952C0002ACE3 /* Products */,
 				B756343FFF225E85F3D48D55 /* Pods */,
 				7FC9EF3FBDDB52789BB90590 /* Frameworks */,
@@ -132,6 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				268D7CE120B8952C0002ACE3 /* Budget World.app */,
+				26734E8320FAE1E2001B7C98 /* BudgetWorldTests.xctest */,
+				26734E9120FAE9DC001B7C98 /* BudgetWorldTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -280,6 +328,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		26734E8220FAE1E2001B7C98 /* BudgetWorldTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26734E8C20FAE1E2001B7C98 /* Build configuration list for PBXNativeTarget "BudgetWorldTests" */;
+			buildPhases = (
+				26734E7F20FAE1E2001B7C98 /* Sources */,
+				26734E8020FAE1E2001B7C98 /* Frameworks */,
+				26734E8120FAE1E2001B7C98 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				26734E8920FAE1E2001B7C98 /* PBXTargetDependency */,
+			);
+			name = BudgetWorldTests;
+			productName = BudgetWorldTests;
+			productReference = 26734E8320FAE1E2001B7C98 /* BudgetWorldTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		26734E9020FAE9DC001B7C98 /* BudgetWorldTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26734E9820FAE9DC001B7C98 /* Build configuration list for PBXNativeTarget "BudgetWorldTest" */;
+			buildPhases = (
+				26734E8D20FAE9DC001B7C98 /* Sources */,
+				26734E8E20FAE9DC001B7C98 /* Frameworks */,
+				26734E8F20FAE9DC001B7C98 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				26734E9720FAE9DC001B7C98 /* PBXTargetDependency */,
+			);
+			name = BudgetWorldTest;
+			productName = BudgetWorldTest;
+			productReference = 26734E9120FAE9DC001B7C98 /* BudgetWorldTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		268D7CE020B8952C0002ACE3 /* Budget World */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 268D7CF620B8952E0002ACE3 /* Build configuration list for PBXNativeTarget "Budget World" */;
@@ -305,10 +389,18 @@
 		268D7CD920B8952C0002ACE3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0930;
+				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Eugene Lu";
 				TargetAttributes = {
+					26734E8220FAE1E2001B7C98 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 268D7CE020B8952C0002ACE3;
+					};
+					26734E9020FAE9DC001B7C98 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 268D7CE020B8952C0002ACE3;
+					};
 					268D7CE020B8952C0002ACE3 = {
 						CreatedOnToolsVersion = 9.3.1;
 					};
@@ -328,11 +420,27 @@
 			projectRoot = "";
 			targets = (
 				268D7CE020B8952C0002ACE3 /* Budget World */,
+				26734E8220FAE1E2001B7C98 /* BudgetWorldTests */,
+				26734E9020FAE9DC001B7C98 /* BudgetWorldTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		26734E8120FAE1E2001B7C98 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26734E8F20FAE9DC001B7C98 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		268D7CDF20B8952C0002ACE3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -390,6 +498,21 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		26734E7F20FAE1E2001B7C98 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26734E8D20FAE9DC001B7C98 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26734E9420FAE9DC001B7C98 /* BudgetWorldTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		268D7CDD20B8952C0002ACE3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -439,6 +562,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		26734E8920FAE1E2001B7C98 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 268D7CE020B8952C0002ACE3 /* Budget World */;
+			targetProxy = 26734E8820FAE1E2001B7C98 /* PBXContainerItemProxy */;
+		};
+		26734E9720FAE9DC001B7C98 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 268D7CE020B8952C0002ACE3 /* Budget World */;
+			targetProxy = 26734E9620FAE9DC001B7C98 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		268D7CE820B8952C0002ACE3 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -459,6 +595,90 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		26734E8A20FAE1E2001B7C98 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UJ6RY8Y8CY;
+				INFOPLIST_FILE = BudgetWorldTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.eugenelu.BudgetWorldTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Budget World.app/Budget World";
+			};
+			name = Debug;
+		};
+		26734E8B20FAE1E2001B7C98 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UJ6RY8Y8CY;
+				INFOPLIST_FILE = BudgetWorldTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.eugenelu.BudgetWorldTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Budget World.app/Budget World";
+			};
+			name = Release;
+		};
+		26734E9920FAE9DC001B7C98 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UJ6RY8Y8CY;
+				INFOPLIST_FILE = BudgetWorldTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.eugenelu.BudgetWorldTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Budget World.app/Budget World";
+			};
+			name = Debug;
+		};
+		26734E9A20FAE9DC001B7C98 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UJ6RY8Y8CY;
+				INFOPLIST_FILE = BudgetWorldTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.eugenelu.BudgetWorldTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Budget World.app/Budget World";
+			};
+			name = Release;
+		};
 		268D7CF420B8952E0002ACE3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -616,6 +836,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		26734E8C20FAE1E2001B7C98 /* Build configuration list for PBXNativeTarget "BudgetWorldTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26734E8A20FAE1E2001B7C98 /* Debug */,
+				26734E8B20FAE1E2001B7C98 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		26734E9820FAE9DC001B7C98 /* Build configuration list for PBXNativeTarget "BudgetWorldTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26734E9920FAE9DC001B7C98 /* Debug */,
+				26734E9A20FAE9DC001B7C98 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		268D7CDC20B8952C0002ACE3 /* Build configuration list for PBXProject "Budget World" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
