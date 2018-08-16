@@ -26,12 +26,6 @@ class SettingsController: UIViewController {
         return false
     }
     
-    func getSymbolForCurrencyCode(code: String) -> String? {
-        let result = Locale.availableIdentifiers.map { Locale(identifier: $0) }.first { $0.currencyCode == code }
-        return result?.currencySymbol
-    }
-    
-    
     let cellId = "cellId"
     let settingNames = ["Choose currency", "Rate us", "Send feedback"]
     let iconNames = ["Currency", "Rate", "Feedback"]
