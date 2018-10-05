@@ -17,7 +17,6 @@
 		263636BA20C61A7A00D76409 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263636B920C61A7A00D76409 /* SettingsController.swift */; };
 		263636BC20C62B0100D76409 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263636BB20C62B0100D76409 /* SettingCell.swift */; };
 		265C799220B8D8ED00AA6F01 /* SlideOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265C799120B8D8ED00AA6F01 /* SlideOptionsController.swift */; };
-		26734E9420FAE9DC001B7C98 /* BudgetWorldTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26734E9320FAE9DC001B7C98 /* BudgetWorldTest.swift */; };
 		267CF24220B9105A00E7BD8C /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 267CF24120B9105200E7BD8C /* OpenSans-Regular.ttf */; };
 		268D7CE520B8952C0002ACE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268D7CE420B8952C0002ACE3 /* AppDelegate.swift */; };
 		268D7CE720B8952C0002ACE3 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268D7CE620B8952C0002ACE3 /* MainController.swift */; };
@@ -84,8 +83,6 @@
 		265C799120B8D8ED00AA6F01 /* SlideOptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOptionsController.swift; sourceTree = "<group>"; };
 		26734E8320FAE1E2001B7C98 /* BudgetWorldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BudgetWorldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26734E9120FAE9DC001B7C98 /* BudgetWorldTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BudgetWorldTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		26734E9320FAE9DC001B7C98 /* BudgetWorldTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetWorldTest.swift; sourceTree = "<group>"; };
-		26734E9520FAE9DC001B7C98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		267CF24120B9105200E7BD8C /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "Assets.xcassets/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		268D7CE120B8952C0002ACE3 /* Budget World.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budget World.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		268D7CE420B8952C0002ACE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -154,20 +151,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		26734E9220FAE9DC001B7C98 /* BudgetWorldTest */ = {
-			isa = PBXGroup;
-			children = (
-				26734E9320FAE9DC001B7C98 /* BudgetWorldTest.swift */,
-				26734E9520FAE9DC001B7C98 /* Info.plist */,
-			);
-			path = BudgetWorldTest;
-			sourceTree = "<group>";
-		};
 		268D7CD820B8952C0002ACE3 = {
 			isa = PBXGroup;
 			children = (
 				268D7CE320B8952C0002ACE3 /* Budget World */,
-				26734E9220FAE9DC001B7C98 /* BudgetWorldTest */,
 				268D7CE220B8952C0002ACE3 /* Products */,
 				B756343FFF225E85F3D48D55 /* Pods */,
 				7FC9EF3FBDDB52789BB90590 /* Frameworks */,
@@ -509,7 +496,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26734E9420FAE9DC001B7C98 /* BudgetWorldTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

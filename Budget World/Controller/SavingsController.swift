@@ -161,7 +161,7 @@ extension SavingsController: UITableViewDataSource, UITableViewDelegate {
             self.tableView.reloadData()
         }))
         depositVC.addAction(PMAlertAction(title: "Cancel", style: .cancel, action: { () -> Void in
-        }))
+            tableView.deselectRow(at: indexPath, animated: false)}))
         self.present(depositVC, animated: true, completion: nil)
     }
     
